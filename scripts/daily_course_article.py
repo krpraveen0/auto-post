@@ -26,6 +26,16 @@ REQUIRED_SECTIONS = [
     "Next Lesson",
 ]
 
+REQUIRED_CONTENT_MARKERS = [
+    "## Evidence",
+    "## Infographic",
+    "Caption:",
+    "Alt text:",
+    "```mermaid",
+    "## Validated Code",
+    "```python",
+]
+
 
 def dry_run_article(lesson: dict[str, str], previous_title: str | None, next_title: str | None) -> str:
     previous = previous_title or "Course index"
@@ -54,6 +64,33 @@ def dry_run_article(lesson: dict[str, str], previous_title: str | None, next_tit
         f"Exercise: {lesson['exercise']}.",
         "",
         "Expected output: a short artifact the reader can keep in their project repository, such as a decision table, configuration file, checklist, test case, or diagram note. The output should be concrete enough that the next lesson can build on it.",
+        "",
+        "## Evidence",
+        "",
+        "- Python language reference: https://docs.python.org/3/reference/",
+        "- GitHub Actions workflow syntax: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions",
+        "",
+        "## Infographic",
+        "",
+        "```mermaid",
+        "flowchart LR",
+        "    Input --> Decision --> CheckedOutput[Checked output]",
+        "```",
+        "",
+        "Caption: The lesson turns an input into an explicitly checked output.",
+        "",
+        "Alt text: A three-step flow from input through a decision to checked output.",
+        "",
+        "## Validated Code",
+        "",
+        "```python",
+        "def checked_output(value: str) -> str:",
+        "    assert value.strip(), 'value must not be empty'",
+        "    return value.strip()",
+        "",
+        "assert checked_output(' lesson ') == 'lesson'",
+        "print('validation passed')",
+        "```",
         "",
         "## Recap",
         "",
@@ -187,6 +224,15 @@ def quality_issues(article: str) -> list[str]:
         issues.append("Missing previous/course navigation context.")
     if "next" not in article.lower():
         issues.append("Missing bridge to the next lesson.")
+    for marker in REQUIRED_CONTENT_MARKERS:
+        if marker.lower() not in article.lower():
+            issues.append(f"Missing required validated-content marker: {marker}.")
+    if "[source needed" in article.lower():
+        issues.append("Unresolved [SOURCE NEEDED] marker remains in the article.")
+    evidence = re.search(r"(?ims)^## Evidence\s*$\n(.*?)(?=^## |\Z)", article)
+    urls = re.findall(r"https://[^\s)>\]]+", evidence.group(1) if evidence else "")
+    if len(set(urls)) < 2:
+        issues.append("Evidence section must contain at least two distinct HTTPS source URLs.")
     return issues
 
 
@@ -226,9 +272,11 @@ def build_prompt(
         - Include these sections: Learning Outcomes, Worked Example, Exercise, Recap, Next Lesson.
         - Include a short series navigation block near the top.
         - Include a concrete exercise with expected output.
-        - Include visual guidance with caption and alt text.
+        - Include an `## Evidence` section with at least two directly relevant HTTPS links to primary sources. Never invent a URL.
+        - Include an `## Infographic` section containing one syntactically valid Mermaid fenced block, followed by `Caption:` and `Alt text:` lines. The diagram must explain this lesson's central mechanism rather than decorate it.
+        - Include an `## Validated Code` section with one self-contained, deterministic Python fenced block that uses only the standard library, has assertions, requires no network or secrets, and finishes in under five seconds.
         - Avoid hype, generic AI phrasing, and unsupported claims.
-        - Mark factual claims that need sources with [SOURCE NEEDED: short note].
+        - Resolve factual claims against the supplied research. Never leave [SOURCE NEEDED] in the final article.
         - Do not invent URLs or citations.
         - Do not include tables unless a table is clearly better than prose.
         """

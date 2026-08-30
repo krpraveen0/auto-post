@@ -32,6 +32,32 @@ An agent combines a model, tools, state, and a bounded loop. This example compar
 
 Classify three systems and explain the required guardrails.
 
+## Evidence
+
+- Python documentation: https://docs.python.org/3/reference/
+- GitHub Actions documentation: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions
+
+## Infographic
+
+```mermaid
+flowchart LR
+    Prompt --> Decision --> Tool --> Result
+```
+
+Caption: A bounded agent loop connects a decision to a tool result.
+
+Alt text: A left-to-right flow from prompt to decision, tool, and result.
+
+## Validated Code
+
+```python
+def bounded_step(value: int) -> int:
+    return value + 1
+
+assert bounded_step(1) == 2
+print("validation passed")
+```
+
 ## Recap
 
 The core distinction is controlled autonomy.
@@ -68,17 +94,19 @@ class DailyCourseArticleTests(unittest.TestCase):
             set(agents),
             {
                 "manager",
+                "evidence_research",
                 "draft",
                 "technical_review",
                 "continuity_review",
                 "publishing_editor",
             },
         )
-        self.assertEqual(len(agents["manager"].handoffs), 4)
+        self.assertEqual(len(agents["manager"].handoffs), 5)
 
     def test_agents_backend_with_scripted_model(self):
         model = ScriptedModel(
             [
+                [assistant_message("Evidence with primary URLs.", item_id="evidence")],
                 [assistant_message(long_article(), item_id="draft")],
                 [assistant_message("No technical blockers.", item_id="technical")],
                 [assistant_message("Continuity looks correct.", item_id="continuity")],
@@ -93,6 +121,14 @@ class DailyCourseArticleTests(unittest.TestCase):
         )
         self.assertIn("Learning Outcomes", result.article)
         self.assertIn("No technical blockers", result.technical_review)
+        self.assertIn("primary URLs", result.evidence_review)
+
+    def test_validated_content_executes_python_and_extracts_mermaid(self):
+        import validate_article_content as vac
+
+        report = vac.validate_article(long_article(), check_urls=False)
+        self.assertEqual(report["validated_python_blocks"], 1)
+        self.assertEqual(report["mermaid_blocks"], 1)
 
     def test_cli_dry_run_creates_docx_and_state(self):
         import tempfile
