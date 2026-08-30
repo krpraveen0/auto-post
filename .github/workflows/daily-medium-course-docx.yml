@@ -14,7 +14,7 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || secrets.OPEN_API_KEY }}
       OPENAI_MODEL: gpt-5
       SERIES_SLUG: agentic-ai-engineering
       SERIES_MAP: medium/course_series/agentic-ai-engineering-map.md
