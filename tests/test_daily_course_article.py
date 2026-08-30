@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import daily_course_article as dca
+import validate_generated_docx as vgd
 from course_agents import build_course_agents, run_course_generation_with_agents
 
 
@@ -122,6 +123,14 @@ class DailyCourseArticleTests(unittest.TestCase):
             )
             self.assertTrue(list((tmp_path / "out").glob("*.docx")))
             self.assertIn("generated=true", output_file.read_text())
+
+    def test_validate_generated_docx_accepts_written_docx(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            docx_path = Path(tmp) / "lesson.docx"
+            dca.write_docx(long_article(), docx_path, "Lesson")
+            vgd.validate_docx_archive(docx_path)
 
 
 if __name__ == "__main__":
