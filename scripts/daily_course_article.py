@@ -15,6 +15,8 @@ from typing import Any
 
 import requests
 
+from course_agents import run_course_generation_with_agents
+
 
 REQUIRED_SECTIONS = [
     "Learning Outcomes",
@@ -155,6 +157,20 @@ def call_openai(prompt: str, model: str) -> str:
     if not text:
         raise RuntimeError("OpenAI API returned no output text.")
     return text
+
+
+def generate_article(prompt: str, model: str, backend: str, group_id: str | None) -> str:
+    if backend == "responses":
+        return call_openai(prompt, model)
+    if backend == "agents":
+        result = run_course_generation_with_agents(
+            prompt,
+            model=model,
+            group_id=group_id,
+            tracing_disabled=os.environ.get("OPENAI_AGENTS_DISABLE_TRACING") == "1",
+        )
+        return result.article
+    raise ValueError(f"Unsupported GENERATION_BACKEND: {backend}. Use responses or agents.")
 
 
 def quality_issues(article: str) -> list[str]:
@@ -306,6 +322,7 @@ def main() -> int:
     parser.add_argument("--state-file", required=True, type=Path)
     parser.add_argument("--out-dir", required=True, type=Path)
     parser.add_argument("--model", default=os.environ.get("OPENAI_MODEL", "gpt-5"))
+    parser.add_argument("--backend", default=os.environ.get("GENERATION_BACKEND", "responses"))
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -342,11 +359,12 @@ def main() -> int:
         article = dry_run_article(lesson, previous_title, next_title)
         issues = quality_issues(article)
     else:
-        article = call_openai(prompt, args.model)
+        group_id = f"{args.series_slug}:part-{next_part:02d}"
+        article = generate_article(prompt, args.model, args.backend, group_id)
         issues = quality_issues(article)
         if issues:
             repair_prompt = prompt + "\n\nFix these quality issues and return the complete revised lesson:\n- " + "\n- ".join(issues)
-            article = call_openai(repair_prompt, args.model)
+            article = generate_article(repair_prompt, args.model, args.backend, group_id)
             issues = quality_issues(article)
     if issues:
         raise RuntimeError("Generated article failed quality gate:\n- " + "\n- ".join(issues))
@@ -371,6 +389,7 @@ def main() -> int:
                 "docx": str(docx_path),
                 "generated_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
                 "model": args.model,
+                "backend": args.backend,
             },
             indent=2,
             sort_keys=True,

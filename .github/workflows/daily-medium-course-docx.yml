@@ -20,7 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || secrets.OPEN_API_KEY }}
-      OPENAI_MODEL: gpt-5
+      OPENAI_MODEL: gpt-5.6-terra
+      GENERATION_BACKEND: agents
+      OPENAI_AGENTS_DISABLE_TRACING: "0"
       SERIES_SLUG: agentic-ai-engineering
       SERIES_MAP: medium/course_series/agentic-ai-engineering-map.md
       STATE_FILE: medium/course_series/agentic-ai-engineering-state.json
@@ -41,6 +43,9 @@ jobs:
           sudo apt-get install -y libreoffice poppler-utils
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests
 
       - name: Generate next lesson DOCX
         id: generate

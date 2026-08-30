@@ -18,7 +18,12 @@ Add this repository secret in GitHub:
 OPENAI_API_KEY
 ```
 
-The workflow uses the OpenAI Responses API to draft each lesson. The default model is set in the workflow as `gpt-5`.
+The workflow uses OpenAI generation to draft each lesson. The current default is `GENERATION_BACKEND=agents` with `gpt-5.6-terra`.
+
+The workflow supports two generation backends:
+
+- `GENERATION_BACKEND=agents` uses the OpenAI Agents SDK for draft, technical review, continuity review, and final edit orchestration.
+- `GENERATION_BACKEND=responses` uses the direct Responses API call as the rollback path.
 
 ## What The Workflow Does
 
@@ -38,3 +43,5 @@ When the final lesson is complete, the workflow opens a GitHub issue asking for 
 ## Manual Run
 
 Use GitHub Actions -> Daily Medium Course DOCX -> Run workflow.
+
+Use `dry_run=true` to validate DOCX generation, rendering, and artifact upload without consuming OpenAI API credits.
