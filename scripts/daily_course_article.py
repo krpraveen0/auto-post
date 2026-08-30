@@ -145,7 +145,6 @@ def call_openai(prompt: str, model: str) -> str:
         json={
             "model": model,
             "input": prompt,
-            "temperature": 0.4,
             "max_output_tokens": 7000,
         },
         timeout=180,
