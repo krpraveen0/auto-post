@@ -25,6 +25,51 @@ REQUIRED_SECTIONS = [
 ]
 
 
+def dry_run_article(lesson: dict[str, str], previous_title: str | None, next_title: str | None) -> str:
+    previous = previous_title or "Course index"
+    next_lesson = next_title or "the next course series"
+    sections = [
+        f"# {lesson['title']}",
+        "",
+        f"Series navigation: Previous: {previous}. Course index: Agentic AI Engineering. Next: {next_lesson}.",
+        "",
+        "This is deterministic validation content generated without calling the OpenAI API. It exists to test Markdown output, DOCX writing, state handling, and render plumbing. Replace it with the model-generated article before publishing.",
+        "",
+        "## Learning Outcomes",
+        "",
+        f"1. Explain the lesson focus: {lesson['learns']}.",
+        "2. Connect the idea to the broader course project.",
+        "3. Complete a practical exercise with a clear expected output.",
+        "",
+        "## Worked Example",
+        "",
+        f"The lesson centers on {lesson['title']}. A useful Medium course installment should start from a concrete engineering situation, name the decision the reader needs to make, and then explain the concept with enough detail to help the reader act. In this validation article, the example is intentionally generic, but the structure mirrors the production requirement: context, decision, tradeoff, implementation detail, and reader takeaway.",
+        "",
+        "A strong lesson does not try to cover every related concept. It defines the boundary, shows one practical example, and gives the reader a small piece of work that moves the project forward. That pattern keeps the series useful for readers who are learning over multiple days instead of consuming one large reference guide.",
+        "",
+        "## Exercise",
+        "",
+        f"Exercise: {lesson['exercise']}.",
+        "",
+        "Expected output: a short artifact the reader can keep in their project repository, such as a decision table, configuration file, checklist, test case, or diagram note. The output should be concrete enough that the next lesson can build on it.",
+        "",
+        "## Recap",
+        "",
+        "This lesson should leave the reader with one durable mental model, one practical artifact, and one reason to continue. The course pipeline checks that every article includes learning outcomes, a worked example, an exercise, a recap, and a next-lesson bridge.",
+        "",
+        "## Next Lesson",
+        "",
+        f"Next, the series moves to {next_lesson}. The next lesson should reuse the artifact from this exercise rather than restarting from scratch.",
+    ]
+    filler = (
+        "Course quality depends on continuity. Each lesson should preserve vocabulary from earlier lessons, avoid unexplained future terms, and make the project feel cumulative. "
+        "The reader should not need to guess why the current lesson exists or how it connects to the final outcome. "
+    )
+    while len(re.findall(r"\b\w+\b", "\n".join(sections))) < 1250:
+        sections.insert(-2, filler)
+    return "\n".join(sections)
+
+
 def slugify(value: str) -> str:
     value = value.lower()
     value = re.sub(r"[^a-z0-9]+", "-", value)
@@ -262,6 +307,7 @@ def main() -> int:
     parser.add_argument("--state-file", required=True, type=Path)
     parser.add_argument("--out-dir", required=True, type=Path)
     parser.add_argument("--model", default=os.environ.get("OPENAI_MODEL", "gpt-5"))
+    parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
     series_map = read_text(args.series_map)
@@ -293,12 +339,16 @@ def main() -> int:
     lesson_plan = read_text(lesson_plan_path) if lesson_plan_path.exists() else json.dumps(lesson, indent=2)
 
     prompt = build_prompt(series_map, lesson_plan, lesson, previous_title, next_title)
-    article = call_openai(prompt, args.model)
-    issues = quality_issues(article)
-    if issues:
-        repair_prompt = prompt + "\n\nFix these quality issues and return the complete revised lesson:\n- " + "\n- ".join(issues)
-        article = call_openai(repair_prompt, args.model)
+    if args.dry_run:
+        article = dry_run_article(lesson, previous_title, next_title)
         issues = quality_issues(article)
+    else:
+        article = call_openai(prompt, args.model)
+        issues = quality_issues(article)
+        if issues:
+            repair_prompt = prompt + "\n\nFix these quality issues and return the complete revised lesson:\n- " + "\n- ".join(issues)
+            article = call_openai(repair_prompt, args.model)
+            issues = quality_issues(article)
     if issues:
         raise RuntimeError("Generated article failed quality gate:\n- " + "\n- ".join(issues))
 
@@ -344,7 +394,10 @@ def main() -> int:
     append_github_output(
         {
             "generated": "true",
-            "completed": "false",
+            "completed": "true" if next_part == len(lessons) else "false",
+            "completion_issue_needed": "true"
+            if next_part == len(lessons) and not state.get("completion_issue_created")
+            else "false",
             "part": str(next_part),
             "title": lesson["title"],
             "docx_path": str(docx_path),
