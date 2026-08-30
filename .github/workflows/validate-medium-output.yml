@@ -33,9 +33,26 @@ jobs:
           sudo apt-get install -y libreoffice poppler-utils
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          npm install --global @mermaid-js/mermaid-cli
 
       - name: Run unit tests
         run: python -m unittest discover -s tests
 
       - name: Validate and render generated DOCX files
         run: python scripts/validate_generated_docx.py --root medium/generated --render
+
+      - name: Validate generated article code and infographics
+        shell: bash
+        run: |
+          shopt -s nullglob
+          for article in medium/generated/**/*.md; do
+            slug="$(basename "$article" .md)"
+            validation_dir="/tmp/medium-validation/$slug"
+            python scripts/validate_article_content.py "$article" \
+              --mermaid-output "$validation_dir/infographic.mmd" \
+              --report "$validation_dir/report.json" \
+              --skip-url-check
+            mmdc --input "$validation_dir/infographic.mmd" \
+              --output "$validation_dir/infographic.svg" \
+              --backgroundColor transparent
+          done

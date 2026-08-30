@@ -11,6 +11,10 @@ on:
         required: false
         default: "false"
 
+concurrency:
+  group: daily-medium-course-docx
+  cancel-in-progress: false
+
 permissions:
   contents: write
   issues: write
@@ -43,6 +47,7 @@ jobs:
           sudo apt-get install -y libreoffice poppler-utils
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
+          npm install --global @mermaid-js/mermaid-cli
 
       - name: Run unit tests
         run: python -m unittest discover -s tests
@@ -70,6 +75,24 @@ jobs:
             "${{ steps.generate.outputs.docx_path }}" \
             --output-dir "${{ steps.generate.outputs.out_dir }}/rendered/part-${{ steps.generate.outputs.part }}"
 
+      - name: Validate sources, code, and infographic
+        if: steps.generate.outputs.generated == 'true'
+        run: |
+          VALIDATION_DIR="${{ steps.generate.outputs.out_dir }}/validation/part-${{ steps.generate.outputs.part }}"
+          URL_ARGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            URL_ARGS="--skip-url-check"
+          fi
+          python scripts/validate_article_content.py \
+            "${{ steps.generate.outputs.markdown_path }}" \
+            --mermaid-output "$VALIDATION_DIR/infographic.mmd" \
+            --report "$VALIDATION_DIR/validation-report.json" \
+            $URL_ARGS
+          mmdc \
+            --input "$VALIDATION_DIR/infographic.mmd" \
+            --output "$VALIDATION_DIR/infographic.svg" \
+            --backgroundColor transparent
+
       - name: Upload checked DOCX output
         if: steps.generate.outputs.generated == 'true'
         uses: actions/upload-artifact@v4
@@ -79,6 +102,7 @@ jobs:
             ${{ steps.generate.outputs.docx_path }}
             ${{ steps.generate.outputs.markdown_path }}
             ${{ steps.generate.outputs.manifest_path }}
+            ${{ steps.generate.outputs.out_dir }}/validation/part-${{ steps.generate.outputs.part }}/**
             ${{ steps.generate.outputs.out_dir }}/rendered/part-${{ steps.generate.outputs.part }}/**
 
       - name: Commit generated lesson

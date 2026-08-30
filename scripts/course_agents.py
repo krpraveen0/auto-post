@@ -9,6 +9,7 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class AgentRunResult:
     article: str
+    evidence_review: str
     draft: str
     technical_review: str
     continuity_review: str
@@ -27,7 +28,22 @@ def _load_agents_sdk():
 
 def build_course_agents(model: str, max_tokens: int = 7000):
     Agent, ModelSettings, _, _ = _load_agents_sdk()
+    from agents import WebSearchTool
+
     settings = ModelSettings(max_tokens=max_tokens)
+
+    evidence_researcher = Agent(
+        name="Primary-source evidence researcher",
+        handoff_description="Finds current primary sources for the lesson's technical claims.",
+        instructions=(
+            "Research the requested lesson using web search. Return a compact evidence brief with "
+            "claim-to-source mappings and direct HTTPS URLs. Prefer official documentation, standards, "
+            "and original papers. Verify that every URL supports the mapped claim; do not invent URLs."
+        ),
+        tools=[WebSearchTool()],
+        model=model,
+        model_settings=ModelSettings(max_tokens=2600),
+    )
 
     draft_agent = Agent(
         name="Course lesson draft agent",
@@ -82,13 +98,14 @@ def build_course_agents(model: str, max_tokens: int = 7000):
             "Coordinate a Medium course lesson workflow. Use specialist agents for drafting, "
             "technical review, continuity review, and final publishing edits when the task requires it."
         ),
-        handoffs=[draft_agent, technical_reviewer, continuity_reviewer, publishing_editor],
+        handoffs=[evidence_researcher, draft_agent, technical_reviewer, continuity_reviewer, publishing_editor],
         model=model,
         model_settings=ModelSettings(max_tokens=1200),
     )
 
     return {
         "manager": manager,
+        "evidence_research": evidence_researcher,
         "draft": draft_agent,
         "technical_review": technical_reviewer,
         "continuity_review": continuity_reviewer,
@@ -116,9 +133,17 @@ def run_course_generation_with_agents(
         tracing_disabled=tracing_disabled,
     )
 
+    evidence_result = Runner.run_sync(
+        course_agents["evidence_research"],
+        prompt,
+        max_turns=4,
+        run_config=run_config,
+    )
+    evidence_review = str(evidence_result.final_output).strip()
+
     draft_result = Runner.run_sync(
         course_agents["draft"],
-        prompt,
+        f"{prompt}\n\nVerified primary-source research brief:\n{evidence_review}",
         max_turns=3,
         run_config=run_config,
     )
@@ -144,6 +169,7 @@ def run_course_generation_with_agents(
         course_agents["publishing_editor"],
         (
             f"Original prompt:\n{prompt}\n\n"
+            f"Verified evidence brief:\n{evidence_review}\n\n"
             f"Draft:\n{draft}\n\n"
             f"Technical review notes:\n{technical_review}\n\n"
             f"Course continuity review notes:\n{continuity_review}\n\n"
@@ -156,6 +182,7 @@ def run_course_generation_with_agents(
 
     return AgentRunResult(
         article=article,
+        evidence_review=evidence_review,
         draft=draft,
         technical_review=technical_review,
         continuity_review=continuity_review,
