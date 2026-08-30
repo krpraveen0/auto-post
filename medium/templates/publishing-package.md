@@ -20,6 +20,22 @@ Image alt text:
 
 Disclosure note, if needed:
 
+## Series navigation, if applicable
+
+Series:
+
+Part:
+
+Course index:
+
+Previous lesson:
+
+Next lesson:
+
+Reader exercise:
+
+Project milestone:
+
 ## Publication submission note
 
 Hi [Publication Editor],

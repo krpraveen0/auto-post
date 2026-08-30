@@ -1,0 +1,79 @@
+<mxfile host="app.diagrams.net" modified="2026-06-23T00:00:00.000Z" agent="Mozilla/5.0" version="21.0.0">
+  <diagram name="Rollback Flow" exports="svg" flex="1">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Timeline -->
+        <mxCell id="timeline" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="400" as="sourcePoint"/>
+            <mxPoint x="900" y="400" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Version 1 -->
+        <mxCell id="rb_v1" value="v1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="120" y="360" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="rb_v1_label" value="PROD" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="110" y="430" width="80" height="20" as="geometry"/>
+        </mxCell>
+        
+        <!-- Version 2 -->
+        <mxCell id="rb_v2" value="v2" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="360" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="rb_v2_label" value="DEPRECATED" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="295" y="430" width="110" height="20" as="geometry"/>
+        </mxCell>
+        
+        <!-- Version 3 -->
+        <mxCell id="rb_v3" value="v3" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="rb_v3_label" value="BROKEN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="510" y="430" width="80" height="20" as="geometry"/>
+        </mxCell>
+        
+        <!-- Rollback Arrow -->
+        <mxCell id="rollback_arr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;strokeColor=#b85450;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="rb_v3" target="rb_v1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Rollback Command -->
+        <mxCell id="cmd" value="agent-manager rollback ops-agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#333333;strokeColor=#333333;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=12;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="530" width="280" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Result -->
+        <mxCell id="result" value="v1 = ACTIVE&#xa;v2, v3 = DEPRECATED" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#82b366;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="280" y="600" width="320" height="50" as="geometry"/>
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="rb_title" value="Instant Rollback: 3 Seconds to Recovery" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="60" width="400" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Time Indicator -->
+        <mxCell id="time_lbl" value="Time &#x2192;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="385" width="80" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Time Points -->
+        <mxCell id="t1" value="t0" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="135" y="385" width="30" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="t1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="335" y="385" width="30" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="t3" value="t2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="535" y="385" width="30" height="20" as="geometry"/>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

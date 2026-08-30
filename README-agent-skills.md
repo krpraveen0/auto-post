@@ -28,8 +28,10 @@ The system is designed for technical writing, especially:
     medium-compression-editor/
     medium-visual-drawio-designer/
     medium-publishing-package/
+    medium-course-orchestrator/
 
 medium/
+  course_series/
   templates/
   ideas/
   research/
@@ -51,6 +53,17 @@ Available experience: [your notes]
 Required visuals: draw.io
 ```
 
+For a course series, ask:
+
+```text
+Use the medium-course-orchestrator skill to convert this curriculum into a Medium course series:
+Course: [course name]
+Target reader: [reader]
+Starting skill level: [baseline]
+Final learner outcome: [outcome]
+Preferred number of lessons: [count]
+```
+
 The orchestrator should call specialized skills in order:
 
 1. Angle strategist
@@ -60,6 +73,8 @@ The orchestrator should call specialized skills in order:
 5. Compression editor
 6. Visual draw.io designer
 7. Publishing package
+
+The course orchestrator should first create a course map, lesson sequence, project thread, and continuity checks. Then each lesson should pass through the normal article workflow.
 
 ## Core rule
 
@@ -71,3 +86,5 @@ A Medium article is ready when it is:
 - technically safe
 - visually supported
 - ready to publish without endless polishing
+
+A Medium course series is ready when each lesson is individually useful and the full sequence has clear progression, exercises, previous/next navigation, and a concrete learner outcome.

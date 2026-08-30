@@ -14,6 +14,8 @@ Use when the user asks to:
 - review a draft against Medium-quality standards
 - produce article visuals and publishing assets
 
+For a multi-part course, curriculum, or lesson sequence, use `medium-course-orchestrator` first. Then run this article workflow for each individual lesson.
+
 ## Workflow
 
 Run these stages in order:

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The LLM request path from ingress to streamed token output</title>
+  <desc id="desc">A serving pipeline showing client request, API gateway, tokenizer, scheduler, model forward pass, sampler, and streaming output.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#64748b"/></marker>
+    <style>
+      .box{rx:18;ry:18;stroke-width:3}
+      .t{font:600 26px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .h{font:700 38px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .a{stroke:#64748b;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <text x="800" y="110" text-anchor="middle" class="h">The request path from API ingress to streamed token output.</text>
+  <g transform="translate(40 360)">
+    <rect class="box" x="0" y="0" width="165" height="96" fill="#dbeafe" stroke="#60a5fa"/><text x="82" y="58" text-anchor="middle" class="t">Client</text>
+    <path class="a" d="M185 48 L245 48"/>
+    <rect class="box" x="255" y="0" width="185" height="96" fill="#ede9fe" stroke="#a78bfa"/><text x="347" y="58" text-anchor="middle" class="t">API gateway</text>
+    <path class="a" d="M460 48 L520 48"/>
+    <rect class="box" x="530" y="0" width="165" height="96" fill="#dcfce7" stroke="#4ade80"/><text x="612" y="58" text-anchor="middle" class="t">Tokenizer</text>
+    <path class="a" d="M715 48 L775 48"/>
+    <rect class="box" x="785" y="0" width="165" height="96" fill="#fef3c7" stroke="#f59e0b"/><text x="867" y="58" text-anchor="middle" class="t">Scheduler</text>
+    <path class="a" d="M970 48 L1030 48"/>
+    <rect class="box" x="1040" y="0" width="250" height="96" fill="#fee2e2" stroke="#f87171"/><text x="1165" y="58" text-anchor="middle" class="t">Model forward pass</text>
+    <path class="a" d="M1310 48 L1370 48"/>
+    <rect class="box" x="1380" y="0" width="145" height="96" fill="#dbeafe" stroke="#60a5fa"/><text x="1452" y="58" text-anchor="middle" class="t">Sampler</text>
+    <path class="a" d="M1545 48 L1605 48"/>
+  </g>
+  <g transform="translate(1230 420)">
+    <rect class="box" x="0" y="0" width="260" height="96" fill="#ffe4c7" stroke="#fb923c"/><text x="130" y="58" text-anchor="middle" class="t">Stream</text>
+  </g>
+</svg>

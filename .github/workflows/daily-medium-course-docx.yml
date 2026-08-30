@@ -1,0 +1,98 @@
+name: Daily Medium Course DOCX
+
+on:
+  schedule:
+    # 06:00 Asia/Kolkata = 00:30 UTC.
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: gpt-5
+      SERIES_SLUG: agentic-ai-engineering
+      SERIES_MAP: medium/course_series/agentic-ai-engineering-map.md
+      STATE_FILE: medium/course_series/agentic-ai-engineering-state.json
+      OUT_DIR: medium/generated/agentic-ai-engineering
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install DOCX and render dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libreoffice poppler-utils
+          python -m pip install --upgrade pip
+          python -m pip install python-docx requests
+
+      - name: Generate next lesson DOCX
+        id: generate
+        run: |
+          python scripts/daily_course_article.py \
+            --series-map "$SERIES_MAP" \
+            --series-slug "$SERIES_SLUG" \
+            --state-file "$STATE_FILE" \
+            --out-dir "$OUT_DIR"
+
+      - name: Render DOCX for visual QA
+        if: steps.generate.outputs.generated == 'true'
+        run: |
+          python scripts/render_docx_ci.py \
+            "${{ steps.generate.outputs.docx_path }}" \
+            --output-dir "$OUT_DIR/rendered/part-${{ steps.generate.outputs.part }}"
+
+      - name: Upload checked DOCX output
+        if: steps.generate.outputs.generated == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: medium-course-part-${{ steps.generate.outputs.part }}
+          path: |
+            ${{ steps.generate.outputs.docx_path }}
+            ${{ steps.generate.outputs.markdown_path }}
+            ${{ steps.generate.outputs.manifest_path }}
+            ${{ env.OUT_DIR }}/rendered/part-${{ steps.generate.outputs.part }}/**
+
+      - name: Commit generated lesson
+        if: steps.generate.outputs.generated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$OUT_DIR" "$STATE_FILE"
+          git diff --cached --quiet || git commit -m "Add daily Medium course article part ${{ steps.generate.outputs.part }}"
+          git push
+
+      - name: Notify with GitHub issue
+        if: steps.generate.outputs.generated == 'true'
+        run: |
+          python scripts/create_github_issue.py \
+            --title "Daily Medium course article ready: Part ${{ steps.generate.outputs.part }}" \
+            --body "The daily Medium course article DOCX has been generated and rendered successfully. Lesson: ${{ steps.generate.outputs.title }}. DOCX path: ${{ steps.generate.outputs.docx_path }}. Markdown path: ${{ steps.generate.outputs.markdown_path }}. Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ask for the next series
+        if: steps.generate.outputs.completed == 'true' && steps.generate.outputs.completion_issue_needed == 'true'
+        run: |
+          python scripts/create_github_issue.py \
+            --title "Course series complete: choose the next Medium series" \
+            --body "The current scheduled Medium course series has finished. Please provide the next course topic, target reader, starting skill level, final learner outcome, and preferred number of lessons."
+          python scripts/mark_series_completion_issue.py --state-file "$STATE_FILE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$STATE_FILE"
+          git diff --cached --quiet || git commit -m "Mark Medium course series completion notification"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

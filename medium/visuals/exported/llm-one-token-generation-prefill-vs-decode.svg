@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Prefill versus decode</title>
+  <desc id="desc">A comparison diagram showing the parallel prompt pass during prefill and the sequential token loop during decode.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#64748b"/></marker>
+    <style>
+      .t{font:600 26px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .h{font:700 38px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .s{font:500 20px Inter, Arial, Helvetica, sans-serif; fill:#334155}
+      .box{rx:18;ry:18;stroke-width:3}
+      .a{stroke:#64748b;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <text x="800" y="110" text-anchor="middle" class="h">Prefill processes the prompt. Decode generates one token at a time.</text>
+  <rect x="140" y="180" width="1320" height="220" rx="28" fill="#eff6ff" stroke="#93c5fd" stroke-width="3"/>
+  <text x="800" y="230" text-anchor="middle" class="t">Prefill</text>
+  <rect class="box" x="250" y="270" width="220" height="78" fill="#ede9fe" stroke="#a78bfa"/><text x="360" y="318" text-anchor="middle" class="s">Prompt tokens</text>
+  <path class="a" d="M480 309 L620 309"/>
+  <rect class="box" x="630" y="270" width="250" height="78" fill="#dcfce7" stroke="#4ade80"/><text x="755" y="318" text-anchor="middle" class="s">Build KV cache</text>
+  <path class="a" d="M890 309 L1030 309"/>
+  <rect class="box" x="1040" y="270" width="240" height="78" fill="#dbeafe" stroke="#60a5fa"/><text x="1160" y="318" text-anchor="middle" class="s">Parallel prompt pass</text>
+  <rect x="140" y="480" width="1320" height="220" rx="28" fill="#fff7ed" stroke="#fdba74" stroke-width="3"/>
+  <text x="800" y="530" text-anchor="middle" class="t">Decode</text>
+  <rect class="box" x="250" y="570" width="160" height="78" fill="#fee2e2" stroke="#f87171"/><text x="330" y="618" text-anchor="middle" class="s">Token 1</text>
+  <path class="a" d="M420 609 L540 609"/>
+  <rect class="box" x="550" y="570" width="160" height="78" fill="#fee2e2" stroke="#f87171"/><text x="630" y="618" text-anchor="middle" class="s">Token 2</text>
+  <path class="a" d="M720 609 L840 609"/>
+  <rect class="box" x="850" y="570" width="160" height="78" fill="#fee2e2" stroke="#f87171"/><text x="930" y="618" text-anchor="middle" class="s">Token 3</text>
+  <path class="a" d="M1020 609 L1140 609"/>
+  <rect class="box" x="1150" y="570" width="170" height="78" fill="#ffe4c7" stroke="#fb923c"/><text x="1235" y="618" text-anchor="middle" class="s">Sequential loop</text>
+</svg>

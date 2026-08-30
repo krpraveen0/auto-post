@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">One token is the output of a pipeline</title>
+  <desc id="desc">A horizontal request path showing prompt, tokenization, prefill, KV cache, decode, and streamed token output.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#eef2ff"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#64748b"/>
+    </marker>
+    <style>
+      .box{rx:22;ry:22;stroke-width:3}
+      .label{font:600 30px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .small{font:500 22px Inter, Arial, Helvetica, sans-serif; fill:#334155}
+      .title{font:700 42px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .arrow{stroke:#64748b;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="800" y="110" text-anchor="middle" class="title">One token is the output of a pipeline, not a single step.</text>
+  <g transform="translate(70 350)">
+    <rect class="box" x="0" y="0" width="190" height="110" fill="#dbeafe" stroke="#60a5fa"/>
+    <text x="95" y="66" text-anchor="middle" class="label">Prompt</text>
+    <path class="arrow" d="M210 55 L280 55"/>
+    <rect class="box" x="290" y="0" width="190" height="110" fill="#ede9fe" stroke="#a78bfa"/>
+    <text x="385" y="66" text-anchor="middle" class="label">Tokenize</text>
+    <path class="arrow" d="M500 55 L570 55"/>
+    <rect class="box" x="580" y="0" width="190" height="110" fill="#dcfce7" stroke="#4ade80"/>
+    <text x="675" y="66" text-anchor="middle" class="label">Prefill</text>
+    <path class="arrow" d="M790 55 L860 55"/>
+    <rect class="box" x="870" y="0" width="210" height="110" fill="#fef3c7" stroke="#f59e0b"/>
+    <text x="975" y="66" text-anchor="middle" class="label">KV Cache</text>
+    <path class="arrow" d="M1100 55 L1170 55"/>
+    <rect class="box" x="1180" y="0" width="170" height="110" fill="#fee2e2" stroke="#f87171"/>
+    <text x="1265" y="66" text-anchor="middle" class="label">Decode</text>
+    <path class="arrow" d="M1370 55 L1440 55"/>
+    <rect class="box" x="1450" y="0" width="210" height="110" fill="#ffe4c7" stroke="#fb923c"/>
+    <text x="1555" y="58" text-anchor="middle" class="label">Streamed</text>
+    <text x="1555" y="90" text-anchor="middle" class="small">token</text>
+  </g>
+</svg>

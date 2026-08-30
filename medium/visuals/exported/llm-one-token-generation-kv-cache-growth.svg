@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">KV cache growth with sequence length and batch pressure</title>
+  <desc id="desc">A growth chart showing cache memory rising from short prompt to long context and batch pressure.</desc>
+  <defs>
+    <style>
+      .h{font:700 38px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .s{font:500 20px Inter, Arial, Helvetica, sans-serif; fill:#334155}
+      .axis{stroke:#334155;stroke-width:3}
+      .grid{stroke:#cbd5e1;stroke-width:1.5}
+      .curve1{fill:none;stroke:#22c55e;stroke-width:5}
+      .curve2{fill:none;stroke:#f59e0b;stroke-width:5}
+      .curve3{fill:none;stroke:#ef4444;stroke-width:5}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <text x="800" y="110" text-anchor="middle" class="h">KV cache memory grows as the prompt and output grow.</text>
+  <g transform="translate(180 190)">
+    <line x1="0" y1="560" x2="1130" y2="560" class="axis"/>
+    <line x1="0" y1="560" x2="0" y2="40" class="axis"/>
+    <line x1="0" y1="460" x2="1130" y2="460" class="grid"/>
+    <line x1="0" y1="360" x2="1130" y2="360" class="grid"/>
+    <line x1="0" y1="260" x2="1130" y2="260" class="grid"/>
+    <line x1="0" y1="160" x2="1130" y2="160" class="grid"/>
+    <path d="M70 500 C 190 500, 300 470, 390 430 C 500 380, 590 330, 680 280 C 790 220, 900 170, 1030 120" class="curve1"/>
+    <path d="M70 520 C 210 510, 320 470, 430 400 C 550 320, 690 250, 840 180 C 930 140, 1010 115, 1080 95" class="curve2"/>
+    <path d="M70 540 C 230 535, 360 495, 490 410 C 640 320, 770 220, 930 150 C 1010 115, 1060 95, 1120 70" class="curve3"/>
+    <text x="30" y="575" class="s">Low</text>
+    <text x="30" y="55" class="s">High</text>
+    <text x="980" y="140" class="s">Long context + batch pressure</text>
+    <text x="95" y="510" class="s">Short prompt</text>
+    <text x="320" y="450" class="s">Longer prompt</text>
+  </g>
+</svg>

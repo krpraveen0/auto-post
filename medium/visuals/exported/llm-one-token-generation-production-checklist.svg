@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Production inference checklist</title>
+  <desc id="desc">A checklist of the operational controls to watch before shipping LLM inference.</desc>
+  <defs>
+    <style>
+      .h{font:700 38px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .t{font:600 24px Inter, Arial, Helvetica, sans-serif; fill:#0f172a}
+      .s{font:500 18px Inter, Arial, Helvetica, sans-serif; fill:#334155}
+      .card{rx:20;ry:20;stroke-width:3}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <text x="800" y="110" text-anchor="middle" class="h">Production inference checklist</text>
+  <g transform="translate(130 220)">
+    <rect class="card" x="0" y="0" width="300" height="130" fill="#dbeafe" stroke="#60a5fa"/><text x="150" y="60" text-anchor="middle" class="t">TTFT</text><text x="150" y="96" text-anchor="middle" class="s">Watch startup latency</text>
+    <rect class="card" x="340" y="0" width="300" height="130" fill="#dbeafe" stroke="#60a5fa"/><text x="490" y="60" text-anchor="middle" class="t">Tokens per second</text><text x="490" y="96" text-anchor="middle" class="s">Track steady-state speed</text>
+    <rect class="card" x="680" y="0" width="300" height="130" fill="#dcfce7" stroke="#4ade80"/><text x="830" y="60" text-anchor="middle" class="t">KV cache headroom</text><text x="830" y="96" text-anchor="middle" class="s">Avoid memory collapse</text>
+    <rect class="card" x="0" y="180" width="300" height="130" fill="#fef3c7" stroke="#f59e0b"/><text x="150" y="240" text-anchor="middle" class="t">Max output length</text><text x="150" y="276" text-anchor="middle" class="s">Cap runaway decode cost</text>
+    <rect class="card" x="340" y="180" width="300" height="130" fill="#fef3c7" stroke="#f59e0b"/><text x="490" y="240" text-anchor="middle" class="t">Batching policy</text><text x="490" y="276" text-anchor="middle" class="s">Schedule for memory</text>
+    <rect class="card" x="680" y="180" width="300" height="130" fill="#fee2e2" stroke="#f87171"/><text x="830" y="240" text-anchor="middle" class="t">Long-context tests</text><text x="830" y="276" text-anchor="middle" class="s">Find failure modes early</text>
+  </g>
+  <text x="800" y="670" text-anchor="middle" class="s">Track metrics, cap cost, and test the long tail before traffic does.</text>
+</svg>

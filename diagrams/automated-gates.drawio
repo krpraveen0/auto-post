@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" modified="2026-06-23T00:00:00.000Z" agent="Mozilla/5.0" version="21.0.0">
+  <diagram name="Automated Gates" exports="svg" flex="1">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Title -->
+        <mxCell id="title" value="Three Automated Promotion Gates" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="280" y="30" width="400" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Gate 1: Quality -->
+        <mxCell id="g1_box" value="Gate 1: Response&#xa;Quality Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="100" y="120" width="180" height="70" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g1_criteria" value="&#x2022; Synthetic test queries&#xa;&#x2022; Compare vs expected&#xa;&#x2022; Require 95% pass rate" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="100" y="210" width="180" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g1_code" value="passed / len(tests) >= 0.95" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=center;verticalAlign=middle;fontSize=10;spacing=5;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="80" y="300" width="220" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g1_result" value="PASS / FAIL" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="130" y="340" width="100" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Gate 2: Performance -->
+        <mxCell id="g2_box" value="Gate 2: Performance&#xa;Baseline" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="420" y="120" width="180" height="70" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g2_criteria" value="&#x2022; P99 latency <= 110%&#xa;&#x2022; Error rate <= 120%&#xa;&#x2022; Tool success >= 95%" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="420" y="210" width="180" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g2_code" value="p99 <= baseline * 1.1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=center;verticalAlign=middle;fontSize=10;spacing=5;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="400" y="300" width="220" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g2_result" value="PASS / FAIL" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="450" y="340" width="100" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Gate 3: Safety -->
+        <mxCell id="g3_box" value="Gate 3: Safety&#xa;Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="740" y="120" width="180" height="70" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g3_criteria" value="&#x2022; Red team queries&#xa;&#x2022; Jailbreak attempts&#xa;&#x2022; Policy violations" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="740" y="210" width="180" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g3_code" value="violates_policy(resp)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=center;verticalAlign=middle;fontSize=10;spacing=5;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="720" y="300" width="220" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="g3_result" value="PASS / FAIL" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="770" y="340" width="100" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- All Gates Must Pass -->
+        <mxCell id="all_pass" value="ALL 3 GATES MUST PASS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#333333;strokeColor=#333333;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="430" width="260" height="50" as="geometry"/>
+        </mxCell>
+        
+        <!-- Flow Arrows -->
+        <mxCell id="f1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="g1_result" target="all_pass">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="g2_result" target="all_pass">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="f3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#333333;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="g3_result" target="all_pass">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Fail Path -->
+        <mxCell id="fail_path" value="FAIL = Block Release&#xa;&#x2190; Auto-notify team" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="500" width="180" height="50" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="ffail" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=2;dashed=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="all_pass" target="fail_path">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Pass Path -->
+        <mxCell id="pass_path" value="PASS = Continue&#xa;to Next Stage" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="600" y="500" width="140" height="50" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fpass" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="all_pass" target="pass_path">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

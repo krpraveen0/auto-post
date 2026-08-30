@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-06-13T00:00:00.000Z" agent="Copilot" version="24.7.17" type="device">
+  <diagram id="production-checklist" name="Page-1">
+    <mxGraphModel dx="1300" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="720" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Production inference checklist" style="text;html=1;strokeColor=none;fillColor=none;fontSize=20;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="220" y="40" width="700" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="TTFT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="1"><mxGeometry x="120" y="130" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="4" value="Tokens per second" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="1"><mxGeometry x="390" y="130" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="5" value="KV cache headroom" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" vertex="1" parent="1"><mxGeometry x="660" y="130" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="6" value="Max output length" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1"><mxGeometry x="120" y="250" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="7" value="Batching policy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1"><mxGeometry x="390" y="250" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="8" value="Long-context tests" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;" vertex="1" parent="1"><mxGeometry x="660" y="250" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="9" value="Track metrics, cap cost, and test the long tail." style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;align=center;" vertex="1" parent="1"><mxGeometry x="180" y="390" width="700" height="30" as="geometry" /></mxCell>
+        <mxCell id="10" value="Use these knobs before traffic finds the problem." style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;align=center;" vertex="1" parent="1"><mxGeometry x="180" y="430" width="700" height="30" as="geometry" /></mxCell>
+        <mxCell id="11" value="Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="60" y="130" width="40" height="70" as="geometry" /></mxCell>
+        <mxCell id="12" value="Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="330" y="130" width="40" height="70" as="geometry" /></mxCell>
+        <mxCell id="13" value="Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="600" y="130" width="40" height="70" as="geometry" /></mxCell>
+        <mxCell id="14" value="Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="60" y="250" width="40" height="70" as="geometry" /></mxCell>
+        <mxCell id="15" value="Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="330" y="250" width="40" height="70" as="geometry" /></mxCell>
+        <mxCell id="16" value="Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="600" y="250" width="40" height="70" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
