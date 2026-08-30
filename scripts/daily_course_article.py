@@ -402,6 +402,7 @@ def main() -> int:
             "docx_path": str(docx_path),
             "markdown_path": str(md_path),
             "manifest_path": str(manifest_path),
+            "out_dir": str(args.out_dir),
         }
     )
     return 0

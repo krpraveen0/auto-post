@@ -5,6 +5,11 @@ on:
     # 06:00 Asia/Kolkata = 00:30 UTC.
     - cron: "30 0 * * *"
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Validate DOCX generation/rendering without calling OpenAI"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -40,18 +45,25 @@ jobs:
       - name: Generate next lesson DOCX
         id: generate
         run: |
+          EXTRA_ARGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            EXTRA_ARGS="--dry-run"
+            STATE_FILE="/tmp/agentic-ai-engineering-state.json"
+            OUT_DIR="/tmp/agentic-ai-engineering"
+          fi
           python scripts/daily_course_article.py \
             --series-map "$SERIES_MAP" \
             --series-slug "$SERIES_SLUG" \
             --state-file "$STATE_FILE" \
-            --out-dir "$OUT_DIR"
+            --out-dir "$OUT_DIR" \
+            $EXTRA_ARGS
 
       - name: Render DOCX for visual QA
         if: steps.generate.outputs.generated == 'true'
         run: |
           python scripts/render_docx_ci.py \
             "${{ steps.generate.outputs.docx_path }}" \
-            --output-dir "$OUT_DIR/rendered/part-${{ steps.generate.outputs.part }}"
+            --output-dir "${{ steps.generate.outputs.out_dir }}/rendered/part-${{ steps.generate.outputs.part }}"
 
       - name: Upload checked DOCX output
         if: steps.generate.outputs.generated == 'true'
@@ -62,10 +74,10 @@ jobs:
             ${{ steps.generate.outputs.docx_path }}
             ${{ steps.generate.outputs.markdown_path }}
             ${{ steps.generate.outputs.manifest_path }}
-            ${{ env.OUT_DIR }}/rendered/part-${{ steps.generate.outputs.part }}/**
+            ${{ steps.generate.outputs.out_dir }}/rendered/part-${{ steps.generate.outputs.part }}/**
 
       - name: Commit generated lesson
-        if: steps.generate.outputs.generated == 'true'
+        if: steps.generate.outputs.generated == 'true' && github.event.inputs.dry_run != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -74,7 +86,7 @@ jobs:
           git push
 
       - name: Notify with GitHub issue
-        if: steps.generate.outputs.generated == 'true'
+        if: steps.generate.outputs.generated == 'true' && github.event.inputs.dry_run != 'true'
         run: |
           python scripts/create_github_issue.py \
             --title "Daily Medium course article ready: Part ${{ steps.generate.outputs.part }}" \
@@ -83,7 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ask for the next series
-        if: steps.generate.outputs.completed == 'true' && steps.generate.outputs.completion_issue_needed == 'true'
+        if: steps.generate.outputs.completed == 'true' && steps.generate.outputs.completion_issue_needed == 'true' && github.event.inputs.dry_run != 'true'
         run: |
           python scripts/create_github_issue.py \
             --title "Course series complete: choose the next Medium series" \
@@ -94,5 +106,14 @@ jobs:
           git add "$STATE_FILE"
           git diff --cached --quiet || git commit -m "Mark Medium course series completion notification"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify workflow failure
+        if: failure() && !cancelled() && github.event.inputs.dry_run != 'true'
+        run: |
+          python scripts/create_github_issue.py \
+            --title "Daily Medium course automation failed" \
+            --body "The scheduled Medium course DOCX workflow failed before producing a render-checked article. Review the workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
