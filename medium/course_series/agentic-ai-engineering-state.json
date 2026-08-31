@@ -1,0 +1,14 @@
+{
+  "completion_issue_created": false,
+  "generated": [
+    {
+      "docx": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.docx",
+      "generated_at_utc": "2026-08-31T08:46:20Z",
+      "manifest": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.json",
+      "markdown": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
+      "part": 1,
+      "title": "What Makes an AI Agent Different from a Chatbot?"
+    }
+  ],
+  "next_part": 2
+}

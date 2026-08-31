@@ -1,0 +1,19 @@
+{
+  "backend": "codex-automation-session",
+  "docx": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.docx",
+  "docx_sha256": "09632521ecc17f5da2a61ecafde446b133a639b844e977f649f86e4069294302",
+  "generated_at_utc": "2026-08-31T08:46:20Z",
+  "markdown": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
+  "markdown_sha256": "425c715763f1d3830725bdfc088e92e433014c0f09e62215aeb56b9fc716a857",
+  "model": "codex-automation-session",
+  "part": 1,
+  "quality": {
+    "exercise_expected_output": true,
+    "source_needed_markers": 2,
+    "visual_alt_text": true,
+    "visual_caption": true,
+    "word_count": 1903
+  },
+  "series": "agentic-ai-engineering",
+  "title": "What Makes an AI Agent Different from a Chatbot?"
+}
