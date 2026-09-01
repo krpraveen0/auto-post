@@ -162,9 +162,11 @@ Version numbers do not remove the need for judgment, but they make judgment visi
 
 Secrets do not belong in the manifest. Store credential references, not credential values. The manifest should say which identity or secret binding a tool expects while the deployment environment supplies the secret.
 
-## Visual Guidance
+## Visual Explanation
 
-Create a **configuration surface diagram** with a bounded agent loop in the center and six surrounding panels: Prompt Policy, Tool Action Space, Model Envelope, Retrieval Evidence Window, Runtime Guardrails, and Memory Lifetimes. Connect each panel to the loop. Add a version tag around the complete configuration and show a run trace recording the resolved value from every surface.
+The diagram shows the bounded agent loop and six surrounding control surfaces. The version boundary marks the complete tested release; the run trace records its resolved configuration.
+
+![Six configuration surfaces surrounding a bounded agent loop.](../../visuals/exported/agentic-ai-engineering-part-02-config-surfaces.svg)
 
 **Caption:** An agent release is the combined, versioned state of six behavior surfaces—not just a prompt and model name.
 
