@@ -1,0 +1,19 @@
+{
+  "backend": "codex-automation-session",
+  "docx": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.docx",
+  "docx_sha256": "68ec12a8561866bf0af30dc42018480707e713aaa4d46b614a14757d5a20f2c4",
+  "generated_at_utc": "2026-09-01T02:06:01Z",
+  "markdown": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
+  "markdown_sha256": "2bd2ca86d1e2cf1f003b05edc2aad751edbe0e9828863b4dd1211b030a8e330e",
+  "model": "codex-automation-session",
+  "part": 2,
+  "quality": {
+    "exercise_expected_output": true,
+    "source_needed_markers": 2,
+    "visual_alt_text": true,
+    "visual_caption": true,
+    "word_count": 2196
+  },
+  "series": "agentic-ai-engineering",
+  "title": "The Six Configuration Surfaces of an Agent"
+}

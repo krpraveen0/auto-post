@@ -8,7 +8,15 @@
       "markdown": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
       "part": 1,
       "title": "What Makes an AI Agent Different from a Chatbot?"
+    },
+    {
+      "docx": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.docx",
+      "generated_at_utc": "2026-09-01T02:06:01Z",
+      "manifest": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.json",
+      "markdown": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
+      "part": 2,
+      "title": "The Six Configuration Surfaces of an Agent"
     }
   ],
-  "next_part": 2
+  "next_part": 3
 }
