@@ -1,6 +1,6 @@
 # Claim Register: The Six Configuration Surfaces of an Agent
 
-Verified: 2026-09-02
+Verified: 2026-09-03
 
 ## Claim 1
 
@@ -94,3 +94,26 @@ offline evaluation guarantees production behavior
 
 Use in article: Support the release-evidence ladder and the separation of static,
 component, behavioral, shadow, and canary evidence
+
+## Claim 6
+
+Claim: The checked-in resolver rejects unauthorized production overrides,
+invalid collection and memory element types, unknown schema fields, and a
+mutating allowed tool under a deny policy; it also produces a stable resolved
+configuration hash.
+
+Source: [Part 02 executable tests](../../examples/agentic-ai-engineering/part-02/test_resolve_config.py)
+
+Source type: Original reproducible experiment
+
+Confidence: High for the checked-in fixtures and dependency versions
+
+Safe wording: Six tests passed with Python 3.12.13, PyYAML 6.0.3, and jsonschema
+4.26.0 on 2026-09-03. The example verifies resolution mechanics, not model
+quality or production permission enforcement.
+
+Risk if overstated: Treating configuration validation as behavioral evaluation
+or security proof
+
+Use in article: Support the strict-merge, schema, cross-field policy, exact
+version binding, and tested-environment sections

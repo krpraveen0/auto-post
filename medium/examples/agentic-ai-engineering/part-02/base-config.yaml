@@ -1,0 +1,28 @@
+schema_version: 1
+agent_id: release-analyst
+config_version: 0.2.0
+prompt:
+  id: release-analyst-v2
+  success_definition: Produce an evidence-backed release recommendation.
+model:
+  id: stable-model
+  temperature: 0
+  max_output_tokens: 1800
+  fallback: null
+tools:
+  allow: [read_release_notes, read_test_summary, request_clarification]
+  deny: [promote_release]
+retrieval:
+  collections: [release-notes, test-reports]
+  required_filters: [project_id, release_id]
+  max_results: 8
+  require_evidence_for_claims: true
+guardrails:
+  max_steps: 8
+  max_tool_failures: 2
+  mutation_policy: deny
+  on_missing_evidence: report_unknown
+memory:
+  step: [project_id, release_id, remaining_steps]
+  session: [documents_read, open_questions]
+  durable: []

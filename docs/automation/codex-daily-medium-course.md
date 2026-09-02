@@ -81,13 +81,20 @@ Every run:
 12. Create a sibling JSON manifest containing the schema version, Markdown and
     visual hashes, evidence register, tested environment, quality report path,
     Notion page ID/URL, target platforms, canonical strategy, and validation time.
-13. Run python -m unittest discover -s tests, then:
+13. Run the repository, lesson-example, structural, and package checks:
+    python -m unittest discover -s tests
+    python -m unittest discover
+      -s medium/examples/agentic-ai-engineering/part-XX -v
     python scripts/validate_course_lesson.py --require-schema 3
       --report-dir medium/reviews/scorecards <lesson.md>
-    Target 90+/100. Publishing requires at least 85/100 and zero critical issues.
-14. Run separate human-style technical architecture, pedagogy, accessibility,
-    global-English, originality, and platform-policy reviews. The deterministic
-    score cannot approve its own technical correctness.
+    python scripts/validate_article_package.py <lesson.json>
+    The first validator reports structural coverage only. It cannot award a
+    reader-value score or approve publication.
+14. Run separate evidence-backed technical architecture, pedagogy,
+    accessibility, global-English, originality, and platform-policy reviews.
+    Target 90+/100. Publishing requires at least 85/100, zero critical issues,
+    and named human approval. The deterministic score cannot approve its own
+    technical correctness.
 15. Create or update one child page below Agentic AI in Notion. Preserve the
     Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
     disclosure, and sources. Read the page back and compare it with Markdown.
@@ -138,6 +145,18 @@ platform adapter metadata         Medium / DEV / Hashnode / owned site
 ## Cloud Validation
 
 `Daily Medium Course Quality Audit` runs on Ubuntu with read-only permissions and
-standard-library Python. `Validate Medium Output` enforces schema 3 on changed
+pinned Python dependencies. `Validate Medium Output` enforces schema 3 on changed
 lessons during pull requests. Neither workflow generates prose, writes state,
 publishes externally, or requires a model API key.
+
+The complete deterministic quality pipeline is also packaged in
+`Containerfile.quality`. Any Linux container runner can execute:
+
+```bash
+docker build -f Containerfile.quality -t medium-course-quality .
+docker run --rm medium-course-quality
+```
+
+Remote authoring remains a separate capability. It requires an explicitly
+configured hosted model or Codex runtime plus repository and Notion credentials;
+the validation container deliberately does not infer or embed those credentials.

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Score portable, evidence-informed technical lessons before publishing.
+"""Validate the structural contract of portable technical lessons.
 
-The validator checks repository Markdown only. It has no office-document,
-platform API, or third-party Python dependency. Schema 3 packages declare
-``publishing_schema_version: 3`` in front matter or a sibling JSON manifest.
+This deterministic validator cannot judge correctness, originality, narrative
+quality, or learning value. It checks observable Markdown requirements and
+content-integrity signals only. A separate evidence-backed editorial review and
+human approval determine whether an article is publishable.
 """
 
 from __future__ import annotations
@@ -19,8 +20,7 @@ from typing import Iterable
 
 
 CURRENT_SCHEMA = 3
-PUBLISHING_THRESHOLD = 85
-TARGET_SCORE = 90
+STRUCTURAL_THRESHOLD = 85
 MIN_BODY_WORDS = 3000
 TECHNICAL_READING_WPM = 170
 MEASURABLE_VERBS = {
@@ -49,15 +49,15 @@ class Criterion:
 
 
 @dataclass(frozen=True)
-class LessonReport:
+class StructuralReport:
+    report_type: str
     path: str
     publishing_schema_version: int | None
     word_count: int
     estimated_read_minutes: int
-    total_score: int
-    target_score: int
-    threshold: int
-    publishable: bool
+    structural_coverage_score: int
+    structural_threshold: int
+    structurally_valid: bool
     criteria: list[Criterion]
     critical_issues: list[str]
     recommendations: list[str]
@@ -152,7 +152,30 @@ def code_fence_details(text: str) -> tuple[int, int]:
     return len(fences) // 2, language_tagged
 
 
-def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
+def duplicate_prose_details(text: str) -> tuple[float, list[str]]:
+    """Return duplicate-paragraph ratio and representative repeated paragraphs."""
+    prose = re.sub(r"\A---\s*\n.*?\n---\s*\n", "", text, count=1, flags=re.DOTALL)
+    prose = re.sub(r"```[^\n]*\n.*?\n```", "", prose, flags=re.DOTALL)
+    normalized: list[str] = []
+    originals: dict[str, str] = {}
+    for paragraph in re.split(r"\n\s*\n", prose):
+        value = paragraph.strip()
+        if not value or value.startswith(("#", "- ", "* ", ">", "|", "![")):
+            continue
+        if word_count(value) < 12:
+            continue
+        key = re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
+        normalized.append(key)
+        originals.setdefault(key, value)
+    if not normalized:
+        return 0.0, []
+    counts = {item: normalized.count(item) for item in set(normalized)}
+    duplicate_instances = sum(count - 1 for count in counts.values() if count > 1)
+    examples = [originals[item] for item, count in counts.items() if count >= 3]
+    return duplicate_instances / len(normalized), sorted(examples)[:3]
+
+
+def validate_lesson(path: Path, require_schema: int | None = None) -> StructuralReport:
     text = path.read_text(encoding="utf-8")
     lowered = text.casefold()
     metadata = front_matter(text)
@@ -160,6 +183,12 @@ def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
     critical: list[str] = []
     recommendations: list[str] = []
     scores: list[Criterion] = []
+
+    duplicate_ratio, repeated_paragraphs = duplicate_prose_details(text)
+    if duplicate_ratio > 0.10 or repeated_paragraphs:
+        critical.append(
+            "Repeated prose exceeds the content-integrity limit; useful length cannot be created by duplicating paragraphs."
+        )
 
     if require_schema is not None and version != require_schema:
         critical.append(
@@ -205,7 +234,7 @@ def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
         for phrase in ("in this article", "you will build", "we will test", "what changes", "the key distinction")
     )
     focus_score = (4 if title_present else 0) + (3 if authentic_hook else 0) + (3 if original_value else 0)
-    scores.append(Criterion("Reader promise and original value", focus_score, "Specific title, authentic problem, and explicit value beyond summary."))
+    scores.append(Criterion("Title and reader-promise signals", focus_score, "Required title and promise markers are present; originality is not assessed here."))
     if total_words < MIN_BODY_WORDS:
         critical.append(
             f"Expand the reader-facing body from {total_words} to at least {MIN_BODY_WORDS} words "
@@ -239,7 +268,7 @@ def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
     tested = section_text(text, "Tested Environment", "Reproduce This", "Verification")
     version_context = bool(re.search(r"\b\d+(?:\.\d+){1,3}\b", tested))
     technical_score = (3 if example else 0) + (2 if code_blocks else 0) + (2 if language_tagged == code_blocks and code_blocks else 0) + (2 if reasoning else 0) + (1 if tested and version_context else 0)
-    scores.append(Criterion("Technical depth and reproducibility", technical_score, f"Worked reasoning; {code_blocks} code fences; tested environment with versions={bool(tested and version_context)}."))
+    scores.append(Criterion("Worked-example and verification structure", technical_score, f"Worked-example markers; {code_blocks} code fences; tested environment with versions={bool(tested and version_context)}. Correctness is reviewed separately."))
     if not example or not code_blocks:
         critical.append("Add a worked example with code, configuration, command, or explicitly labeled pseudocode.")
     if code_blocks and language_tagged != code_blocks:
@@ -265,7 +294,7 @@ def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
     links = re.findall(r"https?://[^\s)>]+", sources)
     limitations = any(term in lowered for term in ("limitation", "tradeoff", "trade-off", "when not to", "boundary"))
     evidence_score = (4 if len(links) >= 2 else min(4, len(links) * 2)) + (3 if unresolved == 0 else 0) + (3 if limitations else 0)
-    scores.append(Criterion("Evidence, trust, and limitations", evidence_score, f"{len(links)} source links; {unresolved} unresolved markers; limitations={limitations}."))
+    scores.append(Criterion("Source and limitation markers", evidence_score, f"{len(links)} source links; {unresolved} unresolved markers; limitation language={limitations}. Source quality is reviewed separately."))
     if unresolved:
         critical.append(f"Resolve {unresolved} SOURCE NEEDED marker(s) before publishing.")
     if len(links) < 2:
@@ -290,7 +319,7 @@ def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
     acronym_expanded = not bool(re.search(r"(?<![A-Z(])\b[A-Z]{3,}\b", intro))
     culturally_specific = any(term in lowered for term in ("piece of cake", "slam dunk", "ballpark", "hit it out of the park"))
     editorial_score = (4 if acronym_expanded else 2) + (3 if not culturally_specific else 0) + (3 if total_words >= 1000 else 1)
-    scores.append(Criterion("Global editorial clarity", editorial_score, f"Consistent global English, defined terminology, and an estimated {estimated_read_minutes}-minute technical read."))
+    scores.append(Criterion("Global-editorial syntax signals", editorial_score, f"Acronym and idiom heuristics passed; estimated {estimated_read_minutes}-minute technical read. Human clarity review is still required."))
     if culturally_specific:
         recommendations.append("Replace culture-specific idioms with literal language that translates clearly.")
 
@@ -317,19 +346,21 @@ def score_lesson(path: Path, require_schema: int | None = None) -> LessonReport:
         critical.append("Explain safety boundaries for destructive or pipe-to-shell commands.")
 
     total = sum(item.score for item in scores)
-    publishable = total >= PUBLISHING_THRESHOLD and not critical
-    if total < PUBLISHING_THRESHOLD:
-        recommendations.append(f"Raise the reader-value score from {total} to at least {PUBLISHING_THRESHOLD}; target {TARGET_SCORE}+.")
+    structurally_valid = total >= STRUCTURAL_THRESHOLD and not critical
+    if total < STRUCTURAL_THRESHOLD:
+        recommendations.append(
+            f"Raise structural coverage from {total} to at least {STRUCTURAL_THRESHOLD}; editorial value is reviewed separately."
+        )
 
-    return LessonReport(
+    return StructuralReport(
+        report_type="deterministic_structural_validation",
         path=str(path),
         publishing_schema_version=version,
         word_count=total_words,
         estimated_read_minutes=estimated_read_minutes,
-        total_score=total,
-        target_score=TARGET_SCORE,
-        threshold=PUBLISHING_THRESHOLD,
-        publishable=publishable,
+        structural_coverage_score=total,
+        structural_threshold=STRUCTURAL_THRESHOLD,
+        structurally_valid=structurally_valid,
         criteria=scores,
         critical_issues=critical,
         recommendations=recommendations,
@@ -342,13 +373,14 @@ def discover_current(root: Path) -> Iterable[Path]:
             yield path
 
 
-def write_report(report: LessonReport, report_dir: Path | None) -> None:
+def write_report(report: StructuralReport, report_dir: Path | None) -> None:
     payload = asdict(report)
     if report_dir:
         report_dir.mkdir(parents=True, exist_ok=True)
-        output = report_dir / f"{Path(report.path).stem}-reader-value.json"
+        output = report_dir / f"{Path(report.path).stem}-structural.json"
         output.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(f"{report.path}: {report.total_score}/100 — {'PUBLISH' if report.publishable else 'REVISE'}")
+    result = "STRUCTURAL PASS" if report.structurally_valid else "STRUCTURAL FAIL"
+    print(f"{report.path}: {report.structural_coverage_score}/100 — {result}")
     for issue in report.critical_issues:
         print(f"  critical: {issue}")
 
@@ -374,10 +406,15 @@ def main() -> int:
         print("No matching course lessons found; nothing to validate.")
         return 0
 
-    reports = [score_lesson(path, args.require_schema) for path in paths]
+    reports = [validate_lesson(path, args.require_schema) for path in paths]
     for report in reports:
         write_report(report, args.report_dir)
-    return 0 if all(report.publishable for report in reports) else 1
+    return 0 if all(report.structurally_valid for report in reports) else 1
+
+
+# Compatibility for callers that imported the old function name. The returned
+# object is explicitly a StructuralReport and cannot authorize publication.
+score_lesson = validate_lesson
 
 
 if __name__ == "__main__":

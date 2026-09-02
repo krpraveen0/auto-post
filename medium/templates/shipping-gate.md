@@ -8,6 +8,8 @@ Notion draft:
 
 Reader-value score:
 
+Structural validation: Pass / Fail
+
 Reader-facing body words:
 
 Estimated technical reading time:
@@ -45,6 +47,8 @@ Exercise has expected output and self-check criteria: Yes / No
 Retrieval practice and transfer prompt are present: Yes / No
 
 Claims and code have been verified: Yes / No
+
+Runnable companion artifacts and failure fixtures pass: Yes / No
 
 Tested environment and version context are documented: Yes / No
 
@@ -85,6 +89,9 @@ Would publish even if low views: Yes / No
 
 Aim for 90+/100. Publish only when the reader-value score is at least 85/100 and
 every critical check above is Yes (or Not using Notion where applicable).
+
+The structural validator cannot answer Useful, Honest, Human, or Technically
+safe. Its numeric coverage result must not be copied into Reader-value score.
 
 Publish / Revise / Hold
 

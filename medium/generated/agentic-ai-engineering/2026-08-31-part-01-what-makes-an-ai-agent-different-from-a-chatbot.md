@@ -20,11 +20,11 @@ last_verified: 2026-09-02
 examples, and sources were checked during editorial preparation; the named author
 remains responsible for the final publication.*
 
-A demo once told me it had “resolved” a customer’s delivery problem. The response was polished. It summarized the complaint, apologized, and said a replacement had been arranged.
+Consider a support demo that says it has “resolved” a customer’s delivery problem. The response is polished: it summarizes the complaint, apologizes, and says a replacement has been arranged.
 
 Nothing had actually happened.
 
-The system had no order lookup, no replacement tool, and no durable record of the conversation. It was a chatbot performing the language of action. The failure was not that its prose was weak. The failure was that we had confused a convincing response with an executed task.
+But the system has no order lookup, no replacement tool, and no durable record of the conversation. It is a chatbot performing the language of action. The failure is not weak prose. The failure is confusing a convincing response with an executed task.
 
 That distinction is the foundation of this course. An agent is not a chatbot with a more ambitious system prompt. It is a system allowed to choose and perform actions inside an explicit boundary, while carrying enough state to decide what should happen next.
 
@@ -167,48 +167,44 @@ goal, evidence, approval status, budgets, and terminal status independently
 inspectable. The surrounding application—not the model—should own the transition
 function.
 
+The companion implementation makes those transitions executable. A caller
+supplies a proposal, but `step` consumes the budget and asks policy for a
+decision before it invokes a tool:
+
 ```python
-state = TaskState.new(
-    goal=request.goal,
-    allowed_actions={"lookup_employee", "inspect_access", "create_access_ticket"},
-    remaining_steps=8,
-)
+def step(self, proposal):
+    if self.state.remaining_steps <= 0:
+        return self._stop("stopped", "step_budget_exhausted")
 
-while state.status == "running":
-    observation = observe(state)
-    proposal = model.choose_next_action(state.summary(), observation)
-    decision = policy.authorize(
-        actor=request.actor,
-        task=state,
-        proposed_action=proposal,
-    )
+    self.state.remaining_steps -= 1
+    decision, reason = self.policy.authorize(self.state, proposal)
 
-    trace.record(observation=observation, proposal=proposal, decision=decision)
+    if decision == "deny":
+        return self._stop("stopped", "policy_denied")
+    if decision == "require_approval":
+        self.state.status = "waiting_for_approval"
+        self.state.pending_approval = proposal.logical_operation
+        return self._record("approval_requested")
 
-    if decision.kind == "deny":
-        state = transition(state, event="policy_denied", detail=decision.reason)
-        continue
-
-    if decision.kind == "require_approval":
-        state = transition(state, event="approval_requested", detail=decision.id)
-        continue
-
-    result = tools.execute(proposal, idempotency_key=state.next_operation_id())
-    state = transition(state, event="tool_completed", detail=result)
-
-    if goal_is_verified(state):
-        state = transition(state, event="goal_satisfied")
+    operation_id = self.state.operation_id(proposal.logical_operation)
+    result = self.tools[proposal.name](proposal.arguments, operation_id)
+    return self._record("tool_completed", result=result)
 ```
 
-This is deliberately pseudocode rather than a framework tutorial. The important
-architecture is visible in the ownership boundaries:
+The published excerpt omits error branches to keep the transition visible; the
+[complete bounded state machine](../../examples/agentic-ai-engineering/part-01/bounded_agent.py)
+handles reported tool failure, unknown mutation outcomes, matching approvals,
+stable operation identifiers, and verified completion. Its tests are part of the
+article evidence rather than an exercise left to the reader.
+
+The important ownership boundaries are now executable:
 
 - The model proposes an action; it does not authorize or execute it.
 - Policy evaluates the authenticated actor, current task, and proposed
   parameters—not merely the tool name.
 - The trace records the proposal and the policy decision before execution.
-- A mutating operation receives an idempotency key so a timeout can be
-  investigated without blindly repeating the write.
+- A logical mutating operation receives the same idempotency key on every retry,
+  so an unknown outcome can be investigated without creating a new write intent.
 - Only the transition function changes durable task state.
 - Completion requires verified evidence in state, not a model statement that the
   task is complete.
@@ -224,6 +220,12 @@ needed, the system should persist `waiting_for_approval` and release compute. It
 should not keep calling the model to rediscover that approval is missing. When an
 approval event arrives, application code verifies its identity and version,
 transitions the task back to `running`, and only then asks for another decision.
+
+![A bounded agent state machine where running can transition to waiting, executing, stopped, failed, or succeeded, and unknown outcomes retry with the same operation identifier](../../visuals/exported/agentic-ai-engineering-part-01-state-machine.svg)
+
+Figure 1: Budget is consumed before authorization. Denials and exhausted budgets
+stop; repeated tool failures fail; approval pauses the run; and only an
+independently verified goal succeeds.
 
 ## Boundaries Matter More Than Personality
 
@@ -264,14 +266,13 @@ This may be exactly what the organization needs. Predictability is a feature.
 
 ### Version C: the bounded agent
 
-The agent receives a goal and a set of tools:
+The agent receives a goal and a deliberately small set of tools:
 
 1. `lookup_employee` — read-only identity and employment status.
 2. `inspect_access` — read-only current entitlements.
-3. `create_access_ticket` — creates a proposed access request.
-4. `request_approval` — asks an authorized manager to approve the proposal.
+3. `create_access_ticket` — creates a proposed access request after approval.
 
-The agent first looks up the employee. It notices that the replacement laptop is registered but the dashboard entitlement is missing. It inspects the standard bundle for that role, prepares a ticket, and requests approval. It does **not** grant access directly because that action is outside its boundary.
+The agent first looks up the employee. It notices that the replacement laptop is registered but the dashboard entitlement is missing. It inspects the standard bundle for that role and proposes `create_access_ticket`. Application policy classifies the ticket creation as a write, stores its logical operation, and changes the task to `waiting_for_approval` before the tool runs. It does **not** grant access directly because that action is outside its boundary.
 
 After approval, a separate access-management service performs the grant. The agent reads the service result and reports either verified success or an explicit failure. If the employee record is ambiguous, it stops and asks for clarification. If a tool fails twice, it stops retrying and exposes the failure.
 
@@ -285,9 +286,10 @@ status: waiting_for_approval
 completed_steps:
   - employee_verified
   - current_access_inspected
-  - access_ticket_created
 pending:
-  - manager_approval
+  operation: create_access_ticket
+  logical_operation: ticket-E-1042
+  requirement: manager_approval
 attempts:
   inspect_access: 1
 stop_reason: null
@@ -305,9 +307,9 @@ compact trace for the access example might look like this:
 |---:|---|---|---|---|
 | 1 | Employee ID supplied | `lookup_employee(E-1042)` | Allow: read-only | Identity record attached |
 | 2 | Employee and device match | `inspect_access(E-1042)` | Allow: read-only | Missing entitlement recorded |
-| 3 | Entitlement is absent | `create_access_ticket(...)` | Allow: proposal-only write | Ticket `T-8821` recorded |
-| 4 | Ticket needs manager approval | `request_approval(T-8821)` | Allow | Status becomes waiting |
-| 5 | Signed approval event arrives | `verify_ticket(T-8821)` | Allow: read-only | Approval version attached |
+| 3 | Entitlement is absent | `create_access_ticket(...)` | Require approval | Pending logical operation stored; status becomes waiting |
+| 4 | Signed approval event arrives | Application resumes the pending operation | Approval identity and operation match | Status returns to running |
+| 5 | Approved proposal is retried | `create_access_ticket(...)` | Allow with stable operation ID | Ticket `T-8821` recorded once |
 | 6 | Access service reports completion | Finish | Allow only because confirmation exists | Goal satisfied |
 
 The trace does not need to expose private chain-of-thought. It needs operational
@@ -387,17 +389,35 @@ is not always a system-wide choice; it can be a choice at each control boundary.
 
 ![Three systems with the same chat interface but different control flow: a chatbot produces text, a workflow follows fixed code, and a bounded agent chooses actions inside approval and stop boundaries](../../visuals/exported/agentic-ai-engineering-part-01-control-boundary.svg)
 
-Figure 1: The interface can look identical while control ownership changes from
+Figure 2: The interface can look identical while control ownership changes from
 response generation, to fixed code, to model-directed action inside explicit
 approval and stopping boundaries.
 
+Read Figure 2 from left to right to choose an architecture. Use Figure 1 when the
+right-hand system is justified: it shows the states and terminal branches that
+the simpler comparison intentionally hides.
+
 ## Tested Environment
 
-The YAML run-state example in this lesson was parsed with Python 3.12.13 and
-PyYAML 6.0.3 on 2026-09-02. The parser returned the expected mapping with
-`status: waiting_for_approval`, one pending approval, and no stop reason. The
-example is state data, not an executable authorization system; production code
-must still validate identities, permissions, and state transitions.
+The companion state machine was executed with Python 3.12.13 on 2026-09-03. It
+uses only the Python standard library. Run it from the repository root:
+
+```bash
+python -m unittest discover \
+  -s medium/examples/agentic-ai-engineering/part-01 -v
+python medium/examples/agentic-ai-engineering/part-01/bounded_agent.py
+```
+
+Seven tests pass. They verify read-only success, approval and resume, fail-closed
+denial, tool-failure exhaustion, stable idempotency across an unknown outcome,
+step-budget termination, and rejection of an unverified success. The demo emits
+three JSON trace events: an allowed decision with seven steps remaining, a
+completed lookup with operation ID `bb68d550f502f6d1`, and `goal_satisfied`.
+
+This is still a boundary demonstration, not an identity or authorization
+service. Production code must authenticate the actor, persist transitions
+atomically, validate approval signatures, and make the receiving service enforce
+the idempotency contract.
 
 ## Exercise
 

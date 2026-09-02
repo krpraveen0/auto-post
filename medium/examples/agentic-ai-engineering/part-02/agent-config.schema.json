@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "agent_id", "config_version", "prompt", "model", "tools", "retrieval", "guardrails", "memory"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "agent_id": {"type": "string", "minLength": 1},
+    "config_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "prompt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "success_definition"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "success_definition": {"type": "string", "minLength": 10}
+      }
+    },
+    "model": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "temperature", "max_output_tokens", "fallback"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "temperature": {"type": "number", "minimum": 0, "maximum": 2},
+        "max_output_tokens": {"type": "integer", "minimum": 1},
+        "fallback": {"type": ["string", "null"]}
+      }
+    },
+    "tools": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allow", "deny"],
+      "properties": {
+        "allow": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "deny": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "retrieval": {
+      "type": "object", "additionalProperties": false,
+      "required": ["collections", "required_filters", "max_results", "require_evidence_for_claims"],
+      "properties": {
+        "collections": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "required_filters": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "max_results": {"type": "integer", "minimum": 1},
+        "require_evidence_for_claims": {"type": "boolean"}
+      }
+    },
+    "guardrails": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_steps", "max_tool_failures", "mutation_policy", "on_missing_evidence"],
+      "properties": {
+        "max_steps": {"type": "integer", "minimum": 1},
+        "max_tool_failures": {"type": "integer", "minimum": 0},
+        "mutation_policy": {"enum": ["deny", "approval_required"]},
+        "on_missing_evidence": {"enum": ["report_unknown", "ask_user", "stop"]}
+      }
+    },
+    "memory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["step", "session", "durable"],
+      "properties": {
+        "step": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "session": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "durable": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

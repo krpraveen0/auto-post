@@ -1,6 +1,6 @@
 # Competitive Content Benchmark: Agent vs Chatbot
 
-Search date: 2026-09-02
+Search date: 2026-09-03
 
 Reader job: Decide whether a system needs model-directed control and specify a
 safe boundary before implementation.
@@ -14,6 +14,8 @@ safe boundary before implementation.
 | Anthropic, *Building Effective AI Agents* | Teams building practical agent systems | Clear workflow-versus-agent distinction, composable patterns, and a strong bias toward simple designs | Does not give the reader one reusable boundary-card exercise | Primary institutional engineering guidance |
 | Chip Huyen, *Building a Generative AI Platform* | Engineers moving a generative AI application toward production | Progressively adds architecture components and treats observability, failure management, cost, and latency as first-class concerns | Platform-wide scope; it does not isolate the control-ownership decision that separates a workflow from an agent | Experienced-practitioner synthesis with references |
 | OWASP, *LLM Prompt Injection Prevention Cheat Sheet* | Security-conscious application teams | Least privilege, session-aware validation, human oversight, and untrusted-content controls | Security controls are not organized as an introductory control-flow lesson | Institutional security guidance |
+| Andrej Karpathy, *microgpt* | Developers and students who learn by reconstructing a system | Builds one runnable artifact from scalar autograd to a small GPT and places intuition beside code and output | Focuses on model internals rather than application authorization boundaries | First-principles implementation with inspectable code and outputs |
+| Andrej Karpathy, *A from-scratch tour of Bitcoin in Python* | Engineers seeking protocol understanding through implementation | Builds primitives into a functioning system with assertions, representation details, and visible intermediate results | Its protocol scope does not address model-directed control or agent policy | First-principles executable notebook-style explanation |
 
 The *awesome-ml-blogs* repository was used to discover additional respected
 authors and publications. It is a directory, not evidence for a technical claim.
@@ -41,11 +43,13 @@ application control prevents a model-selected action from escaping authority.
 
 After reading the benchmarks, a reader can explain major agent components and
 research patterns. After this lesson, the reader can additionally decide not to
-build an agent, specify a stateful control boundary, inspect an execution trace,
-and identify boundary-crossing failure modes before implementation.
+build an agent, execute and test a stateful control boundary, inspect a trace,
+and reproduce denial, approval, retry, budget, and completion behavior before
+connecting a model or external service.
 
 ## Decision
 
-Proceed after deepening the state-machine implementation, failure analysis,
-observability trace, and workflow-versus-agent decision framework. These additions
-create original operational value rather than merely extending the word count.
+Proceed to human review after the executable state-machine tests, corrected
+approval trace, explicit limitations, and progressive state diagram pass the
+package gate. These additions create operational value rather than merely
+extending the word count.

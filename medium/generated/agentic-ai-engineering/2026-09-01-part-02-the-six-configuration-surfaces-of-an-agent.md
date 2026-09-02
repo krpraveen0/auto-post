@@ -20,11 +20,11 @@ last_verified: 2026-09-02
 configuration example, and sources were checked during editorial preparation;
 the named author remains responsible for the final publication.*
 
-The first agent configuration I reviewed looked reassuringly small. It had a system prompt, a model name, and a list of tools. The team could explain every line.
+Imagine an agent configuration that looks reassuringly small: a system prompt, a model name, and a list of tools. A reviewer can explain every line.
 
-Then we tried to answer a simple release question: “What changed, and is it safe to deploy?”
+Then the team tries to answer a simple release question: “What changed, and is it safe to deploy?”
 
-The agent searched the wrong documents, remembered a decision from another project, called a write-capable tool before approval, and produced different answers after a model update. None of those failures lived in the prompt. The system’s behavior was spread across code, environment variables, database settings, and defaults that no reviewer could see in one place.
+The agent searches the wrong documents, remembers a decision from another project, calls a write-capable tool before approval, and produces different answers after a model update. None of those failures lives in the prompt. The system’s behavior is spread across code, environment variables, database settings, and defaults that no reviewer can see in one place.
 
 This is why an agent needs more than a prompt file. It needs a **configuration contract**: a versioned description of the six surfaces that shape its behavior—prompts, tools, model, retrieval, guardrails, and memory.
 
@@ -107,30 +107,36 @@ A useful resolution pipeline has four stages:
    canonically, hash it, and attach that hash plus component versions to every
    run trace.
 
-The following framework-neutral pseudocode makes the resolution order visible:
+The companion implementation makes the resolution order executable. Its merge
+operates on leaf paths and accepts only three production overrides:
+`model.id`, `model.max_output_tokens`, and `retrieval.max_results`.
 
 ```python
-declared = load_yaml("agent-config.yaml")
-overlay = load_yaml("environments/production.yaml")
+declared = load_yaml("base-config.yaml")
+overlay = load_yaml("production-overlay.yaml")
 
-merged = merge_strict(declared, overlay, allowed_overrides=PRODUCTION_OVERRIDES)
-resolved = bind_references(
-    merged,
-    prompts=prompt_registry,
-    tools=tool_registry,
-    models=model_registry,
-    credentials=credential_broker,
-)
-
-validate_schema(resolved)
-validate_policy_consistency(resolved)
+merged = merge_strict(declared, overlay)
+validate_declared(merged, schema_path)
+validate_policy_consistency(merged)
+resolved = bind_references(merged)
 
 release = {
     "config_version": resolved["config_version"],
-    "resolved_config_sha256": canonical_sha256(redact_secrets(resolved)),
-    "component_versions": inventory_versions(resolved),
+    "resolved_config_sha256": canonical_sha256(resolved),
+    "components": {
+        "prompt": resolved["prompt"]["id"],
+        "model": resolved["model"]["id"],
+        "tools": resolved["tools"]["resolved_versions"],
+    },
 }
 ```
+
+See the [complete resolver](../../examples/agentic-ai-engineering/part-02/resolve_config.py),
+[base configuration](../../examples/agentic-ai-engineering/part-02/base-config.yaml),
+and [production overlay](../../examples/agentic-ai-engineering/part-02/production-overlay.yaml).
+The example contains credential references but no credential values, so the
+canonical record can identify a binding without hashing a secret into release
+metadata.
 
 The merge must be **strict**. A generic deep merge can turn a safe list into an
 unsafe one. Suppose the base configuration denies `promote_release`, while an
@@ -245,10 +251,10 @@ prompt:
   success_definition: evidence-backed recommendation produced
 
 model:
-  id: provider-model-snapshot
+  id: stable-model
   temperature: 0
   max_output_tokens: 1800
-  fallback: none
+  fallback: null
 
 tools:
   allow:
@@ -341,7 +347,7 @@ policy, and makes the absence of a mutation policy an error.
       "required": ["id", "temperature", "max_output_tokens", "fallback"],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
-        "temperature": { "type": "number", "minimum": 0 },
+        "temperature": { "type": "number", "minimum": 0, "maximum": 2 },
         "max_output_tokens": { "type": "integer", "minimum": 1 },
         "fallback": { "type": ["string", "null"] }
       }
@@ -374,8 +380,14 @@ policy, and makes the absence of a mutation policy an error.
         "require_evidence_for_claims"
       ],
       "properties": {
-        "collections": { "type": "array", "minItems": 1 },
-        "required_filters": { "type": "array", "minItems": 1 },
+        "collections": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "required_filters": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
         "max_results": { "type": "integer", "minimum": 1 },
         "require_evidence_for_claims": { "type": "boolean" }
       }
@@ -405,9 +417,18 @@ policy, and makes the absence of a mutation policy an error.
       "additionalProperties": false,
       "required": ["step", "session", "durable"],
       "properties": {
-        "step": { "type": "array", "uniqueItems": true },
-        "session": { "type": "array", "uniqueItems": true },
-        "durable": { "type": "array", "uniqueItems": true }
+        "step": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "session": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "durable": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
       }
     }
   }
@@ -426,6 +447,11 @@ Treat the checks as layers:
 - consistency validation checks relationships between surfaces;
 - permission tests verify the deployed identity and tool enforcement;
 - behavioral evaluations measure what the resolved agent actually does.
+
+The schema's temperature range is a constraint for this example, not a universal
+provider rule. If another provider or model family defines a narrower or
+different range, its adapter must validate that provider contract before the
+configuration is considered resolved.
 
 ## Configuration Changes Invalidate Evidence
 
@@ -503,21 +529,36 @@ Figure 1: An agent release is the combined, versioned state of six behavior
 surfaces—not just a prompt and model name. A behavior-changing diff in any panel
 can invalidate the release's previous evidence.
 
+![A strict configuration-resolution pipeline combines a declared configuration and safe overlay, binds exact component versions, validates schema and cross-field policy, and emits a hashed release record](../../visuals/exported/agentic-ai-engineering-part-02-resolution-pipeline.svg)
+
+Figure 2: Unsafe overlays and inconsistent policies are rejected before a model
+call. Only the exact resolved hash proceeds to behavioral evaluation.
+
 ## Tested Environment
 
-The worked YAML manifest was parsed with Python 3.12.13 and PyYAML 6.0.3 on
-2026-09-02. The displayed JSON Schema was checked as a valid Draft 2020-12 schema
-and used with `jsonschema` 4.26.0 to require the six surfaces and reject unknown
-top-level fields. The displayed sample passed.
-Deleting `guardrails` produced the expected validation error; adding a misspelled
-`guardrail` field also failed because the schema disabled additional properties.
-Adding a mutating tool while leaving `mutation_policy: deny` passed structural
-validation, as expected, and demonstrates why the separate cross-surface
-consistency validator is required.
+The resolver and fixtures were executed with Python 3.12.13, PyYAML 6.0.3, and
+`jsonschema` 4.26.0 on 2026-09-03. Run them from the repository root:
 
-This check verifies the manifest's shape, not whether the agent is safe or useful.
-Behavioral evals, permission tests, and failure-path tests remain separate release
+```bash
+python -m unittest discover \
+  -s medium/examples/agentic-ai-engineering/part-02 -v
+python medium/examples/agentic-ai-engineering/part-02/resolve_config.py \
+  medium/examples/agentic-ai-engineering/part-02/base-config.yaml \
+  medium/examples/agentic-ai-engineering/part-02/production-overlay.yaml
+```
+
+Six tests pass. They prove that the resolved hash is stable, aliases bind to
+exact versions, an unsafe tool-policy overlay is rejected, collections and
+memory accept only named string fields, unknown schema properties fail, and the
+cross-field validator rejects `promote_release` while mutation policy is `deny`.
+The accepted fixture resolves `stable-model` to
+`provider-model-2026-08-15`; it does not pretend that an alias is incident
 evidence.
+
+These checks prove configuration structure and resolution behavior. They do not
+prove that a model produces a good release recommendation. Behavioral evals,
+permission tests, retrieval-isolation tests, and production observations remain
+separate release evidence.
 
 ## Exercise
 

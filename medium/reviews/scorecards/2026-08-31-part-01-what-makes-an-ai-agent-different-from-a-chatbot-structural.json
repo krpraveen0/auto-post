@@ -1,0 +1,12 @@
+{
+  "report_type": "deterministic_structural_validation",
+  "path": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
+  "publishing_schema_version": 3,
+  "word_count": 4300,
+  "estimated_read_minutes": 26,
+  "structural_coverage_score": 100,
+  "structural_threshold": 85,
+  "structurally_valid": true,
+  "critical_issues": [],
+  "note": "Structural coverage is not a reader-value or publication score."
+}

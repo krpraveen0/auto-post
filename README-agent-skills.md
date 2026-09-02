@@ -76,6 +76,13 @@ The orchestrator should call specialized skills in order:
 
 The course orchestrator should first create a course map, lesson sequence, project thread, and continuity checks. Then each lesson should pass through the normal article workflow.
 
+Structural automation and reader-value review are separate gates. Run
+`bash scripts/run_quality_pipeline.sh` to test executable examples, validate
+schema-3 lesson structure, and verify the hashes in every article manifest. A
+lesson can move to human review only after an evidence-backed editorial score of
+at least 85/100 with no critical issues. It is publishable only after a named
+human approves it and its Notion mirror is read back and verified.
+
 ## Core rule
 
 A Medium article is ready when it is:
@@ -85,6 +92,7 @@ A Medium article is ready when it is:
 - human
 - technically safe
 - visually supported
-- ready to publish without endless polishing
+- backed by reproducible examples and traceable evidence
+- explicitly approved by a human for publication
 
 A Medium course series is ready when each lesson is individually useful and the full sequence has clear progression, exercises, previous/next navigation, and a concrete learner outcome.

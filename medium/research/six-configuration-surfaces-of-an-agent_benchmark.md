@@ -1,6 +1,6 @@
 # Competitive Content Benchmark: Six Agent Configuration Surfaces
 
-Search date: 2026-09-02
+Search date: 2026-09-03
 
 Reader job: Make a tested agent release reproducible and review behavior-changing
 configuration diffs.
@@ -14,6 +14,7 @@ configuration diffs.
 | Chip Huyen, *Agents* | AI engineers seeking a technical agent framework | Connects tools, planning, failures, efficiency, and evaluation with concrete measures | Does not unify prompt, tool, model, retrieval, guardrail, and memory configuration into a release manifest | Experienced-practitioner synthesis backed by primary sources |
 | OpenAI Agents SDK documentation | Framework users implementing agents | Detailed runtime configuration, tool, and guardrail mechanics | Provider- and framework-oriented; not a provider-neutral release-review envelope | Primary official documentation |
 | JSON Schema documentation | Developers validating portable configuration | Precise structural validation semantics | Does not connect schema failure, resolved configuration, and behavioral evidence to agent release risk | Primary specification documentation |
+| Andrej Karpathy, *microgpt* | Developers and students who learn through reconstruction | Makes a small complete implementation inspectable, executable, and explainable line by line | Does not address configuration resolution or production release evidence | First-principles implementation with visible outputs |
 
 The *awesome-ml-blogs* repository was used to discover respected practitioner,
 university, research, and applied-engineering publications. It is not cited as
@@ -42,11 +43,13 @@ and an evaluation plan that ties each configuration change to release evidence.
 
 After reading the benchmarks, a reader can recognize common production system
 components and evaluation needs. After this lesson, the reader can additionally
-resolve layered configuration, reject silent defaults, classify a diff by risk,
-and select the exact tests required before the new agent release is trusted.
+run a strict layered resolver, reject unsafe overlays and malformed values,
+record exact component versions, reproduce a stable release hash, classify a
+diff by risk, and select the tests required before a release is trusted.
 
 ## Decision
 
-Proceed after adding configuration precedence, the complete validation schema,
-cross-surface interactions, change-impact analysis, and rollout evidence. These
-additions preserve the lesson's focused original contribution.
+Proceed to human review after the resolver tests, complete item constraints,
+unsafe-overlay fixture, cross-field policy failure, exact-version record, and
+resolution visual pass the package gate. These additions preserve the lesson's
+focused original contribution.

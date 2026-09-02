@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence-backed reader-value review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["review_schema_version", "article", "reviewer", "reviewed_at_utc", "reader_value_score", "threshold", "decision", "categories", "critical_issues"],
+  "properties": {
+    "review_schema_version": {"const": 2},
+    "article": {"type": "string", "minLength": 1},
+    "reviewer": {"type": "string", "minLength": 1},
+    "reviewed_at_utc": {"type": "string", "format": "date-time"},
+    "reader_value_score": {"type": "integer", "minimum": 0, "maximum": 100},
+    "threshold": {"const": 85},
+    "decision": {"enum": ["revise", "hold", "ready_for_human_review", "approved"]},
+    "categories": {
+      "type": "array", "minItems": 8,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "score", "maximum", "evidence"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "score": {"type": "integer", "minimum": 0},
+          "maximum": {"type": "integer", "minimum": 1},
+          "evidence": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "critical_issues": {"type": "array", "items": {"type": "string"}},
+    "human_approved": {"type": "boolean"}
+  }
+}

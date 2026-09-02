@@ -9,6 +9,13 @@ on:
 permissions:
   contents: read
 
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+concurrency:
+  group: daily-medium-course-quality
+  cancel-in-progress: false
+
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -23,10 +30,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12.13"
 
       - name: Run unit tests
-        run: python -m unittest discover -s tests
+        run: |
+          python -m pip install -r requirements.txt
+          python -m unittest discover -s tests
+          while IFS= read -r example_dir; do
+            python -m unittest discover -s "$example_dir" -v
+          done < <(find medium/examples/agentic-ai-engineering -mindepth 1 -maxdepth 1 -type d -name 'part-*' | sort)
 
       - name: Audit publishing-schema lessons
         run: |
@@ -36,15 +48,19 @@ jobs:
             --require-schema 3 \
             --report-dir "$REPORT_DIR"
 
-      - name: Upload reader-value reports
+      - name: Validate article package integrity
+        run: |
+          mapfile -t manifests < <(find "$COURSE_ROOT" -name '*.json' -type f | sort)
+          python scripts/validate_article_package.py "${manifests[@]}"
+
+      - name: Upload structural validation reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: medium-course-reader-value-reports
+          name: medium-course-structural-reports
           path: quality-reports/**
           if-no-files-found: ignore
 
-# The cloud job validates content; it does not author or publish it. Codex creates
-# the Notion draft and portable Markdown package, then a human approves release.
-# No model API key, desktop application, office format, or write permission is
-# required here.
+# The Linux job validates structure, executable examples, and package integrity;
+# it does not assign reader value, author prose, or publish. No desktop
+# application, office format, model API key, or write permission is required.

@@ -1,53 +1,32 @@
-# Part 02 Global Reader-Value Review
+# Part 02 Evidence-Backed Reader-Value Review
 
 Article: `2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md`
 
 Audience: Fellow developers and students
 
-Decision: **Publish — 100/100**
+Decision: **Ready for human review — 91/100**
 
-Minimum publishing threshold: **85/100**
+Human publication approval: **Pending**
 
 Critical issues: **0**
 
-Reader-facing body: **4,171 words — approximately 25 minutes**
+Reader-facing body: **4,391 words — approximately 26 minutes**
 
-## Reader-Value Evidence
+## Why the Revision Clears 85
 
-- The six-surface model gives readers a compact diagnostic for prompts, tools,
-  model settings, retrieval, guardrails, and memory.
-- A resolved-configuration pipeline shows why a repository YAML file is not
-  sufficient evidence of the runtime system that handled a request.
-- The displayed strict JSON Schema, cross-surface change matrix, and six-stage
-  release-evidence ladder connect configuration structure to behavioral trust.
-- Three observable outcomes align with the worked configuration, design
-  exercise, self-check, retrieval questions, and transfer prompt.
-- The configuration-surface diagram is available as editable Draw.io/XML and
-  exported PNG/SVG, with equivalent alt text and a takeaway caption.
-- The YAML example was parsed and validated against a strict JSON Schema in the
-  documented Python, PyYAML, and jsonschema environment; missing and misspelled
-  surfaces were confirmed to fail.
-- Ten direct sources support the technical, release, and safety claims; no
-  unresolved evidence markers remain.
-- The benchmark studies Chip Huyen, Eugene Yan, official framework guidance, and
-  primary specification material while preserving the original six-surface
-  release-envelope contribution.
-- Publishing-schema-3 metadata records authorship, AI assistance, tags, status,
-  canonical strategy, and the verification date.
+- The configuration resolver, safe and unsafe overlays, full schema, expected
+  release record, and six tests are checked-in reader artifacts.
+- Arrays constrain element types, temperature is bounded and qualified as an
+  example-specific provider rule, and unknown fields fail.
+- The strict merge rejects security-sensitive production overrides.
+- Cross-field validation rejects a mutating allowed tool while mutation policy
+  remains `deny`.
+- Exact prompt, model, and tool versions enter a deterministic resolved hash.
+- A second visual explains where unsafe configuration is rejected before model
+  execution.
 
-## Category Result
+## Remaining Human Gate
 
-All ten reader-value categories score **10/10**: promise, outcomes, scaffolding,
-reproducibility, learning practice, evidence, visual accessibility, editorial
-clarity, publishing metadata, and series continuity.
-
-The machine-readable result is stored in
-`2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent-reader-value.json`.
-
-## Reader Verdict
-
-Part 02 clears the long-form depth gate through configuration resolution,
-validation limits, cross-surface failures, and staged release evidence. Readers
-leave with a memorable model and a practical method for determining which tests
-a configuration change invalidates. It is ready for a final human proofread and
-platform preview.
+The named author must inspect the complete code and visual rendering, confirm the
+scope boundary with Parts 13–14, verify the Notion copy, and approve publication.
+The automated structural report does not substitute for that decision.

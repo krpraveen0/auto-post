@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">A bounded agent state machine makes every exit explicit</title>
+  <desc id="desc">A running task consumes a step before policy evaluation. Allowed actions execute, approval-gated actions wait, denied actions stop, repeated tool failures fail, exhausted budgets stop, and only verified goals succeed.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#64748b"/></marker>
+    <filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0f172a" flood-opacity=".12"/></filter>
+    <style>.h{font:700 38px Arial;fill:#0f172a}.s{font:400 20px Arial;fill:#475569}.t{font:700 22px Arial;fill:#0f172a}.b{font:400 17px Arial;fill:#334155}.a{stroke:#64748b;stroke-width:3;fill:none;marker-end:url(#arrow)}.d{stroke:#ef4444;stroke-width:3;stroke-dasharray:10 8;fill:none;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <text x="70" y="65" class="h">A bounded loop is a state machine, not a promise</text>
+  <text x="70" y="100" class="s">Each proposal consumes budget before policy or tool execution; every branch has a visible terminal condition.</text>
+  <g filter="url(#shadow)"><rect x="90" y="300" width="250" height="130" rx="24" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/></g>
+  <text x="215" y="350" text-anchor="middle" class="t">RUNNING</text><text x="215" y="382" text-anchor="middle" class="b">consume one step</text><text x="215" y="408" text-anchor="middle" class="b">authorize proposal</text>
+  <g filter="url(#shadow)"><rect x="485" y="180" width="250" height="130" rx="24" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/></g>
+  <text x="610" y="230" text-anchor="middle" class="t">WAITING</text><text x="610" y="262" text-anchor="middle" class="b">approval must match</text><text x="610" y="288" text-anchor="middle" class="b">the pending operation</text>
+  <g filter="url(#shadow)"><rect x="485" y="420" width="250" height="130" rx="24" fill="#e0e7ff" stroke="#6366f1" stroke-width="3"/></g>
+  <text x="610" y="470" text-anchor="middle" class="t">EXECUTING</text><text x="610" y="502" text-anchor="middle" class="b">stable operation ID</text><text x="610" y="528" text-anchor="middle" class="b">observable result</text>
+  <g filter="url(#shadow)"><rect x="900" y="145" width="250" height="120" rx="24" fill="#fee2e2" stroke="#ef4444" stroke-width="3"/></g>
+  <text x="1025" y="195" text-anchor="middle" class="t">STOPPED</text><text x="1025" y="228" text-anchor="middle" class="b">denied or no budget</text>
+  <g filter="url(#shadow)"><rect x="900" y="375" width="250" height="120" rx="24" fill="#fee2e2" stroke="#ef4444" stroke-width="3"/></g>
+  <text x="1025" y="425" text-anchor="middle" class="t">FAILED</text><text x="1025" y="458" text-anchor="middle" class="b">failure budget exhausted</text>
+  <g filter="url(#shadow)"><rect x="900" y="610" width="250" height="120" rx="24" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/></g>
+  <text x="1025" y="660" text-anchor="middle" class="t">SUCCEEDED</text><text x="1025" y="693" text-anchor="middle" class="b">goal independently verified</text>
+  <path class="a" d="M340 330C400 280 430 250 485 245"/><text x="388" y="260" class="b">approval required</text>
+  <path class="a" d="M610 310V420"/><text x="625" y="370" class="b">approved</text>
+  <path class="a" d="M340 390C405 425 430 455 485 470"/><text x="370" y="445" class="b">allowed</text>
+  <path class="a" d="M735 470C790 445 825 430 900 430"/><text x="760" y="420" class="b">failures exhausted</text>
+  <path class="a" d="M735 500C815 560 835 650 900 665"/><text x="760" y="585" class="b">verified</text>
+  <path class="a" d="M735 450C820 360 810 230 900 205"/><text x="755" y="300" class="b">budget exhausted</text>
+  <path class="d" d="M485 520C390 610 255 570 215 430"/><text x="285" y="600" class="b">retry unknown outcome with same ID</text>
+  <path class="d" d="M340 315C520 100 770 100 900 180"/><text x="535" y="135" class="b">policy denial</text>
+  <rect x="140" y="790" width="1320" height="70" rx="18" fill="#eef2ff" stroke="#a5b4fc" stroke-width="2"/>
+  <text x="800" y="833" text-anchor="middle" class="t">The model proposes. Policy authorizes. Tools act. State decides whether the task may continue.</text>
+</svg>

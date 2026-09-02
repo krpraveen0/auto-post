@@ -1,0 +1,16 @@
+{
+  "status": "review-draft",
+  "canonical_source": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
+  "title": "What Makes an AI Agent Different from a Chatbot?",
+  "subtitle": "Trace the control boundary before you add tools, memory, or autonomy",
+  "description": "A tested control-boundary model for deciding whether a system is a chatbot, deterministic workflow, or bounded agent.",
+  "disclosure": "Developed with AI assistance; technical claims, examples, and sources require final approval by the named human author.",
+  "medium": {"topics": ["Artificial Intelligence", "Software Engineering", "AI Agents", "System Design"], "canonical_url": null, "preview_status": "pending-human-preview"},
+  "dev": {"tags": ["ai", "softwarearchitecture", "python", "tutorial"], "series": "Agentic AI Engineering", "canonical_url": null, "preview_status": "pending-human-preview"},
+  "hashnode": {"series": "Agentic AI Engineering", "seo_title": "AI Agent vs Chatbot: A Tested Control-Boundary Model", "seo_description": "Learn to distinguish chatbots, workflows, and bounded agents using an executable Python state machine.", "original_url": null, "preview_status": "pending-human-preview"},
+  "owned_site": {"canonical_url": null, "preview_status": "pending-human-preview"},
+  "visuals": [
+    {"asset": "medium/visuals/exported/agentic-ai-engineering-part-01-state-machine.svg", "caption": "Budget, approval, failure, and verification are explicit state transitions.", "alt": "A bounded agent state machine with waiting, execution, stopped, failed, and verified-success states."},
+    {"asset": "medium/visuals/exported/agentic-ai-engineering-part-01-control-boundary.svg", "caption": "The interface can stay the same while control ownership changes.", "alt": "A chatbot, deterministic workflow, and bounded agent behind the same chat interface."}
+  ]
+}

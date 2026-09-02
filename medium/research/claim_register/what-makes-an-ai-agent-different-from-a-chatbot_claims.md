@@ -1,6 +1,6 @@
 # Claim Register: What Makes an AI Agent Different from a Chatbot?
 
-Verified: 2026-09-02
+Verified: 2026-09-03
 
 ## Claim 1
 
@@ -116,3 +116,25 @@ every private model-internal thought should be recorded
 
 Use in article: Define the minimum operational trace without requesting hidden
 chain-of-thought
+
+## Claim 7
+
+Claim: The lesson's reference state machine stops on denial or exhausted step
+budget, waits for a matching approval, rejects unverified completion, and reuses
+one operation identifier after an unknown mutation outcome.
+
+Source: [Part 01 executable tests](../../examples/agentic-ai-engineering/part-01/test_bounded_agent.py)
+
+Source type: Original reproducible experiment
+
+Confidence: High for the checked-in deterministic implementation
+
+Safe wording: Seven tests passed with Python 3.12.13 on 2026-09-03; the example
+demonstrates control-state behavior and does not implement production identity,
+storage, or distributed transaction guarantees.
+
+Risk if overstated: Treating an instructional state machine as a production
+authorization service
+
+Use in article: Support the worked state transitions, expected trace, tested
+environment, and explicit implementation limitations

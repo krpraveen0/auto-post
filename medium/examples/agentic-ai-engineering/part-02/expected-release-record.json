@@ -1,0 +1,14 @@
+{
+  "agent_id": "release-analyst",
+  "components": {
+    "model": "provider-model-2026-08-15",
+    "prompt": "release-analyst-v2@sha256:8b7f0d1",
+    "tools": {
+      "read_release_notes": "read_release_notes@1.3.0",
+      "read_test_summary": "read_test_summary@1.1.0",
+      "request_clarification": "request_clarification@1.0.0"
+    }
+  },
+  "config_version": "0.2.0",
+  "resolved_config_sha256": "f42a0bf2481a24de694ae8fde91a994dfaf9070043617c227e4a11e4e9c369e3"
+}

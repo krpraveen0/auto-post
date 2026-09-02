@@ -119,8 +119,10 @@ Publishing package:
 - The series must include previous/next navigation and a course index.
 - Visuals must explain a relationship, decision, or sequence; decorative or
   placeholder visuals do not satisfy the gate.
-- Target 90+/100 reader-value points. Publishing requires at least 85/100 and
-  zero critical failures.
+- Target 90+/100 evidence-backed reader-value points. Publishing requires at
+  least 85/100, zero critical failures, and explicit human approval. The
+  deterministic Markdown validator measures structural coverage only and must
+  never create or approve the reader-value score.
 - Every lesson contains at least 3,000 reader-facing body words and targets an
   approximately 18-minute technical read. Additional length must provide
   evidence, implementation, failure analysis, comparison, or practice—not

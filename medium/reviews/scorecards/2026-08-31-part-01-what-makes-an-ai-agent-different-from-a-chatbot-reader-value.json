@@ -1,64 +1,21 @@
 {
-  "path": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
-  "publishing_schema_version": 3,
-  "word_count": 4057,
-  "estimated_read_minutes": 24,
-  "total_score": 100,
-  "target_score": 90,
+  "review_schema_version": 2,
+  "article": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
+  "reviewer": "Codex independent technical-editorial review",
+  "reviewed_at_utc": "2026-09-02T23:29:40Z",
+  "reader_value_score": 90,
   "threshold": 85,
-  "publishable": true,
-  "criteria": [
-    {
-      "name": "Reader promise and original value",
-      "score": 10,
-      "evidence": "Specific title, authentic problem, and explicit value beyond summary."
-    },
-    {
-      "name": "Observable outcomes and alignment",
-      "score": 10,
-      "evidence": "3 outcomes; 3 use observable verbs."
-    },
-    {
-      "name": "Prior knowledge, scaffolding, and mental model",
-      "score": 10,
-      "evidence": "Prerequisites, activation prompt, and one durable model."
-    },
-    {
-      "name": "Technical depth and reproducibility",
-      "score": 10,
-      "evidence": "Worked reasoning; 1 code fences; tested environment with versions=True."
-    },
-    {
-      "name": "Practice, feedback, retrieval, and transfer",
-      "score": 10,
-      "evidence": "Practice and self-check; 4 retrieval questions; transfer=True."
-    },
-    {
-      "name": "Evidence, trust, and limitations",
-      "score": 10,
-      "evidence": "10 source links; 0 unresolved markers; limitations=True."
-    },
-    {
-      "name": "Visual explanation and accessibility",
-      "score": 10,
-      "evidence": "Real visual, equivalent alt text, caption, descriptive links; 0 oversized paragraphs."
-    },
-    {
-      "name": "Global editorial clarity",
-      "score": 10,
-      "evidence": "Consistent global English, defined terminology, and an estimated 24-minute technical read."
-    },
-    {
-      "name": "Platform metadata and disclosure",
-      "score": 10,
-      "evidence": "Portable metadata, early AI disclosure, and canonical strategy."
-    },
-    {
-      "name": "Series continuity and next action",
-      "score": 10,
-      "evidence": "Previous/index/next navigation, recap, and next-lesson bridge."
-    }
+  "decision": "ready_for_human_review",
+  "human_approved": false,
+  "categories": [
+    {"name": "Reader promise and original contribution", "score": 11, "maximum": 12, "evidence": "The control-ownership test and reusable boundary card give readers a decision artifact beyond a definition survey."},
+    {"name": "Technical correctness and nuance", "score": 16, "maximum": 18, "evidence": "The corrected state machine consumes budgets, fails closed on denial, matches approvals, preserves operation identity, and refuses unverified completion; production persistence and identity verification remain explicit limitations."},
+    {"name": "Knowledge depth and progression", "score": 14, "maximum": 16, "evidence": "The lesson progresses from interface ambiguity to operational definition, loop, state machine, worked trace, failure boundaries, and architecture choice without requiring a framework."},
+    {"name": "Reproducibility and runnable evidence", "score": 14, "maximum": 16, "evidence": "A standard-library implementation and seven deterministic tests cover success, approval, denial, failure exhaustion, unknown outcome retry, budget termination, and false completion."},
+    {"name": "Failures, trade-offs, and evaluation", "score": 11, "maximum": 12, "evidence": "The trace and failure table separate planning, policy, tool, state, distributed-write, and verification failures while explaining when a deterministic workflow is preferable."},
+    {"name": "Pedagogy and transfer", "score": 9, "maximum": 10, "evidence": "Observable outcomes align with the worked case, boundary-card exercise, self-check, retrieval questions, and transfer prompt."},
+    {"name": "Visual explanation and accessibility", "score": 7, "maximum": 8, "evidence": "Two captioned SVG diagrams provide a system comparison and state-transition view with equivalent descriptions and editable Draw.io sources."},
+    {"name": "Evidence and publishing trust", "score": 8, "maximum": 8, "evidence": "Primary guidance, bounded practitioner synthesis, a claim register, tested versions, AI disclosure, and explicit implementation limitations support reader trust."}
   ],
-  "critical_issues": [],
-  "recommendations": []
+  "critical_issues": []
 }

@@ -6,67 +6,66 @@ Lesson:
 
 Reviewer:
 
-## Reader-Value Scores
+Review time:
 
-| Category | Score / 10 | Notes |
-|---|---:|---|
-| Reader promise and original value |  |  |
-| Observable outcomes and alignment |  |  |
-| Prior knowledge, scaffolding, and mental model |  |  |
-| Technical depth and reproducibility |  |  |
-| Practice, feedback, retrieval, and transfer |  |  |
-| Evidence, trust, and limitations |  |  |
-| Visual explanation and accessibility |  |  |
-| Global editorial clarity |  |  |
-| Platform metadata and disclosure |  |  |
-| Series continuity and next action |  |  |
-| **Total** | **/ 100** | Target: 90; publishing floor: 85 |
+Structural report:
 
-Scoring rule: 8 means publishable, 9 means unusually strong, and 10 requires
-clear evidence that the lesson creates reader value beyond explanation alone.
-Do not use the total to hide a critical defect.
+## Evidence-Backed Reader-Value Scores
+
+| Category | Maximum | Score | Evidence from the article or artifact |
+|---|---:|---:|---|
+| Reader promise and original contribution | 12 |  |  |
+| Technical correctness and nuance | 18 |  |  |
+| Knowledge depth and progression | 16 |  |  |
+| Reproducibility and runnable evidence | 16 |  |  |
+| Failures, trade-offs, and evaluation | 12 |  |  |
+| Pedagogy and transfer | 10 |  |  |
+| Visual explanation and accessibility | 8 |  |  |
+| Evidence and publishing trust | 8 |  |  |
+| **Total** | **100** | **/100** | Target: 90; publishing floor: 85 |
+
+Scores require concrete evidence. A section heading, word count, code fence, or
+source count proves structural presence only. It cannot prove correctness,
+originality, reproducibility, or reader value.
 
 ## Critical Gates
 
 - [ ] Reader-facing body contains at least 3,000 useful words and provides an
   approximately 18-minute technical reading experience.
-- [ ] A short reading path helps readers navigate the long-form article.
-- [ ] The competitive benchmark reviews at least three strong resources and
-  records a defensible original contribution without imitating another writer.
-- [ ] No unresolved `[SOURCE NEEDED]` markers.
-- [ ] No placeholder visual guidance remains in the article.
-- [ ] Every technical command and code sample was checked.
-- [ ] Tested versions, environment, expected output, and verification date are recorded.
-- [ ] The visual is present, legible, captioned, and has useful alt text.
-- [ ] The exercise includes expected output and check-your-work criteria.
-- [ ] The Markdown snapshot and Notion page represent the same revision.
-- [ ] No secrets, private data, unsafe defaults, or fabricated citations.
-- [ ] The byline and material AI-assistance disclosure are accurate.
-- [ ] The canonical-link strategy prevents ambiguous cross-posting.
-- [ ] Headings, links, code fences, language, and visuals remain portable across
-  Medium, DEV, Hashnode, Notion, and a standards-based website.
+- [ ] No repeated-filler or near-duplicate-prose failure.
+- [ ] Competitive benchmark identifies a defensible original contribution.
+- [ ] Every central code or configuration claim has a runnable artifact and test.
+- [ ] Expected output and at least one relevant failure output were reproduced.
+- [ ] No unresolved technical contradiction, unsafe example, fabricated
+  experience, citation, measurement, or URL.
+- [ ] Claim register maps consequential claims to primary evidence or a
+  reproducible original experiment.
+- [ ] Visuals explain necessary relationships or sequences, remain legible, and
+  include equivalent alt text and takeaway captions.
+- [ ] Markdown, manifest hashes, and Notion read-back represent the same revision.
+- [ ] Platform metadata, disclosure, canonical strategy, and previews pass.
+- [ ] The named human author reviewed and approved the package.
 
-## Required Changes
+A failed critical gate caps the decision below publication regardless of total.
 
-1.
-2.
-3.
+## Specialist Reviews
 
-## Continuity Checks
+Technical architecture:
 
-Previous lesson referenced:
+Evidence:
 
-Next lesson bridge included:
+Pedagogy and cognitive load:
 
-Project thread advanced:
+Human voice and author-experience verification:
 
-Unexplained future concepts removed:
+Visual and accessibility:
 
-## Final Recommendation
+Global English and platform policy:
 
-- Publish: score 85 or higher and zero critical failures.
-- Revise: useful draft, but below threshold or one or more fixable failures.
-- Hold: central promise, evidence, safety, or technical correctness is unsound.
+## Decision
 
-The score is a release checklist, not proof of superiority. Record reader
-completion, saves, exercise attempts, questions, and corrections after release.
+Hold / Revise / Ready for human review / Approved
+
+Human approver:
+
+Approval time:

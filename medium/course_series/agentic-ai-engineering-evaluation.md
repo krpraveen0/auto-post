@@ -29,12 +29,13 @@ The course plan is strong enough to support a Medium course series after the new
 
 ## Required Gate Before Publishing Each Lesson
 
-1. Run `scripts/validate_course_lesson.py` and require at least 85/100 with zero
-   critical issues.
+1. Run `scripts/validate_course_lesson.py` and require structural validity with
+   zero critical issues. Its coverage score is not the reader-value score.
 2. Confirm the observable outcomes align to the worked example and exercise.
 3. Resolve every `[SOURCE NEEDED]` marker and verify technical code/commands.
 4. Inspect the real explanatory visual, its alt text, and its caption.
 5. Read the Notion page back and compare it with the canonical Markdown snapshot.
 6. Check the current target-platform rules, disclosure, canonical strategy, and
    desktop/mobile preview.
-7. Complete human technical and editorial review before publishing.
+7. Complete evidence-backed specialist reviews, require at least 85/100 with
+   zero critical failures, and obtain named human approval before publishing.

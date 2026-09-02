@@ -1,0 +1,5 @@
+model:
+  id: stable-model
+  max_output_tokens: 1600
+retrieval:
+  max_results: 6
