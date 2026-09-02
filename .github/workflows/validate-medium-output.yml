@@ -4,11 +4,14 @@ on:
   pull_request:
     paths:
       - ".github/workflows/validate-medium-output.yml"
+      - ".github/workflows/daily-medium-course-quality.yml"
       - "medium/generated/**"
       - "medium/course_series/**"
+      - "medium/templates/**"
+      - ".github/instructions/**"
+      - ".github/skills/medium-course-orchestrator/**"
       - "scripts/**"
       - "tests/**"
-      - "requirements.txt"
   workflow_dispatch:
 
 permissions:
@@ -21,21 +24,48 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libreoffice poppler-utils
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
-
       - name: Run unit tests
         run: python -m unittest discover -s tests
 
-      - name: Validate and render generated DOCX files
-        run: python scripts/validate_generated_docx.py --root medium/generated --render
+      - name: Enforce publishing schema 3 on changed course lessons
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          mapfile -t lessons < <(
+            git diff --name-only --diff-filter=AM "$BASE_SHA" "$GITHUB_SHA" -- \
+              'medium/generated/**/*.md'
+          )
+          if [ "${#lessons[@]}" -eq 0 ]; then
+            echo "No changed generated lessons to score."
+            exit 0
+          fi
+          python scripts/validate_course_lesson.py \
+            --require-schema 3 \
+            --report-dir quality-reports \
+            "${lessons[@]}"
+
+      - name: Audit all current-schema lessons on manual runs
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python scripts/validate_course_lesson.py \
+            --root medium/generated \
+            --discover-current \
+            --require-schema 3 \
+            --report-dir quality-reports
+
+      - name: Upload reader-value reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reader-value-reports
+          path: quality-reports/**
+          if-no-files-found: ignore

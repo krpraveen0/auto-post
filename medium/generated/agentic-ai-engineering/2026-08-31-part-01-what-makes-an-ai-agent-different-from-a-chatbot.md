@@ -1,8 +1,24 @@
+---
+publishing_schema_version: 3
+title: What Makes an AI Agent Different from a Chatbot?
+subtitle: Trace the control boundary before you add tools, memory, or autonomy
+author: Praveen Kumar
+slug: what-makes-an-ai-agent-different-from-a-chatbot
+status: reviewed-draft
+tags: ai-agents, architecture, safety, software-engineering
+canonical_strategy: set-on-first-publication
+ai_assistance: AI-assisted drafting and editorial review with human publication responsibility
+last_verified: 2026-09-02
+---
 # What Makes an AI Agent Different from a Chatbot?
 
 *Part 1 of Agentic AI Engineering: define the control boundary before you add tools, memory, or autonomy.*
 
 **Series navigation:** Previous: Course index (this is the first lesson) | Course index: Agentic AI Engineering | Next: Part 2 — The Six Configuration Surfaces of an Agent
+
+*Disclosure: This draft was developed with AI assistance. Its technical claims,
+examples, and sources were checked during editorial preparation; the named author
+remains responsible for the final publication.*
 
 A demo once told me it had “resolved” a customer’s delivery problem. The response was polished. It summarized the complaint, apologized, and said a replacement had been arranged.
 
@@ -12,15 +28,36 @@ The system had no order lookup, no replacement tool, and no durable record of th
 
 That distinction is the foundation of this course. An agent is not a chatbot with a more ambitious system prompt. It is a system allowed to choose and perform actions inside an explicit boundary, while carrying enough state to decide what should happen next.
 
+In this article, you will use control flow—not marketing language—to separate a
+chatbot, a deterministic workflow, and a bounded agent. You will leave with a
+boundary card that can be reviewed before anyone connects a model to a real tool.
+
 The useful engineering question is therefore not, “Does this feel agentic?” It is: **What can this system observe, decide, change, remember, and stop?**
+
+## Reading Path
+
+If you are new to agents, read the article in order and keep the five-part loop
+beside you during the worked example. If you already build model-backed systems,
+start with **Definitions Vary—Declare Yours**, then examine the state machine,
+failure table, and design-choice matrix. The exercise converts all three paths
+into the same deliverable: a boundary card that Part 2 will make versionable.
 
 ## Learning Outcomes
 
 By the end of this lesson, you will be able to:
 
 1. Distinguish a chatbot, a deterministic workflow, and an agent by their control flow rather than their interface.
-2. Describe an agent as a bounded loop of observation, decision, action, state update, and stopping.
-3. Write a one-page boundary specification that makes autonomy reviewable before implementation.
+2. Trace an agent through a bounded loop of observation, decision, action, state update, and stopping.
+3. Design a one-page boundary specification that makes autonomy reviewable before implementation.
+
+## Before You Start
+
+You do not need an agent framework for this lesson. You should be comfortable
+with functions, API calls, and the difference between reading and changing data.
+
+Before continuing, recall one automation you have built or used. Who selected its
+next step: fixed application code, a human, or a model at runtime? Keep that
+example in mind; you will classify it again after learning the bounded-loop model.
 
 ## A Chat Interface Tells You Almost Nothing
 
@@ -34,11 +71,64 @@ An **agent** uses a model or another policy component to choose among permitted 
 
 These are not prestige levels. A workflow is often the better design when the rules are stable and the cost of improvisation is high. A chatbot is often sufficient when the user only needs explanation. Calling everything an agent hides the exact control decision that deserves review.
 
-There is no single universally accepted industry definition that cleanly separates every agent from every workflow. [SOURCE NEEDED: compare primary definitions of AI agents across standards or major platform documentation.] For this course, we will use an operational definition that can be tested in code:
+There is no single universally accepted definition that cleanly separates every
+agent from every workflow. Anthropic distinguishes workflows, whose paths are
+predefined in code, from agents, whose models dynamically direct their processes
+and tool use. OpenAI's Agents SDK describes an agent through instructions, tools,
+and optional runtime behavior such as guardrails and handoffs. Those descriptions
+overlap without being identical, so this course uses an operational definition
+that can be traced in code:
 
 > An agent is a bounded software system that chooses its next action from an allowed set, observes the result, updates task state, and repeats until a stop condition is met.
 
 The word **bounded** does most of the safety work in that sentence.
+
+## Definitions Vary—Declare Yours
+
+Agent terminology changes depending on what a writer is trying to analyze. A
+classical artificial-intelligence definition starts with an entity that perceives
+an environment and acts on it. Chip Huyen uses that broad frame in *Agents* and
+emphasizes the relationship between an environment, an available tool inventory,
+and a model that plans. Under that definition, even a retrieval-augmented
+generation system can be described as a simple agent because retrieval and
+response generation are actions available inside its environment.
+
+Anthropic draws a narrower engineering line. Its workflow follows paths selected
+in code, while its agent lets a model direct the process and decide how tools are
+used. That definition focuses attention on runtime control ownership rather than
+on whether the system has components that could be called actions.
+
+Neither framing is automatically wrong. They answer different questions. The
+broad definition helps compare agent architectures across robotics,
+reinforcement learning, and foundation-model systems. The narrower definition is
+often more useful during an application review because it exposes where a
+probabilistic model changes control flow.
+
+Consider two retrieval systems. The first always embeds a query, retrieves five
+documents from one index, and gives those documents to a model. Its sequence is
+fixed even though retrieval is a tool-like action. This course classifies it as
+a workflow. The second can ask for clarification, choose keyword or vector
+search, change filters after inspecting results, and stop when evidence remains
+insufficient. This course classifies it as a bounded agent because the model can
+select a different next action after each observation.
+
+The practical lesson is not to win a naming argument. Put your operational
+definition in the design document, then show the control graph. A reviewer should
+be able to tell which transitions are fixed, which are selected by a model, and
+which are rejected by application policy. If the diagram and trace are clear,
+the label becomes less dangerous.
+
+## Mental Model
+
+Think of an agent as two layers. The inner layer is a five-part control loop:
+observe, decide, act, update state, and stop. The outer layer is a boundary that
+constrains observations, tools, persisted state, approvals, budgets, and stop
+conditions. The model may choose inside that boundary; application code owns the
+boundary itself.
+
+This model gives you two review questions: **Who selects the next action?** and
+**What prevents that choice from escaping its authority?** The first separates a
+workflow from an agent. The second separates a bounded agent from an unsafe loop.
 
 ## The Five-Part Agent Loop
 
@@ -66,6 +156,75 @@ The loop ends because the goal is satisfied, the user must decide, an error is n
 
 If one of these responsibilities is missing, name the missing piece instead of stretching the word agent. A model that proposes tool calls but never executes them is an assistant with action suggestions. A fixed sequence that cannot choose a different next step is a workflow. A loop with no bounded action set or stop rule is an incident waiting to happen.
 
+## Turn the Boundary into a State Machine
+
+The five-part loop is useful only if it can be represented as state and
+transitions. Otherwise, “observe, decide, act” remains a story told after the run
+rather than a contract enforced during it.
+
+A minimal task state needs more than conversation messages. It should make the
+goal, evidence, approval status, budgets, and terminal status independently
+inspectable. The surrounding application—not the model—should own the transition
+function.
+
+```python
+state = TaskState.new(
+    goal=request.goal,
+    allowed_actions={"lookup_employee", "inspect_access", "create_access_ticket"},
+    remaining_steps=8,
+)
+
+while state.status == "running":
+    observation = observe(state)
+    proposal = model.choose_next_action(state.summary(), observation)
+    decision = policy.authorize(
+        actor=request.actor,
+        task=state,
+        proposed_action=proposal,
+    )
+
+    trace.record(observation=observation, proposal=proposal, decision=decision)
+
+    if decision.kind == "deny":
+        state = transition(state, event="policy_denied", detail=decision.reason)
+        continue
+
+    if decision.kind == "require_approval":
+        state = transition(state, event="approval_requested", detail=decision.id)
+        continue
+
+    result = tools.execute(proposal, idempotency_key=state.next_operation_id())
+    state = transition(state, event="tool_completed", detail=result)
+
+    if goal_is_verified(state):
+        state = transition(state, event="goal_satisfied")
+```
+
+This is deliberately pseudocode rather than a framework tutorial. The important
+architecture is visible in the ownership boundaries:
+
+- The model proposes an action; it does not authorize or execute it.
+- Policy evaluates the authenticated actor, current task, and proposed
+  parameters—not merely the tool name.
+- The trace records the proposal and the policy decision before execution.
+- A mutating operation receives an idempotency key so a timeout can be
+  investigated without blindly repeating the write.
+- Only the transition function changes durable task state.
+- Completion requires verified evidence in state, not a model statement that the
+  task is complete.
+
+Those rules are **invariants**: conditions that must remain true across every
+transition. For the access agent, useful invariants include “a ticket belongs to
+the current employee,” “an approval refers to the current ticket version,” and
+“a success status contains the access service's confirmation identifier.” An
+agent can choose among actions, but it cannot choose to relax an invariant.
+
+The state machine also makes waiting a real state. When manager approval is
+needed, the system should persist `waiting_for_approval` and release compute. It
+should not keep calling the model to rediscover that approval is missing. When an
+approval event arrives, application code verifies its identity and version,
+transitions the task back to `running`, and only then asks for another decision.
+
 ## Boundaries Matter More Than Personality
 
 Teams often start an agent design by polishing its role: “You are an expert operations analyst.” That may influence responses, but it does not establish the system’s authority.
@@ -80,7 +239,12 @@ A useful boundary specification answers five concrete questions:
 
 This turns “autonomy” from a mood into a contract. The agent may have freedom inside the contract, but the surrounding software owns authentication, authorization, validation, budgets, and audit records.
 
-Treat tool output as input, not as authority. A web page, document, ticket, or tool error can contain misleading instructions or malformed data. [SOURCE NEEDED: primary security guidance on prompt injection and untrusted tool or retrieval content.] The agent can reason about that content, but application controls must still decide what the tool is allowed to do.
+Treat tool output as input, not as authority. A web page, document, ticket, or
+tool error can contain misleading instructions or malformed data. OWASP's prompt
+injection guidance recommends validating tool calls against user permissions and
+session context, restricting tool access by least privilege, and retaining human
+approval for high-risk operations. The agent can reason about untrusted content,
+but application controls must still decide what the tool is allowed to do.
 
 ## Worked Example
 
@@ -131,13 +295,109 @@ stop_reason: null
 
 Notice what is absent: hidden claims of success. The state says what the system has evidence for and what still blocks completion.
 
-## Visual Guidance
+### Read the Run as a Trace
 
-Create an **agent capability map** with three left-to-right lanes: Chatbot, Deterministic Workflow, and Bounded Agent. Use five columns labeled Observe, Decide, Act, Update State, and Stop. Show the chatbot producing a response without an external action; show the workflow following a fixed route; show the agent looping from tool result back to decision. Draw a visible boundary around the agent’s allowed tools, with an approval gate before any permission-changing action.
+A final answer is not enough to debug an agent. You need a trace that reconstructs
+what the system knew, proposed, was permitted to do, observed, and changed. A
+compact trace for the access example might look like this:
 
-**Caption:** The interface may look identical, but control flow separates a chatbot, a workflow, and an agent.
+| Step | Observation | Proposed action | Policy result | State change |
+|---:|---|---|---|---|
+| 1 | Employee ID supplied | `lookup_employee(E-1042)` | Allow: read-only | Identity record attached |
+| 2 | Employee and device match | `inspect_access(E-1042)` | Allow: read-only | Missing entitlement recorded |
+| 3 | Entitlement is absent | `create_access_ticket(...)` | Allow: proposal-only write | Ticket `T-8821` recorded |
+| 4 | Ticket needs manager approval | `request_approval(T-8821)` | Allow | Status becomes waiting |
+| 5 | Signed approval event arrives | `verify_ticket(T-8821)` | Allow: read-only | Approval version attached |
+| 6 | Access service reports completion | Finish | Allow only because confirmation exists | Goal satisfied |
 
-**Alt text:** Comparison diagram showing a chatbot generating text, a workflow following fixed steps, and a bounded agent choosing tools in an observe-decide-act-state loop with approval and stop conditions.
+The trace does not need to expose private chain-of-thought. It needs operational
+facts: inputs made available, selected tool and parameters, authorization
+decision, latency, result status, state transition, model/configuration version,
+and correlation identifiers. These facts let an engineer ask whether the failure
+originated in planning, policy, the tool, or state handling.
+
+Observability should begin at the first implementation, not after deployment.
+Chip Huyen's generative-AI platform analysis separates metrics, logs, and traces;
+the same distinction applies here. Metrics reveal patterns such as rising denial
+rates or step counts. Logs record discrete events. A trace connects events into
+one task path. You need all three to move from “the agent behaved strangely” to
+a testable failure hypothesis.
+
+## Failure Modes Begin at Boundary Crossings
+
+Long agent runs can compound small mistakes. The useful response is not merely a
+smarter prompt; it is to identify where failure can enter and which component can
+detect it.
+
+| Failure | What the trace shows | Required control |
+|---|---|---|
+| The model selects a nonexistent tool | Proposal fails inventory validation | Reject before execution and count an invalid-action event |
+| The tool exists but parameters target the wrong employee | Tool name is valid; task identity and arguments disagree | Validate parameters against authenticated task context |
+| A ticket write times out after reaching the server | Client sees a timeout but server state is unknown | Query by idempotency key before retrying |
+| An approval belongs to an older ticket revision | Approval identifier exists but version does not match | Bind approval to subject, action, parameters, and version |
+| Retrieved text says to bypass policy | Untrusted content influences the proposal | Preserve content provenance and keep policy outside model context |
+| The loop repeats a failing read | Step count and identical failure signature rise | Use retry budgets, backoff, and a terminal escalation state |
+| The model declares success without confirmation | Finish is proposed while the success invariant is false | Make completion a deterministic state predicate |
+
+The timeout case deserves special attention. A read can often be repeated. A
+write may have succeeded even when the client did not receive the response.
+Blindly retrying `create_access_ticket` could create duplicates; blindly assuming
+success could hide a failure. Idempotency keys, operation-status lookup, and
+explicit `outcome_unknown` states are how ordinary distributed-systems practice
+protects the agent boundary. The AWS Builders' Library describes caller-provided
+request identifiers as a way to make retry intent auditable and avoid duplicate
+side effects; the service still has to define the idempotency contract correctly.
+
+Agent failures are also not all model failures. Chip Huyen separates planning
+failures from tool failures and efficiency failures. That distinction keeps
+remediation honest. Better examples may reduce invalid action proposals, but they
+will not repair a tool that returns the wrong employee record. A stricter schema
+may catch malformed arguments, but it will not prove that a syntactically valid
+employee ID is the correct one. Each component needs its own tests, and the
+end-to-end evaluation must still verify the task outcome.
+
+## When a Workflow Is the Better Design
+
+Autonomy has a cost: more possible paths, more traces to evaluate, and more ways
+for state and tools to disagree. Choose it only when runtime adaptation creates
+enough value to justify that cost.
+
+| Design question | Chatbot | Deterministic workflow | Bounded agent |
+|---|---|---|---|
+| Does the task change an external system? | No | Often | Often |
+| Who chooses the next step? | No execution path | Application code | Model within policy |
+| Are valid routes known in advance? | Not applicable | Mostly yes | No; observations change the route |
+| Is deterministic replay important? | Response may vary | Strong fit | Requires traces and evaluation |
+| Are consequences difficult to reverse? | Low operational effect | Prefer explicit code and approvals | Restrict to proposals or narrow, reversible actions |
+| What justifies the complexity? | Language help | Reliable repeatable automation | Valuable adaptation across uncertain states |
+
+Start with the simplest design that completes the reader's or user's job. Use a
+chatbot when the output is advice. Use a workflow when routes and exceptions can
+be enumerated without excessive complexity. Introduce model-directed control
+only where observations meaningfully change the next action and fixed branching
+would be brittle or impossible to maintain.
+
+A hybrid is common. Code can own the outer workflow while a model handles one
+bounded decision, such as classifying an exception or choosing among read-only
+search strategies. This gives the model a narrow decision surface without
+turning the entire business process into an open-ended loop. “Agent or workflow”
+is not always a system-wide choice; it can be a choice at each control boundary.
+
+## Visual Explanation
+
+![Three systems with the same chat interface but different control flow: a chatbot produces text, a workflow follows fixed code, and a bounded agent chooses actions inside approval and stop boundaries](../../visuals/exported/agentic-ai-engineering-part-01-control-boundary.svg)
+
+Figure 1: The interface can look identical while control ownership changes from
+response generation, to fixed code, to model-directed action inside explicit
+approval and stopping boundaries.
+
+## Tested Environment
+
+The YAML run-state example in this lesson was parsed with Python 3.12.13 and
+PyYAML 6.0.3 on 2026-09-02. The parser returned the expected mapping with
+`status: waiting_for_approval`, one pending approval, and no stop reason. The
+example is state data, not an executable authorization system; production code
+must still validate identities, permissions, and state transitions.
 
 ## Exercise
 
@@ -164,6 +424,35 @@ maximum_steps:
 
 Keep this file. In Part 2, you will turn the same boundary into a versioned configuration that separates prompts, tools, model choice, retrieval, guardrails, and memory.
 
+## Check Your Work
+
+Your result is ready when all of these statements are true:
+
+- Each classification names who or what selects the next action.
+- The chatbot description does not imply that generating text changes an
+  external system.
+- The workflow description identifies the predefined code path.
+- The agent boundary card contains an action allow-list and at least one explicit
+  prohibition.
+- Success, failure, approval, and maximum-step conditions are independently
+  inspectable.
+- No natural-language instruction is treated as a substitute for application
+  authorization.
+
+## Retrieval Practice
+
+Answer without rereading the article:
+
+1. What single control-flow question most reliably separates a workflow from an
+   agent?
+2. Why does a tool result remain untrusted input even after a successful call?
+3. Which two boundaries would prevent a support agent from directly granting a
+   new permission?
+
+Transfer prompt: apply the observe-decide-act-state-stop model to a continuous
+integration pipeline, a customer-support bot, or another automation you know.
+Which system should remain a workflow, and what evidence supports that choice?
+
 ## Recap
 
 An agent is not defined by a chat interface, a dramatic system prompt, or the ability to produce convincing prose. It is defined by runtime control: it observes, chooses a permitted action, reads the result, updates state, and stops under explicit conditions.
@@ -171,6 +460,19 @@ An agent is not defined by a chat interface, a dramatic system prompt, or the ab
 The safest place to begin is the boundary, not the prompt. Write down what the system can see, change, retain, require approval for, and treat as done. Once those decisions are visible, you can decide whether you need an agent at all. A chatbot or deterministic workflow may be simpler and more trustworthy.
 
 That is not a downgrade. It is good engineering.
+
+## Sources
+
+- [Anthropic: Building Effective AI Agents](https://www.anthropic.com/research/building-effective-agents)
+- [Anthropic: Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents)
+- [OpenAI Agents SDK: Agents](https://openai.github.io/openai-agents-python/agents/)
+- [OpenAI Agents SDK: Tools](https://openai.github.io/openai-agents-python/tools/)
+- [OWASP: LLM Prompt Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)
+- [Chip Huyen: Agents](https://huyenchip.com/2025/01/07/agents.html)
+- [Chip Huyen: Building a Generative AI Platform](https://huyenchip.com/2024/07/25/genai-platform.html)
+- [Lilian Weng: LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)
+- [AWS Builders' Library: Making Retries Safe with Idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)
+- [OpenTelemetry: Observability Primer](https://opentelemetry.io/docs/concepts/observability-primer/)
 
 ## Next Lesson
 

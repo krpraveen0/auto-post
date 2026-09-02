@@ -1,22 +1,28 @@
 {
   "backend": "codex-automation-session",
-  "docx": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.docx",
-  "docx_sha256": "39a93509919746ba578695b00842ea6401da4d02fa32515ae73cb3a4a17c3ec2",
   "generated_at_utc": "2026-09-01T02:06:01Z",
+  "updated_at_utc": "2026-09-01T19:43:45Z",
   "markdown": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
-  "markdown_sha256": "f137a80b3461ab4e05218be73beef1b9cafa4578cb5524fccbe0ae29d65d30d5",
+  "markdown_sha256": "a61784e8522e68f89aa4c371268cdc1905fc41b341a8508cb75af6838877bdfb",
   "model": "codex-automation-session",
   "part": 2,
+  "publishing_schema_version": 3,
   "quality": {
-    "exercise_expected_output": true,
-    "source_needed_markers": 2,
-    "visual_alt_text": true,
-    "visual_caption": true,
-    "word_count": 2183
+    "critical_issues": 0,
+    "estimated_read_minutes": 25,
+    "publishable": true,
+    "reader_value_score": 100,
+    "reader_value_threshold": 85,
+    "report": "medium/reviews/scorecards/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent-reader-value.json",
+    "source_needed_markers": 0,
+    "word_count": 4171
+  },
+  "research": {
+    "benchmark": "medium/research/six-configuration-surfaces-of-an-agent_benchmark.md",
+    "claim_register": "medium/research/claim_register/six-configuration-surfaces-of-an-agent_claims.md"
   },
   "series": "agentic-ai-engineering",
   "title": "The Six Configuration Surfaces of an Agent",
-  "updated_at_utc": "2026-09-01T02:17:11Z",
   "visuals": {
     "drawio": "medium/visuals/drawio/agentic-ai-engineering-part-02-config-surfaces.drawio",
     "drawio_sha256": "ee9fcb52cce48413c39cc84f613eda7b76661dcccb1bcef555354bf8d43d62fd",

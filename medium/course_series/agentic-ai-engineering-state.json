@@ -2,19 +2,25 @@
   "completion_issue_created": false,
   "generated": [
     {
-      "docx": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.docx",
       "generated_at_utc": "2026-08-31T08:46:20Z",
       "manifest": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.json",
       "markdown": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
       "part": 1,
+      "publishable": true,
+      "reader_value_score": 100,
+      "estimated_read_minutes": 24,
+      "word_count": 4057,
       "title": "What Makes an AI Agent Different from a Chatbot?"
     },
     {
-      "docx": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.docx",
       "generated_at_utc": "2026-09-01T02:06:01Z",
       "manifest": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.json",
       "markdown": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
       "part": 2,
+      "publishable": true,
+      "reader_value_score": 100,
+      "estimated_read_minutes": 25,
+      "word_count": 4171,
       "title": "The Six Configuration Surfaces of an Agent"
     }
   ],

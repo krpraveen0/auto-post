@@ -1,0 +1,50 @@
+name: Daily Medium Course Quality Audit
+
+on:
+  schedule:
+    # 06:00 Asia/Kolkata = 00:30 UTC.
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      COURSE_ROOT: medium/generated/agentic-ai-engineering
+      REPORT_DIR: quality-reports
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests
+
+      - name: Audit publishing-schema lessons
+        run: |
+          python scripts/validate_course_lesson.py \
+            --root "$COURSE_ROOT" \
+            --discover-current \
+            --require-schema 3 \
+            --report-dir "$REPORT_DIR"
+
+      - name: Upload reader-value reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: medium-course-reader-value-reports
+          path: quality-reports/**
+          if-no-files-found: ignore
+
+# The cloud job validates content; it does not author or publish it. Codex creates
+# the Notion draft and portable Markdown package, then a human approves release.
+# No model API key, desktop application, office format, or write permission is
+# required here.

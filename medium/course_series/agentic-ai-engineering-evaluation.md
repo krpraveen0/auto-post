@@ -1,6 +1,6 @@
 # Agentic AI Engineering Series Evaluation
 
-Evaluation date: 2026-08-30
+Evaluation date: 2026-09-01
 
 ## Summary
 
@@ -14,21 +14,27 @@ The course plan is strong enough to support a Medium course series after the new
 | Lesson focus | 8 | Each lesson now has one main concept. Watch parts 7-9 and 13-15 for scope creep. |
 | Technical progression | 9 | Foundations, loops, RAG, evals, and production release build in a logical order. |
 | Project continuity | 8 | Milestones are defined; each draft must make the artifact concrete. |
-| Medium readability | 8 | Lesson size is appropriate for Medium if each post stays near 1400-2200 words. |
-| Visual support | 8 | Every part has a diagram target, but visuals still need actual draw.io briefs. |
-| Publishing readiness | 7 | The series map and index are ready; individual articles still need evidence validation. |
+| Global readability | 8 | Length now follows reader need; global-English, metadata, disclosure, accessibility, and cross-platform checks are explicit. |
+| Visual support | 8 | Every part has a diagram target; publishing now requires an embedded, captioned, accessible asset rather than a visual brief. |
+| Learning design | 8 | Backward design, prior-knowledge activation, worked examples, practice, feedback, retrieval, and transfer are now explicit. |
+| Publishing readiness | 8 | Schema 3 supports Medium, DEV, Hashnode, Notion, and an owned site; human technical and editorial review still determine release. |
 
 ## Risks To Control
 
 - Do not compress RAG, evals, or deployment into single overview posts.
-- Do not let generated lessons become abstract essays; each lesson needs an exercise.
+- Do not let generated lessons become abstract essays; each lesson needs aligned
+  practice, expected output, and check-your-work criteria.
 - Validate technical claims before publishing, especially around eval reliability, model pinning, and deployment safety.
 - Keep previous/next navigation in every lesson package.
 
 ## Required Gate Before Publishing Each Lesson
 
-1. Confirm the lesson teaches one primary concept.
-2. Confirm the exercise has an expected output.
-3. Check source markers such as `[SOURCE NEEDED]`.
-4. Render the DOCX and inspect the generated PDF/PNG pages.
-5. Confirm the GitHub issue includes the DOCX path and workflow run link.
+1. Run `scripts/validate_course_lesson.py` and require at least 85/100 with zero
+   critical issues.
+2. Confirm the observable outcomes align to the worked example and exercise.
+3. Resolve every `[SOURCE NEEDED]` marker and verify technical code/commands.
+4. Inspect the real explanatory visual, its alt text, and its caption.
+5. Read the Notion page back and compare it with the canonical Markdown snapshot.
+6. Check the current target-platform rules, disclosure, canonical strategy, and
+   desktop/mobile preview.
+7. Complete human technical and editorial review before publishing.

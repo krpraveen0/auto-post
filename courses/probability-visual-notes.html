@@ -1,0 +1,1485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probability Mastery: Visual 5-Week Notes</title>
+  <style>
+    :root {
+      --ink: #17211c;
+      --muted: #5d6a62;
+      --paper: #fbfaf7;
+      --panel: #ffffff;
+      --line: #dfe5dc;
+      --green: #0f766e;
+      --mint: #dff4ee;
+      --blue: #2563eb;
+      --sky: #e3efff;
+      --amber: #b45309;
+      --cream: #fff6df;
+      --rose: #be123c;
+      --rose-soft: #ffe4e6;
+      --violet: #6d28d9;
+      --violet-soft: #efe7ff;
+      --shadow: 0 18px 50px rgba(23, 33, 28, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #f6fbf8 0, var(--paper) 340px),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.58;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      padding: 28px 20px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #b7d7cd;
+      border-radius: var(--radius);
+      background: var(--mint);
+      font-weight: 850;
+      color: var(--green);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: #26342c;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .nav a:hover {
+      border-color: #c7d8d0;
+      background: #f4faf7;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .dot.blue {
+      background: var(--blue);
+    }
+
+    .dot.amber {
+      background: var(--amber);
+    }
+
+    .dot.rose {
+      background: var(--rose);
+    }
+
+    .dot.violet {
+      background: var(--violet);
+    }
+
+    .sidebar-note {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fffdf8;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      align-items: center;
+      padding: 56px 6vw 34px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 22% 18%, rgba(15, 118, 110, 0.13), transparent 28%),
+        radial-gradient(circle at 84% 22%, rgba(37, 99, 235, 0.12), transparent 26%),
+        linear-gradient(135deg, #f7fff9 0%, #fbfaf7 48%, #fff8e8 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 42px;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      padding: 8px 11px;
+      border: 1px solid #b7d7cd;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: #415148;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 15px;
+      border: 1px solid #114f4a;
+      border-radius: var(--radius);
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .button.secondary {
+      border-color: #cbd7d1;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .probability-board {
+      position: relative;
+      min-height: 430px;
+      padding: 22px;
+      border: 1px solid #cbded8;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: var(--shadow);
+    }
+
+    .scale {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .scale-line {
+      position: relative;
+      height: 18px;
+      overflow: hidden;
+      border: 1px solid #bed4cc;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f43f5e 0%, #f59e0b 48%, #10b981 100%);
+    }
+
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    .outcome-tile {
+      display: grid;
+      min-height: 66px;
+      place-items: center;
+      border: 1px solid #d5ddd8;
+      border-radius: var(--radius);
+      background: #f8fbfa;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .outcome-tile.hit {
+      border-color: #90cbbd;
+      background: var(--mint);
+      color: var(--green);
+    }
+
+    .mini-caption {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin: 0;
+    }
+
+    .formula-card {
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid #d2dcd7;
+      border-radius: var(--radius);
+      background: #17211c;
+      color: #eef8f4;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+    }
+
+    .content {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 6vw 72px;
+    }
+
+    .week {
+      padding: 46px 0 18px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 24px;
+    }
+
+    .week-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .week-kicker {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .week h2 {
+      margin: 0;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+
+    .week-summary {
+      margin: 12px 0 0;
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .week-meta {
+      min-width: 170px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 10px 24px rgba(23, 33, 28, 0.05);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .week-meta strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.45rem;
+      line-height: 1.1;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 24px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 10px 30px rgba(23, 33, 28, 0.05);
+    }
+
+    .panel h3,
+    .panel h4 {
+      margin: 0 0 8px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .panel p {
+      margin: 8px 0 0;
+      color: #43524a;
+    }
+
+    .concept {
+      border-top: 5px solid var(--green);
+    }
+
+    .concept.blue {
+      border-top-color: var(--blue);
+    }
+
+    .concept.amber {
+      border-top-color: var(--amber);
+    }
+
+    .concept.rose {
+      border-top-color: var(--rose);
+    }
+
+    .concept.violet {
+      border-top-color: var(--violet);
+    }
+
+    .callout {
+      margin: 22px 0;
+      padding: 18px;
+      border-left: 5px solid var(--amber);
+      border-radius: var(--radius);
+      background: var(--cream);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #7c2d12;
+    }
+
+    .formula-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .formula {
+      padding: 14px;
+      border: 1px solid #cfdad5;
+      border-radius: var(--radius);
+      background: #f9fbfa;
+    }
+
+    .formula code,
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
+    .formula code {
+      display: block;
+      margin-top: 4px;
+      color: #0f4f48;
+      font-weight: 850;
+      white-space: pre-wrap;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0;
+      counter-reset: step;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--green);
+      color: white;
+      font-weight: 900;
+    }
+
+    .step h4 {
+      margin: 0 0 4px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .venn {
+      width: 100%;
+      max-width: 460px;
+      margin: 4px auto;
+      display: block;
+    }
+
+    .frequency-bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .bar {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) 72px;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .bar-track {
+      height: 24px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #edf2ef;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+    }
+
+    .bar-fill.rose {
+      background: var(--rose);
+    }
+
+    .bar-fill.blue {
+      background: var(--blue);
+    }
+
+    .pmf {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(42px, 1fr));
+      gap: 10px;
+      align-items: end;
+      min-height: 190px;
+      padding: 18px 12px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfefd;
+    }
+
+    .pmf-col {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      align-items: end;
+    }
+
+    .pmf-bar {
+      width: 100%;
+      max-width: 44px;
+      border-radius: 6px 6px 2px 2px;
+      background: var(--blue);
+    }
+
+    .pmf-label {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .chooser {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .choice {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .choice strong {
+      color: var(--green);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+      font-size: 0.94rem;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f5faf7;
+      color: #23332b;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    details {
+      margin: 12px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 850;
+    }
+
+    details p,
+    details ol {
+      margin: 0;
+      padding: 0 16px 16px;
+      color: #43524a;
+    }
+
+    ol,
+    ul {
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin: 0.34rem 0;
+    }
+
+    .practice {
+      margin-top: 28px;
+      padding: 18px;
+      border: 1px solid #cbd8d2;
+      border-radius: var(--radius);
+      background: #f9fcfb;
+    }
+
+    .practice h3 {
+      margin: 0 0 10px;
+    }
+
+    .footer {
+      padding: 32px 6vw 54px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        padding: 18px 6vw;
+      }
+
+      .nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .grid-2,
+      .grid-3,
+      .formula-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .probability-board {
+        min-height: 0;
+      }
+
+      .tile-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .week-header {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        grid-template-columns: 1fr;
+      }
+
+      .bar {
+        grid-template-columns: 1fr;
+      }
+
+      .choice {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Course navigation">
+      <div class="brand">
+        <div class="brand-mark">P</div>
+        <h1>Probability Mastery</h1>
+        <p>Visual notes for a 5-week learning path.</p>
+      </div>
+
+      <nav class="nav">
+        <a href="#week-1"><span class="dot"></span>Week 1: Foundations</a>
+        <a href="#week-2"><span class="dot blue"></span>Week 2: Conditioning</a>
+        <a href="#week-3"><span class="dot amber"></span>Week 3: Variables</a>
+        <a href="#week-4"><span class="dot rose"></span>Week 4: Distributions</a>
+        <a href="#week-5"><span class="dot violet"></span>Week 5: Applications</a>
+      </nav>
+
+      <div class="sidebar-note">
+        Study rhythm: read the explanation, trace the worked example by hand, then solve the practice question before opening the answer.
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">5-week visual guide</div>
+            <h2>Learn probability as a way to think clearly under uncertainty.</h2>
+            <p>
+              These notes turn formulas into pictures, stories, and repeatable problem-solving moves.
+              You will build from sample spaces to Bayes' rule, random variables, distributions, simulation,
+              and real-world decisions.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#week-1">Start Week 1</a>
+              <a class="button secondary" href="#formula-map">Formula Map</a>
+            </div>
+          </div>
+
+          <div class="probability-board" aria-label="Probability overview diagram">
+            <div class="scale">
+              <div class="scale-line"></div>
+              <div class="scale-labels">
+                <span>0 impossible</span>
+                <span>0.5 uncertain</span>
+                <span>1 certain</span>
+              </div>
+            </div>
+
+            <p class="mini-caption">A probability model starts with possible outcomes. Highlight the event, then measure how much of the sample space it occupies.</p>
+
+            <div class="tile-grid">
+              <div class="outcome-tile hit">HH</div>
+              <div class="outcome-tile hit">HT</div>
+              <div class="outcome-tile hit">TH</div>
+              <div class="outcome-tile">TT</div>
+            </div>
+
+            <p class="mini-caption">Event: at least one head in two tosses.</p>
+
+            <div class="formula-card">
+P(at least one head) = favorable outcomes / total outcomes
+= 3 / 4
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="content">
+        <section id="week-1" class="week">
+          <div class="week-header">
+            <div>
+              <span class="week-kicker">Week 1</span>
+              <h2>Foundations: sample spaces, events, and counting</h2>
+              <p class="week-summary">
+                The first skill in probability is not calculation. It is setup. You define what can happen,
+                choose the event you care about, and only then count or calculate.
+              </p>
+            </div>
+            <div class="week-meta">
+              <strong>Goal</strong>
+              Convert word problems into clean probability objects.
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="panel concept">
+              <h3>Experiment</h3>
+              <p>A repeatable process with uncertain output, such as rolling a die or drawing a card.</p>
+            </article>
+            <article class="panel concept blue">
+              <h3>Outcome</h3>
+              <p>One exact result of the experiment, such as rolling a 4.</p>
+            </article>
+            <article class="panel concept amber">
+              <h3>Sample Space</h3>
+              <p>The full set of possible outcomes. Probability is measured relative to this set.</p>
+            </article>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <h3>Core idea</h3>
+              <p>When outcomes are equally likely, probability is the fraction of the sample space where the event happens.</p>
+              <div class="formula-row">
+                <div class="formula">
+                  Probability
+                  <code>P(A) = favorable outcomes / total outcomes</code>
+                </div>
+                <div class="formula">
+                  Complement
+                  <code>P(not A) = 1 - P(A)</code>
+                </div>
+              </div>
+              <p>
+                The complement rule is your best friend when the problem says "at least one."
+                Instead of counting every successful case, count the one clean failure case and subtract from 1.
+              </p>
+            </div>
+
+            <div class="panel">
+              <h3>Visual example: two coins</h3>
+              <div class="tile-grid">
+                <div class="outcome-tile hit">HH</div>
+                <div class="outcome-tile hit">HT</div>
+                <div class="outcome-tile hit">TH</div>
+                <div class="outcome-tile">TT</div>
+              </div>
+              <p>
+                For the event "at least one head", 3 of the 4 equally likely outcomes qualify.
+                So the probability is <code>3/4</code>.
+              </p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Union and intersection</h3>
+            <div class="grid-2">
+              <div>
+                <p><strong>A or B</strong> means the union: everything in A, everything in B, but do not double-count the overlap.</p>
+                <div class="formula">
+                  Addition rule
+                  <code>P(A or B) = P(A) + P(B) - P(A and B)</code>
+                </div>
+              </div>
+              <svg class="venn" viewBox="0 0 480 260" role="img" aria-label="Venn diagram showing overlapping events A and B">
+                <rect x="0" y="0" width="480" height="260" rx="8" fill="#fbfefd" stroke="#dfe5dc"></rect>
+                <circle cx="195" cy="130" r="86" fill="#dff4ee" stroke="#0f766e" stroke-width="3"></circle>
+                <circle cx="285" cy="130" r="86" fill="#e3efff" stroke="#2563eb" stroke-width="3" fill-opacity="0.82"></circle>
+                <text x="156" y="132" fill="#0f766e" font-size="22" font-weight="800">A</text>
+                <text x="314" y="132" fill="#2563eb" font-size="22" font-weight="800">B</text>
+                <text x="228" y="134" fill="#17211c" font-size="16" font-weight="800">A and B</text>
+                <text x="28" y="34" fill="#5d6a62" font-size="16">Sample space S</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Counting choice</strong>
+            Use permutations when order matters. Use combinations when order does not matter.
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Situation</th>
+                  <th>Use</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Arrange all objects</td>
+                  <td><code>n!</code></td>
+                  <td>Arrange 5 books: <code>5! = 120</code></td>
+                </tr>
+                <tr>
+                  <td>Choose and rank</td>
+                  <td><code>nPr = n! / (n-r)!</code></td>
+                  <td>Gold, silver, bronze from 10 people: <code>10P3</code></td>
+                </tr>
+                <tr>
+                  <td>Choose without rank</td>
+                  <td><code>nCr = n! / (r!(n-r)!)</code></td>
+                  <td>Committee of 3 from 10: <code>10C3</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div>
+                <h4>Worked example: heart or king</h4>
+                <p>In a 52-card deck, hearts = 13, kings = 4, overlap = king of hearts = 1.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h4>Apply the addition rule</h4>
+                <p><code>P(heart or king) = 13/52 + 4/52 - 1/52 = 16/52 = 4/13</code>.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h4>Interpret</h4>
+                <p>The overlap matters. Without subtracting it, the king of hearts is counted twice.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice">
+            <h3>Practice</h3>
+            <details>
+              <summary>Question: Toss 4 fair coins. What is the probability of at least one head?</summary>
+              <p>Use the complement: <code>1 - P(no heads) = 1 - (1/2)^4 = 15/16</code>.</p>
+            </details>
+            <details>
+              <summary>Question: How many ways can you choose 2 students from 8?</summary>
+              <p>Order does not matter, so use combinations: <code>8C2 = 28</code>.</p>
+            </details>
+          </div>
+        </section>
+
+        <section id="week-2" class="week">
+          <div class="week-header">
+            <div>
+              <span class="week-kicker">Week 2</span>
+              <h2>Conditional probability: when information changes the world</h2>
+              <p class="week-summary">
+                Conditional probability teaches you to replace the original sample space with the world that remains after new information is known.
+              </p>
+            </div>
+            <div class="week-meta">
+              <strong>Goal</strong>
+              Understand conditioning, independence, total probability, and Bayes' rule.
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <article class="panel concept blue">
+              <h3>The denominator is the condition</h3>
+              <p>
+                <code>P(A | B)</code> means "among cases where B happened, how many also have A?"
+                The condition <code>B</code> becomes the new reference group.
+              </p>
+              <div class="formula">
+                Conditional probability
+                <code>P(A | B) = P(A and B) / P(B)</code>
+              </div>
+            </article>
+            <article class="panel concept amber">
+              <h3>Do not reverse casually</h3>
+              <p>
+                <code>P(A | B)</code> and <code>P(B | A)</code> usually differ. Most basketball players are tall,
+                but most tall people are not professional basketball players.
+              </p>
+            </article>
+          </div>
+
+          <div class="panel">
+            <h3>Independence test</h3>
+            <p>Two events are independent only when knowing one happened does not change the probability of the other.</p>
+            <div class="formula-row">
+              <div class="formula">
+                Conditional form
+                <code>P(A | B) = P(A)</code>
+              </div>
+              <div class="formula">
+                Multiplication form
+                <code>P(A and B) = P(A)P(B)</code>
+              </div>
+            </div>
+            <p>
+              Mutually exclusive events are not the same thing. If one non-impossible event prevents the other,
+              that is dependence, not independence.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>Bayes' rule as belief update</h3>
+            <div class="steps">
+              <div class="step">
+                <div>
+                  <h4>Start with a prior</h4>
+                  <p>How likely was the hypothesis before the new evidence?</p>
+                </div>
+              </div>
+              <div class="step">
+                <div>
+                  <h4>Measure the evidence</h4>
+                  <p>How likely is this evidence if the hypothesis is true?</p>
+                </div>
+              </div>
+              <div class="step">
+                <div>
+                  <h4>Normalize</h4>
+                  <p>Compare that evidence against all ways the evidence could appear.</p>
+                </div>
+              </div>
+            </div>
+            <div class="formula">
+              Bayes' rule
+              <code>P(A | B) = P(B | A)P(A) / P(B)</code>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <h3>Medical test example</h3>
+              <p>Suppose 1% have a disease, the test catches 99% of disease cases, and falsely flags 5% of healthy cases.</p>
+              <div class="frequency-bars">
+                <div class="bar">
+                  <span>True positives</span>
+                  <div class="bar-track"><div class="bar-fill" style="width: 16.7%"></div></div>
+                  <span>99</span>
+                </div>
+                <div class="bar">
+                  <span>False positives</span>
+                  <div class="bar-track"><div class="bar-fill rose" style="width: 83.3%"></div></div>
+                  <span>495</span>
+                </div>
+              </div>
+              <p>
+                Out of 10,000 people, about 594 test positive. Only 99 of those truly have the disease.
+                So <code>P(disease | positive) = 99/594 = 1/6</code>.
+              </p>
+            </div>
+
+            <div class="panel">
+              <h3>Why it feels surprising</h3>
+              <p>
+                The test is strong, but the disease is rare. When the base rate is small, false positives can dominate the positive results.
+              </p>
+              <div class="callout">
+                <strong>Base-rate habit</strong>
+                Before reacting to evidence, ask how common the condition was before the evidence appeared.
+              </div>
+            </div>
+          </div>
+
+          <div class="practice">
+            <h3>Practice</h3>
+            <details>
+              <summary>Question: Given a card is a heart, what is the probability it is a king?</summary>
+              <p>Condition on hearts. There are 13 hearts and 1 king of hearts, so the answer is <code>1/13</code>.</p>
+            </details>
+            <details>
+              <summary>Question: A bag has 4 red and 6 blue balls. Draw 2 without replacement. Probability both are blue?</summary>
+              <p><code>(6/10)(5/9) = 1/3</code>. The second probability changes because the first ball is not replaced.</p>
+            </details>
+          </div>
+        </section>
+
+        <section id="week-3" class="week">
+          <div class="week-header">
+            <div>
+              <span class="week-kicker">Week 3</span>
+              <h2>Random variables: turning outcomes into numbers</h2>
+              <p class="week-summary">
+                Random variables let you calculate averages and spread. This is where probability starts becoming a practical measurement language.
+              </p>
+            </div>
+            <div class="week-meta">
+              <strong>Goal</strong>
+              Use PMFs, CDFs, expectation, variance, and indicators.
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel concept amber">
+              <h3>Random variable</h3>
+              <p>A rule that maps each outcome to a number. For two coin tosses, "number of heads" maps <code>HH -> 2</code>, <code>HT -> 1</code>, <code>TH -> 1</code>, <code>TT -> 0</code>.</p>
+            </div>
+            <div class="panel concept">
+              <h3>PMF vs CDF</h3>
+              <p><code>P(X = x)</code> answers exact-value questions. <code>F(x) = P(X &lt;= x)</code> answers accumulated-probability questions.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>PMF picture: fair die</h3>
+            <div class="pmf" aria-label="Bar chart for fair die probability mass function">
+              <div class="pmf-col"><div class="pmf-bar" style="height: 92px"></div><span class="pmf-label">1</span></div>
+              <div class="pmf-col"><div class="pmf-bar" style="height: 92px"></div><span class="pmf-label">2</span></div>
+              <div class="pmf-col"><div class="pmf-bar" style="height: 92px"></div><span class="pmf-label">3</span></div>
+              <div class="pmf-col"><div class="pmf-bar" style="height: 92px"></div><span class="pmf-label">4</span></div>
+              <div class="pmf-col"><div class="pmf-bar" style="height: 92px"></div><span class="pmf-label">5</span></div>
+              <div class="pmf-col"><div class="pmf-bar" style="height: 92px"></div><span class="pmf-label">6</span></div>
+            </div>
+            <p>Each face has probability <code>1/6</code>, so all bars have equal height.</p>
+          </div>
+
+          <div class="grid-2">
+            <article class="panel">
+              <h3>Expected value</h3>
+              <p>Expected value is the long-run average, or balance point, of a random variable.</p>
+              <div class="formula">
+                Discrete expectation
+                <code>E[X] = sum xP(X = x)</code>
+              </div>
+              <p>For a fair die, <code>E[X] = (1+2+3+4+5+6)/6 = 3.5</code>.</p>
+            </article>
+            <article class="panel">
+              <h3>Variance</h3>
+              <p>Variance measures spread around the mean by averaging squared distance.</p>
+              <div class="formula">
+                Shortcut
+                <code>Var(X) = E[X^2] - (E[X])^2</code>
+              </div>
+              <p>Standard deviation is <code>sqrt(Var(X))</code>, which returns to the original units.</p>
+            </article>
+          </div>
+
+          <div class="panel">
+            <h3>Linearity of expectation</h3>
+            <p>This is one of the most useful facts in probability:</p>
+            <div class="formula">
+              Linearity
+              <code>E[X + Y] = E[X] + E[Y]</code>
+            </div>
+            <p>
+              It works even if <code>X</code> and <code>Y</code> are dependent. That makes hard counting problems much easier.
+              For two dice, the expected sum is <code>3.5 + 3.5 = 7</code>.
+            </p>
+          </div>
+
+          <div class="callout">
+            <strong>Indicator trick</strong>
+            If <code>I_A</code> is 1 when event A happens and 0 otherwise, then <code>E[I_A] = P(A)</code>. To count expected successes, add indicators.
+          </div>
+
+          <div class="practice">
+            <h3>Practice</h3>
+            <details>
+              <summary>Question: Toss 20 fair coins. Expected number of heads?</summary>
+              <p>Use indicators. Each toss contributes expected heads <code>1/2</code>, so total expectation is <code>20 * 1/2 = 10</code>.</p>
+            </details>
+            <details>
+              <summary>Question: If E[X] = 10 and Var(X) = 4, find E[3X + 2] and Var(3X + 2).</summary>
+              <p><code>E[3X+2] = 32</code>. <code>Var(3X+2) = 3^2 * 4 = 36</code>.</p>
+            </details>
+          </div>
+        </section>
+
+        <section id="week-4" class="week">
+          <div class="week-header">
+            <div>
+              <span class="week-kicker">Week 4</span>
+              <h2>Distributions: reusable stories about randomness</h2>
+              <p class="week-summary">
+                A distribution is a pattern. The fastest way to choose the right formula is to ask what story the random variable is telling.
+              </p>
+            </div>
+            <div class="week-meta">
+              <strong>Goal</strong>
+              Recognize Bernoulli, binomial, geometric, Poisson, uniform, normal, and exponential.
+            </div>
+          </div>
+
+          <div class="chooser">
+            <div class="choice">
+              <strong>Bernoulli</strong>
+              <span>One yes/no trial. Example: one visitor signs up or does not.</span>
+            </div>
+            <div class="choice">
+              <strong>Binomial</strong>
+              <span>Number of successes in fixed independent trials. Example: signups among 100 visitors.</span>
+            </div>
+            <div class="choice">
+              <strong>Geometric</strong>
+              <span>Trials until first success. Example: calls until first sale.</span>
+            </div>
+            <div class="choice">
+              <strong>Poisson</strong>
+              <span>Count of events in an interval. Example: support tickets per hour.</span>
+            </div>
+            <div class="choice">
+              <strong>Normal</strong>
+              <span>Bell-shaped variation or averages. Example: measurement error or sample means.</span>
+            </div>
+            <div class="choice">
+              <strong>Exponential</strong>
+              <span>Waiting time until next event. Example: time until next customer arrives.</span>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Distribution</th>
+                  <th>Use when</th>
+                  <th>Mean</th>
+                  <th>Variance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Bernoulli(p)</td>
+                  <td>One success/failure trial</td>
+                  <td><code>p</code></td>
+                  <td><code>p(1-p)</code></td>
+                </tr>
+                <tr>
+                  <td>Binomial(n,p)</td>
+                  <td>Count successes in n trials</td>
+                  <td><code>np</code></td>
+                  <td><code>np(1-p)</code></td>
+                </tr>
+                <tr>
+                  <td>Geometric(p)</td>
+                  <td>Wait for first success</td>
+                  <td><code>1/p</code></td>
+                  <td><code>(1-p)/p^2</code></td>
+                </tr>
+                <tr>
+                  <td>Poisson(lambda)</td>
+                  <td>Count events in an interval</td>
+                  <td><code>lambda</code></td>
+                  <td><code>lambda</code></td>
+                </tr>
+                <tr>
+                  <td>Uniform(a,b)</td>
+                  <td>All values in a range equally likely</td>
+                  <td><code>(a+b)/2</code></td>
+                  <td><code>(b-a)^2/12</code></td>
+                </tr>
+                <tr>
+                  <td>Normal(mu,sigma^2)</td>
+                  <td>Bell-shaped variation</td>
+                  <td><code>mu</code></td>
+                  <td><code>sigma^2</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <h3>Binomial example</h3>
+              <p>A visitor has a 3% chance of signing up. For 100 independent visitors:</p>
+              <div class="formula">
+                Model
+                <code>X ~ Binomial(100, 0.03)</code>
+              </div>
+              <p><code>E[X] = np = 3</code> and <code>Var(X) = np(1-p) = 2.91</code>.</p>
+            </div>
+            <div class="panel">
+              <h3>Poisson example</h3>
+              <p>A call center receives 2 calls per minute on average. Probability of no calls in a minute:</p>
+              <div class="formula">
+                Calculation
+                <code>P(X = 0) = e^(-2)2^0/0! = e^(-2) ~= 0.135</code>
+              </div>
+              <p>About 13.5% of one-minute intervals have no calls under this model.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Normal distribution and z-scores</h3>
+            <p>A z-score says how many standard deviations a value is from the mean.</p>
+            <div class="formula">
+              Standardization
+              <code>Z = (X - mu) / sigma</code>
+            </div>
+            <p>If exam scores have mean 70 and standard deviation 10, a score of 85 has <code>Z = 1.5</code>.</p>
+          </div>
+
+          <div class="practice">
+            <h3>Practice</h3>
+            <details>
+              <summary>Question: A quiz has 20 questions, each guess has 0.25 chance correct. What distribution models the number correct?</summary>
+              <p><code>Binomial(20, 0.25)</code>, because there are fixed independent success/failure trials.</p>
+            </details>
+            <details>
+              <summary>Question: If X ~ Poisson(7), what are E[X] and Var(X)?</summary>
+              <p>Both are <code>7</code>. For Poisson, the mean and variance are both <code>lambda</code>.</p>
+            </details>
+          </div>
+        </section>
+
+        <section id="week-5" class="week">
+          <div class="week-header">
+            <div>
+              <span class="week-kicker">Week 5</span>
+              <h2>Applications: decisions, simulation, statistics, and ML</h2>
+              <p class="week-summary">
+                The final week turns probability into judgment: expected value, risk, base rates, simulation, calibration, and decision-making.
+              </p>
+            </div>
+            <div class="week-meta">
+              <strong>Goal</strong>
+              Use probability responsibly in real-world reasoning.
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <article class="panel concept violet">
+              <h3>Expected value is not the whole decision</h3>
+              <p>
+                A choice can have positive expected value and still be bad if the downside is too large.
+                Variance, cash needs, and risk tolerance matter.
+              </p>
+            </article>
+            <article class="panel concept rose">
+              <h3>Base rates keep you honest</h3>
+              <p>
+                Evidence has to be interpreted against how common the event was before the evidence appeared.
+                Rare events need especially careful reasoning.
+              </p>
+            </article>
+          </div>
+
+          <div class="panel">
+            <h3>Decision example</h3>
+            <p>A feature launch has a 60% chance to earn $100,000 and a 40% chance to lose $20,000.</p>
+            <div class="formula">
+              Expected value
+              <code>0.60(100000) + 0.40(-20000) = 60000 - 8000 = 52000</code>
+            </div>
+            <p>
+              The expected value is positive, but you still ask whether the probabilities are credible,
+              whether the downside is survivable, and whether a smaller experiment can reduce uncertainty.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <h3>Simulation pattern</h3>
+              <div class="steps">
+                <div class="step">
+                  <div>
+                    <h4>Model one trial</h4>
+                    <p>Define the random experiment once.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div>
+                    <h4>Repeat many times</h4>
+                    <p>Run the trial thousands or millions of times.</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div>
+                    <h4>Count successes</h4>
+                    <p>Estimate probability as successes divided by repetitions.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>Reliability example</h3>
+              <p>One backup succeeds with probability 0.95. Two independent backups:</p>
+              <div class="formula">
+                At least one succeeds
+                <code>1 - P(both fail) = 1 - (0.05)(0.05) = 0.9975</code>
+              </div>
+              <p>The math depends on independence. Shared failure modes can break the assumption.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Big ideas to carry forward</h3>
+            <div class="grid-3">
+              <div>
+                <h4>Law of large numbers</h4>
+                <p>Long-run averages tend to approach expected values across many independent trials.</p>
+              </div>
+              <div>
+                <h4>Central limit theorem</h4>
+                <p>Sums or averages of many independent variables are often approximately normal.</p>
+              </div>
+              <div>
+                <h4>Calibration</h4>
+                <p>A model score of 0.9 is a true probability only if similar cases happen about 90% of the time.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Final problem-solving loop</strong>
+            Define the experiment, event, and sample space. Check conditioning and independence. Choose a distribution when the story matches. Calculate, sanity-check, then explain the result in plain English.
+          </div>
+
+          <div class="practice">
+            <h3>Practice</h3>
+            <details>
+              <summary>Question: A game gives a 20% chance to win $50 and costs $8. Expected profit?</summary>
+              <p>Expected winnings are <code>0.20 * 50 = 10</code>. Expected profit is <code>10 - 8 = 2</code>.</p>
+            </details>
+            <details>
+              <summary>Question: Three independent components each work with probability 0.9. Probability at least one fails?</summary>
+              <p>All work with probability <code>0.9^3 = 0.729</code>. At least one fails is <code>1 - 0.729 = 0.271</code>.</p>
+            </details>
+          </div>
+        </section>
+
+        <section id="formula-map" class="week">
+          <div class="week-header">
+            <div>
+              <span class="week-kicker">Reference</span>
+              <h2>Formula map</h2>
+              <p class="week-summary">Keep this nearby while solving problems. The goal is to understand when each formula applies, not just memorize it.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="formula">Complement<code>P(A^c) = 1 - P(A)</code></div>
+            <div class="formula">Addition<code>P(A or B) = P(A) + P(B) - P(A and B)</code></div>
+            <div class="formula">Conditional<code>P(A | B) = P(A and B) / P(B)</code></div>
+            <div class="formula">Independence<code>P(A and B) = P(A)P(B)</code></div>
+            <div class="formula">Bayes<code>P(A | B) = P(B | A)P(A) / P(B)</code></div>
+            <div class="formula">Expectation<code>E[X] = sum xP(X = x)</code></div>
+            <div class="formula">Variance<code>Var(X) = E[X^2] - (E[X])^2</code></div>
+            <div class="formula">Z-score<code>Z = (X - mu) / sigma</code></div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="footer">
+        Probability becomes easier when every formula has a picture, every picture has a story, and every story ends with a plain-English interpretation.
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

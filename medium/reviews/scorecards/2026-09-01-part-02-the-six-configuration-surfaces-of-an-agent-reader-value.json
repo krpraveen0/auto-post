@@ -1,0 +1,64 @@
+{
+  "path": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
+  "publishing_schema_version": 3,
+  "word_count": 4171,
+  "estimated_read_minutes": 25,
+  "total_score": 100,
+  "target_score": 90,
+  "threshold": 85,
+  "publishable": true,
+  "criteria": [
+    {
+      "name": "Reader promise and original value",
+      "score": 10,
+      "evidence": "Specific title, authentic problem, and explicit value beyond summary."
+    },
+    {
+      "name": "Observable outcomes and alignment",
+      "score": 10,
+      "evidence": "3 outcomes; 3 use observable verbs."
+    },
+    {
+      "name": "Prior knowledge, scaffolding, and mental model",
+      "score": 10,
+      "evidence": "Prerequisites, activation prompt, and one durable model."
+    },
+    {
+      "name": "Technical depth and reproducibility",
+      "score": 10,
+      "evidence": "Worked reasoning; 1 code fences; tested environment with versions=True."
+    },
+    {
+      "name": "Practice, feedback, retrieval, and transfer",
+      "score": 10,
+      "evidence": "Practice and self-check; 5 retrieval questions; transfer=True."
+    },
+    {
+      "name": "Evidence, trust, and limitations",
+      "score": 10,
+      "evidence": "10 source links; 0 unresolved markers; limitations=True."
+    },
+    {
+      "name": "Visual explanation and accessibility",
+      "score": 10,
+      "evidence": "Real visual, equivalent alt text, caption, descriptive links; 0 oversized paragraphs."
+    },
+    {
+      "name": "Global editorial clarity",
+      "score": 10,
+      "evidence": "Consistent global English, defined terminology, and an estimated 25-minute technical read."
+    },
+    {
+      "name": "Platform metadata and disclosure",
+      "score": 10,
+      "evidence": "Portable metadata, early AI disclosure, and canonical strategy."
+    },
+    {
+      "name": "Series continuity and next action",
+      "score": 10,
+      "evidence": "Previous/index/next navigation, recap, and next-lesson bridge."
+    }
+  ],
+  "critical_issues": [],
+  "recommendations": []
+}
