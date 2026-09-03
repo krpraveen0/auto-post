@@ -18,11 +18,12 @@ Apply these instructions to files under `medium/**`, article drafts, course-seri
 11. Add and inspect explanatory draw.io visuals.
 12. Run independent adversarial specialist reviews against the exact Markdown hash.
 13. Pass structural, package, and editorial gates.
-14. Publish an unlisted, non-notifying Medium review story and record its URL and
-    canonical Markdown hash.
-15. Obtain named human approval after the author reads the Medium-rendered story;
-    only that later decision may authorize public release or follower notification.
-16. After public release, collect reader-learning evidence and revise from observed gaps.
+14. Create or update a copy-ready Notion review page and record its URL and
+    canonical Markdown hash after a successful read-back.
+15. Obtain named human approval after the author reads the Notion-rendered page.
+16. The author publishes to Medium manually; automation must never publish,
+    change publication status, or notify followers.
+17. After public release, collect reader-learning evidence and revise from observed gaps.
 
 ## Course-series workflow
 
@@ -123,13 +124,10 @@ Each lesson must:
 
 - Notion may be the collaborative drafting and reader-preview surface.
 - Markdown in the repository is the portable, reviewable canonical snapshot.
-- A Notion page is optional and must not be treated as published until its
-  content was read back, visually checked, and matched to the repository snapshot.
-- The default review surface is an unlisted Medium story with follower
-  notifications disabled. It may be created after deterministic and adversarial
-  gates pass but before named human approval.
-- Public Medium publication remains blocked until the human reads the rendered
-  story and explicitly approves the exact canonical Markdown hash.
+- The Notion page is the required human review surface. Read it back, visually
+  check it, and match it to the repository snapshot before recording a verified sync.
+- Notion review is not publication. Medium publication is a manual author action
+  outside this automation, performed only after human approval.
 - Office-document formats are outside this workflow. Do not generate or validate
   DOCX artifacts.
 - Create a small platform adapter for Medium, DEV, Hashnode, or an owned site;
