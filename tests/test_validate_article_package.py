@@ -21,7 +21,7 @@ class ValidateArticlePackageTests(unittest.TestCase):
             (root / name).write_text(f"content for {name}\n", encoding="utf-8")
         (root / "structural.json").write_text('{"structurally_valid": true}\n', encoding="utf-8")
         review = {
-            "review_schema_version": 2,
+            "review_schema_version": 3,
             "reviewer": "Technical editor",
             "reviewed_at_utc": "2026-09-03T12:00:00Z",
             "canonical_markdown_sha256": digest(root / "lesson.md"),
@@ -154,6 +154,25 @@ class ValidateArticlePackageTests(unittest.TestCase):
             report = vap.validate_manifest(manifest, root)
         self.assertFalse(report.package_integrity_valid)
         self.assertTrue(any("missing adversarial roles" in issue for issue in report.critical_issues))
+
+    def test_legacy_schema_two_package_keeps_integrity_but_cannot_release(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest = self.make_package(root)
+            review_path = root / "editorial.json"
+            review = json.loads(review_path.read_text())
+            review["review_schema_version"] = 2
+            review.pop("canonical_markdown_sha256")
+            review.pop("review_roles")
+            review_path.write_text(json.dumps(review), encoding="utf-8")
+            data = json.loads(manifest.read_text())
+            data["quality"]["editorial_report_sha256"] = digest(review_path)
+            manifest.write_text(json.dumps(data), encoding="utf-8")
+            report = vap.validate_manifest(manifest, root)
+        self.assertTrue(report.package_integrity_valid)
+        self.assertFalse(report.editorial_gate_passed)
+        self.assertFalse(report.release_ready)
+        self.assertTrue(any("schema 2" in blocker for blocker in report.release_blockers))
 
 
 if __name__ == "__main__":
