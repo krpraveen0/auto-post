@@ -27,6 +27,10 @@ Confidence:
 Safe wording:
 Risk if overstated:
 Use in article:
+Exact supporting location:
+Contradicting or qualifying evidence:
+Experiment or reproduction:
+Last verified:
 ```
 
 ## Rules
@@ -36,6 +40,9 @@ Use in article:
 - Prefer “in the evaluated setting” for benchmark claims.
 - Do not cite weak blogs for technical facts.
 - Do not include a claim if it cannot be defended.
+- Separate observation, interpretation, hypothesis, and recommendation.
+- Require committed raw data and a regeneration command for empirical claims.
+- Record uncertainty and credible conflicting evidence instead of forcing consensus.
 
 ## Output
 
