@@ -52,3 +52,9 @@ structural, technical, pedagogical, and human reviewers. A numeric score cannot
 override a missing artifact or critical failure. Do not prepare a publishable
 package when the final Markdown is below the depth floor, differs from the
 reviewed hash, or lacks required evidence, runnable examples, or real visuals.
+
+After package integrity and editorial review pass, the automation may create an
+unlisted Medium story with follower notifications disabled so the human can read
+the real rendered version. Record its URL and article hash in a receipt. This is
+a review deployment, not public approval. Changing it to public or notifying
+followers requires an explicit post-render human decision.
