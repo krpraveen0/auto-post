@@ -43,8 +43,10 @@ Every run:
    claim register.
 3. Select exactly one lesson from next_part. Never advance the state merely
    because a draft exists.
-4. Design backward: define two to four observable outcomes and decide what reader
-   artifact or behavior will demonstrate each outcome.
+4. Complete `medium/templates/research-dossier.md`: define the reader question
+   tree, prerequisites, misconceptions, evidence obligations, unknowns requiring
+   experiments, scope, non-goals, and two to four observable outcomes. Stop
+   before outlining if the original contribution is not concrete and verifiable.
 5. Find at least three strong existing explanations plus the primary sources
    needed for factual claims. Record transferable patterns in opening, staging,
    examples, visuals, trade-offs, failures, and evaluation. Do not imitate their
@@ -52,36 +54,41 @@ Every run:
    oversimplify, or fail to make reproducible. State the article's original
    contribution: an experiment, implementation, failure analysis, decision
    framework, or tested synthesis.
-6. Draft using this learning arc:
+6. Create a section contract for every major explanatory section. Build and
+   verify the companion implementation or experiment before using its results.
+   The companion directory must satisfy
+   `medium/templates/reproducible-example-contract.md`, including tests, a
+   failure fixture, raw data, expected output, and regeneration commands.
+7. Draft using this learning arc:
    concrete problem; Learning Outcomes; Before You Start; Mental Model; Worked
    Example; Tested Environment; Exercise; Check Your Work; Retrieval Practice;
    Recap; Next Lesson; Sources. Include at least one transfer prompt.
-7. Produce at least 3,000 reader-facing body words and target an approximately
+8. Produce at least 3,000 reader-facing body words and target an approximately
    18-minute technical read. Expand through evidence, implementation detail,
    failure modes, comparisons, or practice; remove repetition and filler. Add a
    short reading path. Split into multiple lessons only when the outcomes stop
    forming one coherent learning unit.
-8. Verify every important technical claim against primary documentation or a
+9. Verify every important technical claim against primary documentation or a
    reproducible experiment. Run code and commands where the repository permits.
    Record versions, operating environment, expected output, failure output, and
    the verification date. Label pseudocode explicitly. Never invent citations,
    measurements, quotations, URLs, or product behavior.
-9. Create at least one necessary explanatory visual. Keep the editable .drawio
+10. Create at least one necessary explanatory visual. Keep the editable .drawio
    and exported SVG/PNG synchronized. Embed the real asset with equivalent alt
    text and a caption that states the takeaway. Never ship visual instructions.
-10. Write globally clear English: define acronyms, use consistent terminology,
+11. Write globally clear English: define acronyms, use consistent terminology,
     avoid slang and culture-specific idioms, use unambiguous dates and units, and
     make headings and links descriptive. Do not put essential code or text only
     inside an image.
-11. Save the Markdown with publishing_schema_version: 3 and complete front matter:
+12. Save the Markdown with publishing_schema_version: 3 and complete front matter:
     title, subtitle, author, slug, status, tags, canonical_strategy,
     ai_assistance, and last_verified. Disclose material AI assistance within the
     first two reader-facing paragraphs. Keep the human author responsible for
     every claim.
-12. Create a sibling JSON manifest containing the schema version, Markdown and
+13. Create a sibling JSON manifest containing the schema version, Markdown and
     visual hashes, evidence register, tested environment, quality report path,
     Notion page ID/URL, target platforms, canonical strategy, and validation time.
-13. Run the repository, lesson-example, structural, and package checks:
+14. Run the repository, lesson-example, structural, and package checks:
     python -m unittest discover -s tests
     python -m unittest discover
       -s medium/examples/agentic-ai-engineering/part-XX -v
@@ -90,15 +97,19 @@ Every run:
     python scripts/validate_article_package.py <lesson.json>
     The first validator reports structural coverage only. It cannot award a
     reader-value score or approve publication.
-14. Run separate evidence-backed technical architecture, pedagogy,
+15. Run separate adversarial technical, evidence, pedagogy, reproducibility,
     accessibility, global-English, originality, and platform-policy reviews.
+    Every review must attempt to falsify its quality claim, cite exact artifact
+    evidence, and record the canonical Markdown SHA-256. Scores of 8/10 or above
+    require concrete evidence; 10/10 requires an explanation of why no material
+    improvement is currently known.
     Target 90+/100. Publishing requires at least 85/100, zero critical issues,
     and named human approval. The deterministic score cannot approve its own
     technical correctness.
-15. Create or update one child page below Agentic AI in Notion. Preserve the
+16. Create or update one child page below Agentic AI in Notion. Preserve the
     Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
     disclosure, and sources. Read the page back and compare it with Markdown.
-16. Prepare platform adapters without changing the article body:
+17. Prepare platform adapters without changing the article body:
     - Medium: title/subtitle, five or fewer suitable topics, disclosure, visual
       captions, and canonical link when cross-posted. Do not create a duplicate
       Medium story.
@@ -108,7 +119,7 @@ Every run:
       Original URL when republishing.
     - Owned site: semantic headings, descriptive links, equivalent alt text,
       canonical metadata, author information, and responsive preview.
-17. Update next_part only after Markdown, visuals, evidence, report, manifest,
+18. Update next_part only after Markdown, visuals, evidence, report, manifest,
     Notion read-back, and specialist reviews all pass. Commit only related files
     to a review branch. A human makes the final publication decision.
 
@@ -141,6 +152,9 @@ platform adapter metadata         Medium / DEV / Hashnode / owned site
 - After release, record completion, saves, exercise attempts, reader questions,
   corrections, and meaningful discussion. Use the evidence to revise the lesson.
 - New or substantively revised lessons must use publishing schema version 3.
+- After publication, complete `medium/templates/reader-learning-feedback.md`
+  with exercise attempts, successful reproductions, retrieval and transfer
+  results, confusion points, and corrections. Views alone are not learning evidence.
 
 ## Cloud Validation
 

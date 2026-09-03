@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hash-bound adversarial reader-value review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["review_schema_version", "article", "canonical_markdown_sha256", "reviewer", "reviewed_at_utc", "review_roles", "reader_value_score", "threshold", "decision", "categories", "critical_issues"],
+  "properties": {
+    "review_schema_version": {"const": 3},
+    "article": {"type": "string", "minLength": 1},
+    "canonical_markdown_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reviewer": {"type": "string", "minLength": 1},
+    "reviewed_at_utc": {"type": "string", "format": "date-time"},
+    "review_roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["technical", "evidence", "pedagogy", "reproducibility", "originality", "accessibility", "global-English", "platform-policy"]},
+      "allOf": [
+        {"contains": {"const": "technical"}},
+        {"contains": {"const": "evidence"}},
+        {"contains": {"const": "pedagogy"}},
+        {"contains": {"const": "reproducibility"}},
+        {"contains": {"const": "originality"}},
+        {"contains": {"const": "accessibility"}},
+        {"contains": {"const": "global-English"}}
+      ]
+    },
+    "reader_value_score": {"type": "integer", "minimum": 0, "maximum": 100},
+    "threshold": {"const": 85},
+    "decision": {"enum": ["revise", "hold", "ready_for_human_review", "approved"]},
+    "categories": {
+      "type": "array", "minItems": 8,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "score", "maximum", "evidence"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "score": {"type": "integer", "minimum": 0},
+          "maximum": {"type": "integer", "minimum": 1},
+          "evidence": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "critical_issues": {"type": "array", "items": {"type": "string"}},
+    "human_approved": {"type": "boolean"}
+  }
+}

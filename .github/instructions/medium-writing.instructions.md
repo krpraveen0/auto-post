@@ -6,15 +6,19 @@ Apply these instructions to files under `medium/**`, article drafts, course-seri
 
 1. Define reader promise.
 2. Select angle/title/subtitle.
-3. Validate evidence.
-4. Benchmark strong existing resources and define an original contribution.
-5. Create outline.
-6. Draft substance.
-7. Rewrite for human story.
-8. Compress repetition without removing necessary depth.
-9. Add draw.io visual plan.
-10. Run specialist review.
-11. Pass shipping gate.
+3. Complete the research dossier: question tree, prerequisites, misconceptions,
+   evidence plan, unknowns, experiments, scope, and non-goals.
+4. Benchmark strong existing resources and define a verifiable original contribution.
+5. Create section contracts and an outline that satisfies them.
+6. Build and verify the runnable companion artifact before relying on its results.
+7. Draft substance to satisfy every section contract.
+8. Run a gap and misconception review, then a reader-simulation pass.
+9. Rewrite for human story.
+10. Compress repetition only after the verified substance draft is complete.
+11. Add and inspect explanatory draw.io visuals.
+12. Run independent adversarial specialist reviews against the exact Markdown hash.
+13. Pass structural, package, editorial, and named-human shipping gates.
+14. After publication, collect reader-learning evidence and revise from observed gaps.
 
 ## Course-series workflow
 
@@ -74,12 +78,22 @@ The article must:
 - define a canonical-link strategy before cross-posting
 - complete `medium/templates/competitive-content-benchmark.md`; stop or reframe
   when the article adds no defensible value beyond stronger existing resources
+- complete `medium/templates/research-dossier.md` before outlining
+- complete a `medium/templates/section-contract.md` for every major explanatory section
+- satisfy `medium/templates/reproducible-example-contract.md` for technical artifacts
+- run role-separated reviews using `medium/templates/adversarial-review.md`
+- bind every approval and review to the exact canonical Markdown SHA-256
 
 Use 3,000 reader-facing body words as the minimum depth gate and target an
 approximately 18-minute technical read. Reach the floor through additional
 evidence, implementation, failure analysis, comparison, examples, or practice;
 never through repetition or generic background. Articles at or above 3,000 words
 must include a short reading path.
+
+The 3,000-word threshold is a minimum useful-depth gate, not a target to optimize.
+For a typical deep dive, aim for 3,500–5,000 words when the coherent reader
+promise requires it. A long article without original evidence, an inspectable
+artifact, or a defensible synthesis still fails.
 
 ## Course lesson quality gate
 
