@@ -80,13 +80,19 @@ Unresolved `[SOURCE NEEDED]` markers: 0 / count
 
 Notion and repository snapshot match: Yes / No / Not using Notion
 
+Unlisted Medium review URL recorded: Yes / No
+
+Medium receipt matches canonical Markdown SHA-256: Yes / No
+
+Medium follower notifications disabled during review: Yes / No
+
 Platform preview checked on desktop and mobile where supported: Yes / No
 
 Title promise delivered: Yes / No
 
 Would publish even if low views: Yes / No
 
-Named human reviewer, timestamp, and reviewed Markdown SHA-256 recorded: Yes / No
+Named post-render human reviewer, timestamp, and reviewed Markdown SHA-256 recorded before public release: Yes / No
 
 ## Stop polishing if
 
