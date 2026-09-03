@@ -1,4 +1,9 @@
-# Medium Article Review Scorecard
+# Legacy Medium Article Review Scorecard — Superseded
+
+> This scorecard does not satisfy the current schema-3 evidence requirements and
+> must not be used to authorize publication. The reviewed draft is below the
+> 3,000-word depth floor and lacks the required reproducible implementation,
+> embedded visuals, claim register, and source verification. Decision: REBUILD.
 
 Article: What Actually Happens When an LLM Generates One Token?
 
@@ -29,4 +34,4 @@ Reviewer: Copilot
 
 ## Final recommendation
 
-- Publish
+- Rebuild as the golden reference article before publication.
