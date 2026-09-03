@@ -1,0 +1,64 @@
+{
+  "report_type": "deterministic_structural_validation",
+  "path": "medium/generated/golden-guides/what-happens-when-an-llm-generates-one-token.md",
+  "publishing_schema_version": 3,
+  "word_count": 3105,
+  "estimated_read_minutes": 19,
+  "structural_coverage_score": 95,
+  "structural_threshold": 85,
+  "structurally_valid": true,
+  "criteria": [
+    {
+      "name": "Title and reader-promise signals",
+      "score": 7,
+      "evidence": "Required title and promise markers are present; originality is not assessed here."
+    },
+    {
+      "name": "Observable outcomes and alignment",
+      "score": 10,
+      "evidence": "4 outcomes; 4 use observable verbs."
+    },
+    {
+      "name": "Prior knowledge, scaffolding, and mental model",
+      "score": 10,
+      "evidence": "Prerequisites, activation prompt, and one durable model."
+    },
+    {
+      "name": "Worked-example and verification structure",
+      "score": 10,
+      "evidence": "Worked-example markers; 4 code fences; tested environment with versions=True. Correctness is reviewed separately."
+    },
+    {
+      "name": "Practice, feedback, retrieval, and transfer",
+      "score": 10,
+      "evidence": "Practice and self-check; 4 retrieval questions; transfer=True."
+    },
+    {
+      "name": "Source and limitation markers",
+      "score": 10,
+      "evidence": "6 source links; 0 unresolved markers; limitation language=True. Source quality is reviewed separately."
+    },
+    {
+      "name": "Visual explanation and accessibility",
+      "score": 10,
+      "evidence": "Real visual, equivalent alt text, caption, descriptive links; 0 oversized paragraphs."
+    },
+    {
+      "name": "Global-editorial syntax signals",
+      "score": 8,
+      "evidence": "Acronym and idiom heuristics passed; estimated 19-minute technical read. Human clarity review is still required."
+    },
+    {
+      "name": "Platform metadata and disclosure",
+      "score": 10,
+      "evidence": "Portable metadata, early AI disclosure, and canonical strategy."
+    },
+    {
+      "name": "Series continuity and next action",
+      "score": 10,
+      "evidence": "Previous/index/next navigation, recap, and next-lesson bridge."
+    }
+  ],
+  "critical_issues": [],
+  "recommendations": []
+}
