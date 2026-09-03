@@ -1,0 +1,23 @@
+{
+  "review_schema_version": 3,
+  "article": "medium/generated/golden-guides/what-happens-when-an-llm-generates-one-token.md",
+  "canonical_markdown_sha256": "316d28786afe0e3dc3998937e9f2aa7ccb73444d200627f7819c5d5646e396fd",
+  "reviewer": "Evidence-bound editorial review; human approval pending",
+  "reviewed_at_utc": "2026-09-03T00:00:00Z",
+  "review_roles": ["technical", "evidence", "pedagogy", "reproducibility", "originality", "accessibility", "global-English"],
+  "reader_value_score": 88,
+  "threshold": 85,
+  "decision": "ready_for_human_review",
+  "categories": [
+    {"name": "Technical correctness", "score": 14, "maximum": 16, "evidence": "The article states simplified attention equations, qualifies architecture variance, and links each cache claim to the tested implementation or a primary source."},
+    {"name": "Evidence quality", "score": 13, "maximum": 15, "evidence": "Five claims are registered with safe wording; observed timings come from the committed CSV and production claims use primary or official sources."},
+    {"name": "Pedagogy", "score": 13, "maximum": 15, "evidence": "Four observable outcomes align with the worked example, cache worksheet, diagnostic table, exercise, self-check, retrieval questions, and transfer task."},
+    {"name": "Reproducibility", "score": 13, "maximum": 15, "evidence": "Pinned NumPy environment, run commands, three tests, corrupted-cache fixture, raw CSV, exact environment, and expected invariants are present."},
+    {"name": "Originality", "score": 11, "maximum": 13, "evidence": "The contribution combines equivalence proof, deliberate cache corruption, two-axis benchmark, memory worksheet, and symptom-to-measurement diagnosis."},
+    {"name": "Visual explanation", "score": 9, "maximum": 10, "evidence": "An editable draw.io source and accessible SVG separate the one-time prefill path from the repeating decode loop; additional result charts would improve it."},
+    {"name": "Global accessibility", "score": 9, "maximum": 10, "evidence": "Acronyms are expanded, idioms are avoided, limitations are literal, headings are descriptive, and the embedded visual has equivalent alt text and a takeaway caption."},
+    {"name": "Practical value", "score": 6, "maximum": 6, "evidence": "The diagnostic table maps five production symptoms to measurements, hypotheses, and controlled follow-up experiments; no material improvement is currently known within this six-point category."}
+  ],
+  "critical_issues": [],
+  "human_approved": false
+}
