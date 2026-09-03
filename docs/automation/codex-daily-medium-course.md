@@ -109,6 +109,7 @@ Every run:
 16. Create or update one child page below Agentic AI in Notion. Preserve the
     Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
     disclosure, and sources. Read the page back and compare it with Markdown.
+    Record the page ID, URL, and canonical Markdown SHA-256 in the manifest.
 17. Prepare platform adapters without changing the article body:
     - Medium: title/subtitle, five or fewer suitable topics, disclosure, visual
       captions, and canonical link when cross-posted. Do not create a duplicate
@@ -119,9 +120,13 @@ Every run:
       Original URL when republishing.
     - Owned site: semantic headings, descriptive links, equivalent alt text,
       canonical metadata, author information, and responsive preview.
-18. Update next_part only after Markdown, visuals, evidence, report, manifest,
-    Notion read-back, and specialist reviews all pass. Commit only related files
-    to a review branch. A human makes the final publication decision.
+18. Return the Notion URL as the review result. The human reads the rendered page
+    and decides to approve, request revision, or stop.
+19. Never call a Medium publishing API or automate browser publication. After
+    approval, the author manually copy-pastes the Notion article to Medium.
+20. Update next_part only after Markdown, visuals, evidence, report, manifest,
+    specialist reviews, and verified Notion read-back exist. Commit only related
+    files to a review branch.
 
 Never claim that the article or teaching method is objectively superior to every
 other resource. Demonstrate quality with originality, reproducible evidence,
@@ -137,7 +142,7 @@ visual.drawio                     editable explanatory visual
 visual.svg or visual.png          portable rendered visual
 reader-value.json                 deterministic gate evidence
 claim-register.md                 verified claims and source decisions
-Notion page                       collaborative review mirror
+Notion page                       primary human reading and decision surface
 platform adapter metadata         Medium / DEV / Hashnode / owned site
 ```
 
@@ -149,7 +154,7 @@ platform adapter metadata         Medium / DEV / Hashnode / owned site
   creates a duplicate.
 - The publishing score is a checklist, not a claim of learning effectiveness or
   popularity.
-- After release, record completion, saves, exercise attempts, reader questions,
+- After public release, record completion, saves, exercise attempts, reader questions,
   corrections, and meaningful discussion. Use the evidence to revise the lesson.
 - New or substantively revised lessons must use publishing schema version 3.
 - After publication, complete `medium/templates/reader-learning-feedback.md`
@@ -174,3 +179,13 @@ docker run --rm medium-course-quality
 Remote authoring remains a separate capability. It requires an explicitly
 configured hosted model or Codex runtime plus repository and Notion credentials;
 the validation container deliberately does not infer or embed those credentials.
+
+## Notion Review Handoff
+
+The authoring pipeline uses the configured Notion connection to create or update
+the manifest's page below `Agentic AI`. A rerun updates the same page instead of
+creating a duplicate. It then reads the page back, records the source Markdown
+SHA-256, and returns the page URL for human review.
+
+Medium remains a manual destination. Do not configure a Medium token, call a
+Medium publishing API, or automate browser publication.

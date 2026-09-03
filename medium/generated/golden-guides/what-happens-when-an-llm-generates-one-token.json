@@ -46,7 +46,12 @@
     "editorial_report": "medium/reviews/scorecards/golden-one-token-reader-value.json",
     "editorial_report_sha256": "2ccc77d93f2e7bed656c2f378d1ea88a7f41e56a402b7904acf174508aff5c30"
   },
-  "notion": {"sync_status": "pending", "page_id": null, "url": null, "content_sha256": null},
+  "notion": {
+    "sync_status": "verified",
+    "page_id": "3d0c633a-e23a-812f-a44b-f840ffd7910d",
+    "url": "https://app.notion.com/p/3d0c633ae23a812fa44bf840ffd7910d?pvs=204",
+    "content_sha256": "316d28786afe0e3dc3998937e9f2aa7ccb73444d200627f7819c5d5646e396fd"
+  },
   "human_approval": {"approved": false, "reviewer": null, "approved_at_utc": null, "canonical_markdown_sha256": null},
   "validation_time_utc": "2026-09-03T00:00:00Z"
 }

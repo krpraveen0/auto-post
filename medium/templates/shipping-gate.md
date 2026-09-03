@@ -78,7 +78,11 @@ WCAG-oriented heading, link-text, and image-alt review passed: Yes / No
 
 Unresolved `[SOURCE NEEDED]` markers: 0 / count
 
-Notion and repository snapshot match: Yes / No / Not using Notion
+Notion review URL recorded: Yes / No
+
+Notion page read back and matched to canonical Markdown SHA-256: Yes / No
+
+Medium publication left for manual author action: Yes / No
 
 Platform preview checked on desktop and mobile where supported: Yes / No
 
@@ -86,7 +90,7 @@ Title promise delivered: Yes / No
 
 Would publish even if low views: Yes / No
 
-Named human reviewer, timestamp, and reviewed Markdown SHA-256 recorded: Yes / No
+Named human reviewer, timestamp, and reviewed Markdown SHA-256 recorded before manual publication: Yes / No
 
 ## Stop polishing if
 
