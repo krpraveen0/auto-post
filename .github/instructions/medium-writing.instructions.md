@@ -17,8 +17,12 @@ Apply these instructions to files under `medium/**`, article drafts, course-seri
 10. Compress repetition only after the verified substance draft is complete.
 11. Add and inspect explanatory draw.io visuals.
 12. Run independent adversarial specialist reviews against the exact Markdown hash.
-13. Pass structural, package, editorial, and named-human shipping gates.
-14. After publication, collect reader-learning evidence and revise from observed gaps.
+13. Pass structural, package, and editorial gates.
+14. Publish an unlisted, non-notifying Medium review story and record its URL and
+    canonical Markdown hash.
+15. Obtain named human approval after the author reads the Medium-rendered story;
+    only that later decision may authorize public release or follower notification.
+16. After public release, collect reader-learning evidence and revise from observed gaps.
 
 ## Course-series workflow
 
@@ -119,8 +123,13 @@ Each lesson must:
 
 - Notion may be the collaborative drafting and reader-preview surface.
 - Markdown in the repository is the portable, reviewable canonical snapshot.
-- A Notion page must not be treated as published until its content was read back,
-  visually checked, and matched to the repository snapshot.
+- A Notion page is optional and must not be treated as published until its
+  content was read back, visually checked, and matched to the repository snapshot.
+- The default review surface is an unlisted Medium story with follower
+  notifications disabled. It may be created after deterministic and adversarial
+  gates pass but before named human approval.
+- Public Medium publication remains blocked until the human reads the rendered
+  story and explicitly approves the exact canonical Markdown hash.
 - Office-document formats are outside this workflow. Do not generate or validate
   DOCX artifacts.
 - Create a small platform adapter for Medium, DEV, Hashnode, or an owned site;
