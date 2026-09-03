@@ -24,6 +24,11 @@ class ValidateArticlePackageTests(unittest.TestCase):
             "review_schema_version": 2,
             "reviewer": "Technical editor",
             "reviewed_at_utc": "2026-09-03T12:00:00Z",
+            "canonical_markdown_sha256": digest(root / "lesson.md"),
+            "review_roles": [
+                "technical", "evidence", "pedagogy", "reproducibility",
+                "originality", "accessibility", "global-English",
+            ],
             "reader_value_score": 90,
             "critical_issues": [],
             "decision": "ready_for_human_review",
@@ -74,6 +79,7 @@ class ValidateArticlePackageTests(unittest.TestCase):
                 "approved": approved,
                 "reviewer": "Human" if approved else None,
                 "approved_at_utc": "2026-09-03T12:00:00Z" if approved else None,
+                "canonical_markdown_sha256": digest(root / "lesson.md") if approved else None,
             },
             "validation_time_utc": "2026-09-03T12:00:00Z",
         }
@@ -118,6 +124,36 @@ class ValidateArticlePackageTests(unittest.TestCase):
             report = vap.validate_manifest(manifest, root)
         self.assertFalse(report.package_integrity_valid)
         self.assertTrue(any("verified Notion sync" in issue for issue in report.critical_issues))
+
+    def test_editorial_review_for_different_markdown_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest = self.make_package(root)
+            review_path = root / "editorial.json"
+            review = json.loads(review_path.read_text())
+            review["canonical_markdown_sha256"] = "0" * 64
+            review_path.write_text(json.dumps(review), encoding="utf-8")
+            data = json.loads(manifest.read_text())
+            data["quality"]["editorial_report_sha256"] = digest(review_path)
+            manifest.write_text(json.dumps(data), encoding="utf-8")
+            report = vap.validate_manifest(manifest, root)
+        self.assertFalse(report.package_integrity_valid)
+        self.assertTrue(any("canonical Markdown SHA-256" in issue for issue in report.critical_issues))
+
+    def test_missing_adversarial_review_role_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest = self.make_package(root)
+            review_path = root / "editorial.json"
+            review = json.loads(review_path.read_text())
+            review["review_roles"].remove("reproducibility")
+            review_path.write_text(json.dumps(review), encoding="utf-8")
+            data = json.loads(manifest.read_text())
+            data["quality"]["editorial_report_sha256"] = digest(review_path)
+            manifest.write_text(json.dumps(data), encoding="utf-8")
+            report = vap.validate_manifest(manifest, root)
+        self.assertFalse(report.package_integrity_valid)
+        self.assertTrue(any("missing adversarial roles" in issue for issue in report.critical_issues))
 
 
 if __name__ == "__main__":
