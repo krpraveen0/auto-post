@@ -193,6 +193,15 @@ def validate_manifest(path: Path, repository_root: Path) -> PackageReport:
             issues.append("editorial review must use review_schema_version 2")
         if not review.get("reviewer") or not review.get("reviewed_at_utc"):
             issues.append("editorial review must identify its reviewer and review time")
+        if review.get("canonical_markdown_sha256") != data.get("markdown_sha256"):
+            issues.append("editorial review must match the canonical Markdown SHA-256")
+        required_roles = {
+            "technical", "evidence", "pedagogy", "reproducibility",
+            "originality", "accessibility", "global-English",
+        }
+        completed_roles = set(review.get("review_roles", []))
+        if missing_roles := sorted(required_roles - completed_roles):
+            issues.append("editorial review is missing adversarial roles: " + ", ".join(missing_roles))
         if not isinstance(categories, list) or len(categories) < 8:
             issues.append("editorial review must contain at least eight evidence-backed categories")
         else:
@@ -223,6 +232,8 @@ def validate_manifest(path: Path, repository_root: Path) -> PackageReport:
         blockers.append("human publication approval is pending")
     elif not approval.get("reviewer") or not approval.get("approved_at_utc"):
         issues.append("approved human review must identify reviewer and approval time")
+    elif approval.get("canonical_markdown_sha256") != data.get("markdown_sha256"):
+        issues.append("human approval must match the canonical Markdown SHA-256")
 
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", str(data.get("validation_time_utc", ""))):
         issues.append("validation_time_utc must use YYYY-MM-DDTHH:MM:SSZ")
