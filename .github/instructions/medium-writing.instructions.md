@@ -9,6 +9,9 @@ Apply these instructions to files under `medium/**`, article drafts, course-seri
 3. Complete the research dossier: question tree, prerequisites, misconceptions,
    evidence plan, unknowns, experiments, scope, and non-goals.
 4. Benchmark strong existing resources and define a verifiable original contribution.
+   Complete `medium/templates/deep-technical-article-contract.md`: start from the
+   smallest useful system, add complexity only for an observed need, and explain
+   implementation choices, failure behavior, and operational trade-offs.
 5. Create section contracts and an outline that satisfies them.
 6. Build and verify the runnable companion artifact before relying on its results.
 7. Draft substance to satisfy every section contract.

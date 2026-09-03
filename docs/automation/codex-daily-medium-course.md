@@ -53,7 +53,10 @@ Every run:
    voice, wording, examples, or section order. Identify what they omit,
    oversimplify, or fail to make reproducible. State the article's original
    contribution: an experiment, implementation, failure analysis, decision
-   framework, or tested synthesis.
+   framework, or tested synthesis. Complete
+   `medium/templates/deep-technical-article-contract.md`. Begin with the smallest
+   useful system, add each component only after naming the failure or requirement
+   that justifies it, and preserve alternatives, trade-offs, and boundaries.
 6. Create a section contract for every major explanatory section. Build and
    verify the companion implementation or experiment before using its results.
    The companion directory must satisfy
@@ -114,6 +117,10 @@ Every run:
     native Mermaid blocks or uploaded PNG images rather than remote SVG links.
     Read the page back and require its equation and diagram blocks to exist before
     recording the page ID, URL, and canonical Markdown SHA-256 in the manifest.
+    Before writing to Notion, run `scripts/render_notion_review.py render` and use
+    its output as the page body. After fetching the page, run
+    `scripts/render_notion_review.py validate-readback`; a mismatch leaves the
+    manifest pending and the same lesson ready to retry.
 17. Prepare platform adapters without changing the article body:
     - Medium: title/subtitle, five or fewer suitable topics, disclosure, visual
       captions, and canonical link when cross-posted. Do not create a duplicate

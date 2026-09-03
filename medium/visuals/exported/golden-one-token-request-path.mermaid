@@ -1,0 +1,10 @@
+flowchart TD
+    A["Request text"] --> B["Tokenization"]
+    B --> C["Prefill prompt once"]
+    C --> D["Next-token logits"]
+    D --> E["Select token"]
+    E --> F["Append KV cache"]
+    F --> G["Stream token"]
+    G --> H{"Stop condition?"}
+    H -- "No" --> D
+    H -- "Yes" --> I["Complete response"]
