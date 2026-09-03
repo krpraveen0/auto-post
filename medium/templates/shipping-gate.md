@@ -4,6 +4,8 @@ Article:
 
 Canonical Markdown:
 
+Canonical Markdown SHA-256:
+
 Notion draft:
 
 Reader-value score:
@@ -48,6 +50,14 @@ Retrieval practice and transfer prompt are present: Yes / No
 
 Claims and code have been verified: Yes / No
 
+Research dossier and misconception register complete: Yes / No
+
+Every major section contract fulfilled: Yes / No
+
+Independent adversarial review roles complete: Yes / No
+
+All reviews reference this exact Markdown SHA-256: Yes / No
+
 Runnable companion artifacts and failure fixtures pass: Yes / No
 
 Tested environment and version context are documented: Yes / No
@@ -75,6 +85,8 @@ Platform preview checked on desktop and mobile where supported: Yes / No
 Title promise delivered: Yes / No
 
 Would publish even if low views: Yes / No
+
+Named human reviewer, timestamp, and reviewed Markdown SHA-256 recorded: Yes / No
 
 ## Stop polishing if
 
