@@ -1,0 +1,52 @@
+{
+  "publishing_schema_version": 3,
+  "series": "Golden Technical Guides",
+  "part": 1,
+  "title": "What Actually Happens When an LLM Generates One Token?",
+  "markdown": "medium/generated/golden-guides/what-happens-when-an-llm-generates-one-token.md",
+  "markdown_sha256": "316d28786afe0e3dc3998937e9f2aa7ccb73444d200627f7819c5d5646e396fd",
+  "canonical_strategy": "set-on-first-publication",
+  "platform_adapter": "medium/publishing/golden-one-token-platform.json",
+  "platform_adapter_sha256": "a03b0e81e21338e3e712e1362445a7b65bd464efda7df825e4cdf3d769e5f19e",
+  "target_platforms": ["medium", "dev", "hashnode", "owned-site", "notion"],
+  "tested_environment": {
+    "python": "3.12.13",
+    "numpy": "2.1.3",
+    "os": "Linux 6.18.35 x86_64",
+    "cpu": "AMD EPYC 9V74",
+    "verified_at": "2026-09-03"
+  },
+  "examples": [
+    {
+      "path": "medium/examples/golden-one-token/one_token.py",
+      "sha256": "2e83e67c061711861495bfc0ba8c86741cb81f9e7f8fea781bbf0f81ae3a1c9f",
+      "verification_command": "cd medium/examples/golden-one-token && python -m unittest -v"
+    },
+    {
+      "path": "medium/examples/golden-one-token/results/benchmark.csv",
+      "sha256": "511a56648c615f9d95b64df7ea068c1dd5680954f16cd124372209ad949a3406",
+      "verification_command": "cd medium/examples/golden-one-token && python one_token.py --benchmark results/benchmark.csv"
+    }
+  ],
+  "research": {
+    "benchmark": "medium/research/competitive_benchmarks/golden-one-token-benchmark.md",
+    "benchmark_sha256": "65d80b484e5dc32f3af9d7d30f49375531aa118dac1cfbe8a0b74a0aa6e69db2",
+    "claim_register": "medium/research/claim_register/golden-one-token-claims.md",
+    "claim_register_sha256": "cb179f05e50281e6f159ec78b237e88a1e1cf837f4d2e5caf56df4c873a3ef2b"
+  },
+  "visuals": {
+    "drawio": "medium/visuals/drawio/golden-one-token-request-path.drawio",
+    "drawio_sha256": "23e9248b75b2f0d2064780ccf3cad6a367d8f3b850422da7211e48e0901eb6b1",
+    "svg": "medium/visuals/exported/golden-one-token-request-path.svg",
+    "svg_sha256": "6d4cb0572b6b71dd2a8cd2a03d0494a1d5728d9ab42ecf5a8796e148e03d8660"
+  },
+  "quality": {
+    "structural_report": "medium/reviews/scorecards/what-happens-when-an-llm-generates-one-token-structural.json",
+    "structural_report_sha256": "d0ae44c7816bb8139ba5b2ae9c8757f593a71fc54ef8c5d0cb5e5aa40fe4d436",
+    "editorial_report": "medium/reviews/scorecards/golden-one-token-reader-value.json",
+    "editorial_report_sha256": "2ccc77d93f2e7bed656c2f378d1ea88a7f41e56a402b7904acf174508aff5c30"
+  },
+  "notion": {"sync_status": "pending", "page_id": null, "url": null, "content_sha256": null},
+  "human_approval": {"approved": false, "reviewer": null, "approved_at_utc": null, "canonical_markdown_sha256": null},
+  "validation_time_utc": "2026-09-03T00:00:00Z"
+}
