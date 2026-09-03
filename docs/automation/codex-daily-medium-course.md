@@ -109,7 +109,11 @@ Every run:
 16. Create or update one child page below Agentic AI in Notion. Preserve the
     Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
     disclosure, and sources. Read the page back and compare it with Markdown.
-    Record the page ID, URL, and canonical Markdown SHA-256 in the manifest.
+    Convert display math to Notion-native `$$` blocks and inline math to
+    `$`-backtick form. Convert repository-relative SVGs to native Mermaid or an
+    uploaded PNG; never depend on a remote SVG rendering. Confirm equations and
+    visuals exist in the read-back, then record the page ID, URL, and canonical
+    Markdown SHA-256 in the manifest.
 17. Prepare platform adapters without changing the article body:
     - Medium: title/subtitle, five or fewer suitable topics, disclosure, visual
       captions, and canonical link when cross-posted. Do not create a duplicate
