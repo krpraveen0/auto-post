@@ -126,6 +126,9 @@ Each lesson must:
 - Markdown in the repository is the portable, reviewable canonical snapshot.
 - The Notion page is the required human review surface. Read it back, visually
   check it, and match it to the repository snapshot before recording a verified sync.
+- Adapt portable Markdown to Notion-native blocks during sync: use `$$` equation
+  blocks, `$`-backtick inline equations, and native Mermaid or uploaded raster
+  images. Do not rely on `\\[...\\]` math or remote SVG rendering.
 - Notion review is not publication. Medium publication is a manual author action
   outside this automation, performed only after human approval.
 - Office-document formats are outside this workflow. Do not generate or validate
