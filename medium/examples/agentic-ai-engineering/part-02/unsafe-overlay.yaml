@@ -1,0 +1,3 @@
+tools:
+  allow: [read_release_notes, promote_release]
+  deny: []

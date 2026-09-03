@@ -22,14 +22,20 @@ Run these stages in order:
 3. Series promise and scope
 4. Module-to-lesson breakdown
 5. Lesson dependency map
-6. Per-lesson learning outcomes
-7. Project and exercise design
-8. Evidence and claim plan
-9. Visual system plan
-10. Draft each lesson through `medium-orchestrator`
-11. Course continuity review
-12. Lesson publishing packages
-13. Series index and navigation copy
+6. Backward lesson design: observable outcomes and evidence of learning
+7. Prior-knowledge and cognitive-load plan
+8. Worked example, guided practice, independent exercise, and feedback design
+9. Retrieval and transfer prompts
+10. Evidence and claim plan
+11. Competitive-content benchmark and original contribution
+12. Visual system plan
+13. Draft each lesson through `medium-orchestrator`
+14. Reader-value score and critical shipping gate
+15. Course continuity review
+16. Notion preview plus canonical Markdown snapshot
+17. Cross-platform metadata, disclosure, and canonical-link review
+18. Lesson publishing packages
+19. Series index and navigation copy
 
 ## Required specialist skills
 
@@ -73,21 +79,59 @@ Lesson title:
 Reader state before lesson:
 Learning outcomes:
 Prerequisites:
+Prior-knowledge prompt:
 Core concept:
+Mental model:
 Worked example:
-Exercise:
+Tested environment and versions:
+Verification method:
+Guided practice:
+Independent exercise:
+Expected output:
+Check-your-work criteria:
+Retrieval questions:
+Transfer prompt:
 Evidence notes:
+Strong existing resources and their gaps:
+Original contribution:
 Visuals:
 Recap:
 Next lesson bridge:
+Reader-value score:
+Notion draft URL:
+Author and AI disclosure:
+Canonical-link strategy:
 Publishing package:
 ```
 
 ## Quality rules
 
 - Each lesson teaches one primary concept.
-- Every lesson must include a concrete example or exercise.
+- Outcomes must use observable verbs and align with practice and assessment.
+- Every lesson must activate relevant prior knowledge.
+- Every lesson must include a concrete worked example and an exercise.
+- Scaffolding must move from modeled reasoning toward independent work.
+- Practice must include expected output and check-your-work criteria.
+- Every lesson must include retrieval questions and a transfer prompt.
 - Do not introduce unexplained terms from future lessons.
 - Do not repeat full setup context in every lesson; link back to earlier parts.
 - Every lesson must move the reader closer to the final project.
 - The series must include previous/next navigation and a course index.
+- Visuals must explain a relationship, decision, or sequence; decorative or
+  placeholder visuals do not satisfy the gate.
+- Target 90+/100 evidence-backed reader-value points. Publishing requires at
+  least 85/100, zero critical failures, and explicit human approval. The
+  deterministic Markdown validator measures structural coverage only and must
+  never create or approve the reader-value score.
+- Every lesson contains at least 3,000 reader-facing body words and targets an
+  approximately 18-minute technical read. Additional length must provide
+  evidence, implementation, failure analysis, comparison, or practice—not
+  padding—and every qualifying lesson includes a short reading path.
+- Every technical example must record the tested environment, versions, expected
+  behavior, and verification method.
+- Use publishing schema version 3 and keep the canonical article body in portable
+  Markdown. Do not generate DOCX.
+- Include accurate authorship, material AI-assistance disclosure, canonical-link
+  strategy, global-English review, and platform previews.
+- Do not claim the article or method is universally superior. Demonstrate value
+  through originality, reproducible evidence, reader outcomes, and corrections.

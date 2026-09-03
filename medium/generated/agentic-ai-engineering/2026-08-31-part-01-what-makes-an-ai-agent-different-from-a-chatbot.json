@@ -1,0 +1,86 @@
+{
+  "backend": "codex-automation-session",
+  "generated_at_utc": "2026-08-31T08:46:20Z",
+  "updated_at_utc": "2026-09-02T23:52:10Z",
+  "validation_time_utc": "2026-09-02T23:52:10Z",
+  "publishing_schema_version": 3,
+  "series": "agentic-ai-engineering",
+  "part": 1,
+  "title": "What Makes an AI Agent Different from a Chatbot?",
+  "markdown": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
+  "markdown_sha256": "f7ff0054edd38e5921d8f74e51ca98b558609608d77f2f1ba720f81e3e800bfe",
+  "canonical_strategy": "set-on-first-publication",
+  "platform_adapter": "medium/publishing/agentic-ai-engineering-part-01.json",
+  "platform_adapter_sha256": "8980c2f352f827b0b8ba1120134c9758ae911ee7180b07143af018263d19aec5",
+  "target_platforms": ["notion", "medium", "dev", "hashnode", "owned-site"],
+  "tested_environment": {
+    "python": "3.12.13",
+    "dependencies": "standard-library only",
+    "verified_at": "2026-09-03",
+    "operating_systems": ["macOS local verification", "Ubuntu CI contract"]
+  },
+  "examples": [
+    {
+      "path": "medium/examples/agentic-ai-engineering/part-01/README.md",
+      "sha256": "7d9cd84be7fd5855deca22049a5fcca644679b26782acba450da663dc1550e55",
+      "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-01 -v"
+    },
+    {
+      "path": "medium/examples/agentic-ai-engineering/part-01/bounded_agent.py",
+      "sha256": "68fd50c9e5a38a3145f1d50b77f02170bff735e7025ef3a4dc2aa24d339cd09c",
+      "verification_command": "python medium/examples/agentic-ai-engineering/part-01/bounded_agent.py"
+    },
+    {
+      "path": "medium/examples/agentic-ai-engineering/part-01/test_bounded_agent.py",
+      "sha256": "266c1ed49771dc00d10017049a73298b325ef0582beb68ca86ba9bda60d380b6",
+      "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-01 -v"
+    }
+  ],
+  "research": {
+    "benchmark": "medium/research/what-makes-an-ai-agent-different-from-a-chatbot_benchmark.md",
+    "benchmark_sha256": "e6d70e310a9425a363869bed32896179132afb73b058b00af622c2aa38c5c03e",
+    "claim_register": "medium/research/claim_register/what-makes-an-ai-agent-different-from-a-chatbot_claims.md",
+    "claim_register_sha256": "f8bfc27d34a19e7d5472db80db2f64dbb40817b70ee4b64991362cc9b2d54b79"
+  },
+  "visuals": {
+    "control_drawio": "medium/visuals/drawio/agentic-ai-engineering-part-01-control-boundary.drawio",
+    "control_drawio_sha256": "b53cdd5ff4cacfbac193ebf12c59f91ad68a49719c64ec063a15d9d90799083b",
+    "control_svg": "medium/visuals/exported/agentic-ai-engineering-part-01-control-boundary.svg",
+    "control_svg_sha256": "b8dce99b91dbc1330df845e26e389a434ef575b19765149c3796d333d2244611",
+    "state_drawio": "medium/visuals/drawio/agentic-ai-engineering-part-01-state-machine.drawio",
+    "state_drawio_sha256": "dbe6338bd6751a3ea7ea469625414480265080a4701ae65ddf0cf5926c068248",
+    "state_svg": "medium/visuals/exported/agentic-ai-engineering-part-01-state-machine.svg",
+    "state_svg_sha256": "685b5bef5d39ca87b79b995666565cdb0baceb9c51d1a18c52190839d8330d8b"
+  },
+  "quality": {
+    "word_count": 4300,
+    "estimated_read_minutes": 26,
+    "structural_report": "medium/reviews/scorecards/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot-structural.json",
+    "structural_report_sha256": "beed99df2315e85f479e80b11d8caf3c579663d12bf1b7b1fd8e1a8aaba48021",
+    "editorial_report": "medium/reviews/scorecards/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot-reader-value.json",
+    "editorial_report_sha256": "7bb0b98c3489100b999c199722a559b1e29ac9693ba61e277765816fcdc166d4",
+    "reader_value_score": 90,
+    "reader_value_threshold": 85,
+    "critical_issues": 0,
+    "decision": "ready_for_human_review",
+    "publishable": false
+  },
+  "notion": {
+    "sync_status": "verified",
+    "page_id": "3cfc633a-e23a-819c-9335-e2be110e3c54",
+    "url": "https://app.notion.com/p/3cfc633ae23a819c9335e2be110e3c54?pvs=204",
+    "content_sha256": "ba1b4c1fd4ce37e63ab5962fd5581d106f29279a53d5676b43c5e9a181b980a5",
+    "visual_format": "Notion-native Mermaid",
+    "read_back_verified": true,
+    "read_back_verified_at_utc": "2026-09-02T23:51:14Z",
+    "link_corrections": [
+      "Added Notion links for course index and Part 2 navigation.",
+      "Replaced repository-relative companion code link with the branch GitHub URL."
+    ]
+  },
+  "human_approval": {
+    "approved": false,
+    "reviewer": null,
+    "approved_at_utc": null
+  }
+}

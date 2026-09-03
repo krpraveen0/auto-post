@@ -1,0 +1,81 @@
+{
+  "backend": "codex-automation-session",
+  "generated_at_utc": "2026-09-01T02:06:01Z",
+  "updated_at_utc": "2026-09-02T23:52:10Z",
+  "validation_time_utc": "2026-09-02T23:52:10Z",
+  "publishing_schema_version": 3,
+  "series": "agentic-ai-engineering",
+  "part": 2,
+  "title": "The Six Configuration Surfaces of an Agent",
+  "markdown": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
+  "markdown_sha256": "58758eee34f9b4c9b4fda805e7f6ee364e8672e34c6884cad1b7664aca3bcd8d",
+  "canonical_strategy": "set-on-first-publication",
+  "platform_adapter": "medium/publishing/agentic-ai-engineering-part-02.json",
+  "platform_adapter_sha256": "1fb2bd2cbe86ba58395968dc8a0538681498febdd2c7ce022f91dc747ac72dc2",
+  "target_platforms": ["notion", "medium", "dev", "hashnode", "owned-site"],
+  "tested_environment": {
+    "python": "3.12.13",
+    "dependencies": {"PyYAML": "6.0.3", "jsonschema": "4.26.0"},
+    "verified_at": "2026-09-03",
+    "operating_systems": ["macOS local verification", "Ubuntu CI contract"]
+  },
+  "examples": [
+    {"path": "medium/examples/agentic-ai-engineering/part-02/README.md", "sha256": "8058f14bf4fe002ebb94793ab7a54150edb4215e8d909dec17a59fd5adb52d99", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/base-config.yaml", "sha256": "8b82037575004f7a3709addc103301bd09d118abae226321c23574b9b042a81a", "verification_command": "python medium/examples/agentic-ai-engineering/part-02/resolve_config.py medium/examples/agentic-ai-engineering/part-02/base-config.yaml medium/examples/agentic-ai-engineering/part-02/production-overlay.yaml"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/production-overlay.yaml", "sha256": "f06d6ebf70eebf2e8ac924c4b990b45a112e53b22daae1c39d021443f24346b8", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/unsafe-overlay.yaml", "sha256": "0b609ede04b40e5aff2710c4d992f5eb5cdf333d0cacfa3e25c7d79a2535089e", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/agent-config.schema.json", "sha256": "54a22ad4b3774465cbb4cc34eaf3d0039ca6ed93924914f9113672832c1dc30b", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/resolve_config.py", "sha256": "cb338a2a5f2e996f54e5c11135e7b161af2fb9540b7536cfd66dbe31877ad54f", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/test_resolve_config.py", "sha256": "a5a7c619e9e6a76351c60c609037c4b71465c9f07564022fb575c947443b9874", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"},
+    {"path": "medium/examples/agentic-ai-engineering/part-02/expected-release-record.json", "sha256": "1443b6a0e71bb96a2be824352b63ca5691c4e76fcf45aea58812f8c431f706c0", "verification_command": "python -m unittest discover -s medium/examples/agentic-ai-engineering/part-02 -v"}
+  ],
+  "research": {
+    "benchmark": "medium/research/six-configuration-surfaces-of-an-agent_benchmark.md",
+    "benchmark_sha256": "da3246d22960bad2e06cc9a4f9513c9e49e3a6f8e00759c61372942fc38440cf",
+    "claim_register": "medium/research/claim_register/six-configuration-surfaces-of-an-agent_claims.md",
+    "claim_register_sha256": "2e604853ae80cee271c045dabd014a9f07e5395745a79990917da0eafdccee80"
+  },
+  "visuals": {
+    "surfaces_drawio": "medium/visuals/drawio/agentic-ai-engineering-part-02-config-surfaces.drawio",
+    "surfaces_drawio_sha256": "ee9fcb52cce48413c39cc84f613eda7b76661dcccb1bcef555354bf8d43d62fd",
+    "surfaces_svg": "medium/visuals/exported/agentic-ai-engineering-part-02-config-surfaces.svg",
+    "surfaces_svg_sha256": "fc01d1c3f019316ed168c96150ac75224935cc0111476c4a15ab28b40a2b40d9",
+    "surfaces_png": "medium/visuals/exported/agentic-ai-engineering-part-02-config-surfaces.png",
+    "surfaces_png_sha256": "c9f093566763376dd87b057703c736b8a206bc070ff63305990eef54508e112f",
+    "resolution_drawio": "medium/visuals/drawio/agentic-ai-engineering-part-02-resolution-pipeline.drawio",
+    "resolution_drawio_sha256": "ddfa6053b9a5237307c268291bff0293b223399234467b0977dc7aa750f94e9c",
+    "resolution_svg": "medium/visuals/exported/agentic-ai-engineering-part-02-resolution-pipeline.svg",
+    "resolution_svg_sha256": "ff7299f67585b501e648a17d1be314d50a001d04fe7217f2d3432347e6cb0645"
+  },
+  "quality": {
+    "word_count": 4391,
+    "estimated_read_minutes": 26,
+    "structural_report": "medium/reviews/scorecards/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent-structural.json",
+    "structural_report_sha256": "e12626c8277dcdf2f53df6f700f14d0e4b73b67daf1b1194ccfa874c640e9eeb",
+    "editorial_report": "medium/reviews/scorecards/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent-reader-value.json",
+    "editorial_report_sha256": "cf3b38473284f0c5cfb55a85828d470b389f69b6a0aa3926280ba0ecc92a46fb",
+    "reader_value_score": 91,
+    "reader_value_threshold": 85,
+    "critical_issues": 0,
+    "decision": "ready_for_human_review",
+    "publishable": false
+  },
+  "notion": {
+    "sync_status": "verified",
+    "page_id": "3cfc633a-e23a-81be-84e5-d0afdaefcb8f",
+    "url": "https://app.notion.com/p/3cfc633ae23a81be84e5d0afdaefcb8f?pvs=204",
+    "content_sha256": "144c13cda00556840904858c22aac29203ce29a336c9eaf47b2c2301b56046a8",
+    "visual_format": "Notion-native Mermaid",
+    "read_back_verified": true,
+    "read_back_verified_at_utc": "2026-09-02T23:51:32Z",
+    "link_corrections": [
+      "Added Notion links for Part 1 and course index navigation.",
+      "Replaced repository-relative companion code links with branch GitHub URLs."
+    ]
+  },
+  "human_approval": {
+    "approved": false,
+    "reviewer": null,
+    "approved_at_utc": null
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "review_schema_version": 2,
+  "article": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
+  "reviewer": "Codex independent technical-editorial review",
+  "reviewed_at_utc": "2026-09-02T23:29:40Z",
+  "reader_value_score": 91,
+  "threshold": 85,
+  "decision": "ready_for_human_review",
+  "human_approved": false,
+  "categories": [
+    {"name": "Reader promise and original contribution", "score": 11, "maximum": 12, "evidence": "The six-surface release envelope and evidence-impact set convert scattered settings into a reviewable engineering contract."},
+    {"name": "Technical correctness and nuance", "score": 16, "maximum": 18, "evidence": "The schema constrains array members, the resolver rejects unsafe paths, cross-field policy checks deny conflicting mutations, and provider-specific setting limits are qualified."},
+    {"name": "Knowledge depth and progression", "score": 15, "maximum": 16, "evidence": "One release-analyst case connects declared configuration, resolution, six surfaces, schema validation, evidence invalidation, and staged evaluation."},
+    {"name": "Reproducibility and runnable evidence", "score": 14, "maximum": 16, "evidence": "Pinned dependencies, configuration fixtures, a strict resolver, expected release record, and six tests reproduce accepted and rejected paths."},
+    {"name": "Failures, trade-offs, and evaluation", "score": 11, "maximum": 12, "evidence": "Unsafe overlays, malformed values, policy inconsistencies, alias ambiguity, cross-surface failures, and invalidated evidence are made explicit."},
+    {"name": "Pedagogy and transfer", "score": 9, "maximum": 10, "evidence": "The configuration exercise, change note, self-check, retrieval questions, and non-agent transfer prompt align with the outcomes."},
+    {"name": "Visual explanation and accessibility", "score": 7, "maximum": 8, "evidence": "Two captioned visuals show the six-surface envelope and the resolution/rejection pipeline with equivalent alt text and editable sources."},
+    {"name": "Evidence and publishing trust", "score": 8, "maximum": 8, "evidence": "Primary specifications, official guidance, practitioner synthesis, original tests, a claim register, disclosure, and limitations support the claims."}
+  ],
+  "critical_issues": []
+}

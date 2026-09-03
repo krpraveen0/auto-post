@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">The six configuration surfaces of an agent</title>
+  <desc id="desc">A bounded agent loop surrounded by prompt, tools, model, retrieval, guardrails, and memory configuration panels. A version boundary encloses all six surfaces, and a run trace records the resolved configuration.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <style>
+      .title { font: 700 38px Arial, Helvetica, sans-serif; fill: #0b2545; }
+      .subtitle { font: 400 19px Arial, Helvetica, sans-serif; fill: #475569; }
+      .box-title { font: 700 24px Arial, Helvetica, sans-serif; fill: #0b2545; }
+      .box-copy { font: 400 19px Arial, Helvetica, sans-serif; fill: #475569; }
+      .tag { font: 700 17px Arial, Helvetica, sans-serif; fill: #3730a3; letter-spacing: 0.6px; }
+      .core-label { font: 700 19px Arial, Helvetica, sans-serif; fill: #ffffff; letter-spacing: 0.4px; }
+      .core-copy { font: 400 18px Arial, Helvetica, sans-serif; fill: #dbeafe; }
+      .pill { font: 700 15px Arial, Helvetica, sans-serif; fill: #0b2545; }
+      .trace-title { font: 700 18px Arial, Helvetica, sans-serif; fill: #14532d; }
+      .trace-copy { font: 400 17px Arial, Helvetica, sans-serif; fill: #334155; }
+      .connector { stroke: #64748b; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f8fafc"/>
+  <text x="80" y="58" class="title">One agent release = six configuration surfaces</text>
+  <text x="80" y="88" class="subtitle">Behavior changes when any surface changes—even if the prompt stays the same.</text>
+
+  <rect x="55" y="110" width="1490" height="825" rx="28" fill="#ffffff" stroke="#818cf8" stroke-width="3" stroke-dasharray="12 10"/>
+  <rect x="1265" y="128" width="245" height="42" rx="21" fill="#eef2ff" stroke="#a5b4fc" stroke-width="2"/>
+  <text x="1388" y="155" text-anchor="middle" class="tag">CONFIG VERSION 0.2.0</text>
+
+  <path class="connector" d="M280 325 C360 350 430 365 520 390"/>
+  <path class="connector" d="M800 325 L800 382"/>
+  <path class="connector" d="M1320 325 C1240 350 1170 365 1080 390"/>
+  <path class="connector" d="M280 645 C360 620 430 600 520 555"/>
+  <path class="connector" d="M800 645 L800 562"/>
+  <path class="connector" d="M1320 645 C1240 620 1170 600 1080 555"/>
+
+  <g filter="url(#shadow)">
+    <rect x="90" y="185" width="380" height="140" rx="20" fill="#eff6ff" stroke="#60a5fa" stroke-width="3"/>
+    <rect x="610" y="185" width="380" height="140" rx="20" fill="#ecfdf5" stroke="#34d399" stroke-width="3"/>
+    <rect x="1130" y="185" width="380" height="140" rx="20" fill="#f5f3ff" stroke="#a78bfa" stroke-width="3"/>
+    <rect x="90" y="645" width="380" height="140" rx="20" fill="#f0f9ff" stroke="#38bdf8" stroke-width="3"/>
+    <rect x="610" y="645" width="380" height="140" rx="20" fill="#fffbeb" stroke="#f59e0b" stroke-width="3"/>
+    <rect x="1130" y="645" width="380" height="140" rx="20" fill="#f0fdf4" stroke="#4ade80" stroke-width="3"/>
+  </g>
+
+  <text x="120" y="228" class="box-title">1  Prompt Policy</text>
+  <text x="120" y="266" class="box-copy">role • success • uncertainty</text>
+  <text x="120" y="296" class="box-copy">judgment, not permissions</text>
+
+  <text x="640" y="228" class="box-title">2  Tool Action Space</text>
+  <text x="640" y="266" class="box-copy">allow-list • schemas • side effects</text>
+  <text x="640" y="296" class="box-copy">what the agent can actually do</text>
+
+  <text x="1160" y="228" class="box-title">3  Model Envelope</text>
+  <text x="1160" y="266" class="box-copy">snapshot • settings • fallback</text>
+  <text x="1160" y="296" class="box-copy">the evaluated behavior range</text>
+
+  <text x="120" y="688" class="box-title">4  Retrieval Evidence</text>
+  <text x="120" y="726" class="box-copy">collections • filters • no-result policy</text>
+  <text x="120" y="756" class="box-copy">which facts enter the context</text>
+
+  <text x="640" y="688" class="box-title">5  Runtime Guardrails</text>
+  <text x="640" y="726" class="box-copy">approvals • budgets • stop rules</text>
+  <text x="640" y="756" class="box-copy">policy enforced outside the model</text>
+
+  <text x="1160" y="688" class="box-title">6  Memory Lifetimes</text>
+  <text x="1160" y="726" class="box-copy">step • session • durable</text>
+  <text x="1160" y="756" class="box-copy">what survives, and for how long</text>
+
+  <g filter="url(#shadow)">
+    <rect x="430" y="382" width="740" height="180" rx="30" fill="#1e3a8a" stroke="#1d4ed8" stroke-width="3"/>
+  </g>
+  <text x="800" y="420" text-anchor="middle" class="core-label">BOUNDED AGENT LOOP</text>
+  <text x="800" y="451" text-anchor="middle" class="core-copy">task state + observations + permitted actions</text>
+
+  <g>
+    <rect x="465" y="483" width="112" height="42" rx="21" fill="#dbeafe"/>
+    <rect x="606" y="483" width="112" height="42" rx="21" fill="#dbeafe"/>
+    <rect x="747" y="483" width="106" height="42" rx="21" fill="#dbeafe"/>
+    <rect x="882" y="483" width="112" height="42" rx="21" fill="#dbeafe"/>
+    <rect x="1023" y="483" width="112" height="42" rx="21" fill="#dbeafe"/>
+    <text x="521" y="509" text-anchor="middle" class="pill">OBSERVE</text>
+    <text x="662" y="509" text-anchor="middle" class="pill">DECIDE</text>
+    <text x="800" y="509" text-anchor="middle" class="pill">ACT</text>
+    <text x="938" y="509" text-anchor="middle" class="pill">UPDATE</text>
+    <text x="1079" y="509" text-anchor="middle" class="pill">STOP</text>
+    <path d="M579 504 H602" stroke="#bfdbfe" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M720 504 H743" stroke="#bfdbfe" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M855 504 H878" stroke="#bfdbfe" stroke-width="4" marker-end="url(#arrow)"/>
+    <path d="M996 504 H1019" stroke="#bfdbfe" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+
+  <rect x="125" y="835" width="1350" height="72" rx="18" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+  <text x="155" y="866" class="trace-title">RESOLVED RUN TRACE</text>
+  <text x="155" y="891" class="trace-copy">Records the exact prompt, tools, model, retrieval policy, guardrails, and memory policy used for this run.</text>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "status": "review-draft",
+  "canonical_source": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
+  "title": "The Six Configuration Surfaces of an Agent",
+  "subtitle": "Turn an agent boundary into configuration you can review, test, and version",
+  "description": "Resolve prompts, tools, models, retrieval, guardrails, and memory into one tested release record.",
+  "disclosure": "Developed with AI assistance; technical claims, examples, and sources require final approval by the named human author.",
+  "medium": {"topics": ["Artificial Intelligence", "Software Architecture", "AI Agents", "Configuration"], "canonical_url": null, "preview_status": "pending-human-preview"},
+  "dev": {"tags": ["ai", "architecture", "python", "tutorial"], "series": "Agentic AI Engineering", "canonical_url": null, "preview_status": "pending-human-preview"},
+  "hashnode": {"series": "Agentic AI Engineering", "seo_title": "Six Configuration Surfaces for Reproducible AI Agents", "seo_description": "Build and test a resolved agent configuration spanning prompts, tools, models, retrieval, guardrails, and memory.", "original_url": null, "preview_status": "pending-human-preview"},
+  "owned_site": {"canonical_url": null, "preview_status": "pending-human-preview"},
+  "visuals": [
+    {"asset": "medium/visuals/exported/agentic-ai-engineering-part-02-config-surfaces.svg", "caption": "An agent release is the combined state of six behavior-changing surfaces.", "alt": "Six configuration surfaces surrounding a bounded agent loop and resolved run trace."},
+    {"asset": "medium/visuals/exported/agentic-ai-engineering-part-02-resolution-pipeline.svg", "caption": "Unsafe overlays and inconsistent policies fail before model execution.", "alt": "A strict configuration resolver producing exact versions and a canonical release hash."}
+  ]
+}
