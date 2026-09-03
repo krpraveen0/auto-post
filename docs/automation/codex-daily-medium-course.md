@@ -106,10 +106,7 @@ Every run:
     Target 90+/100. Publishing requires at least 85/100, zero critical issues,
     and named human approval. The deterministic score cannot approve its own
     technical correctness.
-16. Create or update one child page below Agentic AI in Notion. Preserve the
-    Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
-    disclosure, and sources. Read the page back and compare it with Markdown.
-17. Prepare platform adapters without changing the article body:
+16. Prepare platform adapters without changing the article body:
     - Medium: title/subtitle, five or fewer suitable topics, disclosure, visual
       captions, and canonical link when cross-posted. Do not create a duplicate
       Medium story.
@@ -119,9 +116,21 @@ Every run:
       Original URL when republishing.
     - Owned site: semantic headings, descriptive links, equivalent alt text,
       canonical metadata, author information, and responsive preview.
-18. Update next_part only after Markdown, visuals, evidence, report, manifest,
-    Notion read-back, and specialist reviews all pass. Commit only related files
-    to a review branch. A human makes the final publication decision.
+17. After package integrity and the schema-3 editorial gate pass, publish the
+    article to Medium as `unlisted` with follower notifications disabled. Record
+    the returned post ID, URL, canonical Markdown hash, publication time, and
+    `awaiting_post_publish_review` status in an idempotency receipt. This unlisted
+    story is the human reading surface, not final public release.
+18. Send the Medium URL to the workflow summary. The human reads the rendered
+    story on Medium and decides to approve public release, request revision, or
+    stop. Public status and follower notification always require a later explicit
+    human decision.
+19. Notion is optional. When enabled, create or update one child page below
+    Agentic AI, read it back, and compare it with Markdown; Notion is not a
+    blocker for creating the unlisted Medium review story.
+20. Update next_part only after Markdown, visuals, evidence, report, manifest,
+    specialist reviews, and the unlisted Medium receipt exist. Commit only
+    related files to a review branch.
 
 Never claim that the article or teaching method is objectively superior to every
 other resource. Demonstrate quality with originality, reproducible evidence,
@@ -137,19 +146,22 @@ visual.drawio                     editable explanatory visual
 visual.svg or visual.png          portable rendered visual
 reader-value.json                 deterministic gate evidence
 claim-register.md                 verified claims and source decisions
-Notion page                       collaborative review mirror
+Medium unlisted URL and receipt   primary human reading and decision surface
+Notion page                       optional collaborative review mirror
 platform adapter metadata         Medium / DEV / Hashnode / owned site
 ```
 
 ## State and Failure Rules
 
 - Failed research, code verification, visual, validation, policy review, or
-  Notion verification leaves the same part ready to retry.
+  Medium publication leaves the same part ready to retry.
 - Re-running a part updates the Notion page stored in the manifest and never
   creates a duplicate.
 - The publishing score is a checklist, not a claim of learning effectiveness or
   popularity.
-- After release, record completion, saves, exercise attempts, reader questions,
+- A matching Medium receipt makes reruns idempotent; never create a duplicate
+  review story for the same canonical Markdown hash.
+- After public release, record completion, saves, exercise attempts, reader questions,
   corrections, and meaningful discussion. Use the evidence to revise the lesson.
 - New or substantively revised lessons must use publishing schema version 3.
 - After publication, complete `medium/templates/reader-learning-feedback.md`
@@ -174,3 +186,17 @@ docker run --rm medium-course-quality
 Remote authoring remains a separate capability. It requires an explicitly
 configured hosted model or Codex runtime plus repository and Notion credentials;
 the validation container deliberately does not infer or embed those credentials.
+
+## Medium Review Publication
+
+Run the `Publish Medium Review` workflow after the generated package passes. It
+requires the GitHub Actions secret `MEDIUM_INTEGRATION_TOKEN`. The workflow calls
+Medium's legacy API, which Medium archived and no longer supports for new
+integrations. Existing integration tokens may continue to work, but failure must
+be treated as an explicit platform blocker. Do not fall back to public posting
+or browser-session secrets.
+
+The workflow always requests `publishStatus: unlisted` and
+`notifyFollowers: false`. It pins relative visual URLs to the generating Git
+commit and stores the returned Medium URL in a receipt. Public publication is a
+separate human-authorized action.
