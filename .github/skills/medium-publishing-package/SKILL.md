@@ -46,3 +46,9 @@ Technically safe: Yes
 Visuals support understanding: Yes
 Title promise delivered: Yes
 ```
+
+The package must reference the exact canonical Markdown SHA-256 reviewed by the
+structural, technical, pedagogical, and human reviewers. A numeric score cannot
+override a missing artifact or critical failure. Do not prepare a publishable
+package when the final Markdown is below the depth floor, differs from the
+reviewed hash, or lacks required evidence, runnable examples, or real visuals.
