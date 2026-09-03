@@ -1,0 +1,10 @@
+{
+  "title": "What Actually Happens When an LLM Generates One Token?",
+  "subtitle": "Trace prefill, decoding, sampling, streaming, and the KV cache with a reproducible model",
+  "slug": "what-happens-when-an-llm-generates-one-token",
+  "status": "draft",
+  "topics": ["Large Language Models", "Machine Learning", "Python", "Software Engineering"],
+  "canonical_strategy": "set-on-first-publication",
+  "ai_assistance": "AI-assisted research and drafting; human technical verification and publication approval required.",
+  "social_summary": "An executable walk through prefill, one-token decode, KV-cache equivalence, memory cost, and latency diagnosis."
+}

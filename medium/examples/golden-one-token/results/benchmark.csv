@@ -1,0 +1,9 @@
+experiment,prompt_tokens,output_tokens,median_ms
+prefill,16,0,0.041
+prefill,64,0,0.1419
+prefill,256,0,1.4479
+prefill,1024,0,24.133
+cached_generation,128,1,0.3595
+cached_generation,128,8,0.6278
+cached_generation,128,32,1.3909
+cached_generation,128,64,2.4019
