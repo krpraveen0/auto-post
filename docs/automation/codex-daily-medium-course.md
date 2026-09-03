@@ -108,8 +108,232 @@ Every run:
     technical correctness.
 16. Create or update one child page below Agentic AI in Notion. Preserve the
     Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
-    disclosure, and sources. Read the page back and compare it with Markdown.
-    Record the page ID, URL, and canonical Markdown SHA-256 in the manifest.
+    disclosure, and sources. Convert display equations to Notion-native
+    `$ ... $` blocks and inline equations to `# Codex Daily World-Class Technical Article Automation
+
+This runbook creates one evidence-informed technical course article per run.
+Codex and Notion support research and collaborative review; Markdown, JSON, and
+versioned visual assets are the complete portable publishing package. No office
+document is generated.
+
+## Automation Settings
+
+Name: `Daily World-Class Technical Lesson`
+
+Schedule: `06:00 Asia/Kolkata`, every day
+
+Repository: `krpraveen0/auto-post`
+
+Branch policy: create `feature/daily-medium-course-part-XX`; never push directly
+to `master`.
+
+Notion parent: `Agentic AI`
+
+Notion workflow page:
+[Cloud-Agnostic Medium Course Automation](https://app.notion.com/p/3cdc633ae23a81d7ae49d3624aeb7d16?pvs=204)
+
+## Automation Prompt
+
+```text
+You are working in krpraveen0/auto-post.
+
+Your job is to create one deeply useful technical course article for developers
+and students. Do not generate DOCX or any office-document artifact. Do not call
+api.openai.com or require OPENAI_API_KEY. Use the Codex session for research,
+authoring, review, and Notion interaction.
+
+The repository Markdown is the canonical portable article. Notion is the
+collaborative reading and review surface. Platform copies are generated from the
+same reviewed Markdown and must not become independent drafts.
+
+Every run:
+1. Read AGENTS.md, README-agent-skills.md if present, .github/instructions/, and
+   every Medium skill required by the repository's staged workflow.
+2. Read the course map, state, previous lesson, lesson plan, scorecard, shipping
+   gate, competitive-content benchmark, global publishing standard, and relevant
+   claim register.
+3. Select exactly one lesson from next_part. Never advance the state merely
+   because a draft exists.
+4. Complete `medium/templates/research-dossier.md`: define the reader question
+   tree, prerequisites, misconceptions, evidence obligations, unknowns requiring
+   experiments, scope, non-goals, and two to four observable outcomes. Stop
+   before outlining if the original contribution is not concrete and verifiable.
+5. Find at least three strong existing explanations plus the primary sources
+   needed for factual claims. Record transferable patterns in opening, staging,
+   examples, visuals, trade-offs, failures, and evaluation. Do not imitate their
+   voice, wording, examples, or section order. Identify what they omit,
+   oversimplify, or fail to make reproducible. State the article's original
+   contribution: an experiment, implementation, failure analysis, decision
+   framework, or tested synthesis.
+6. Create a section contract for every major explanatory section. Build and
+   verify the companion implementation or experiment before using its results.
+   The companion directory must satisfy
+   `medium/templates/reproducible-example-contract.md`, including tests, a
+   failure fixture, raw data, expected output, and regeneration commands.
+7. Draft using this learning arc:
+   concrete problem; Learning Outcomes; Before You Start; Mental Model; Worked
+   Example; Tested Environment; Exercise; Check Your Work; Retrieval Practice;
+   Recap; Next Lesson; Sources. Include at least one transfer prompt.
+8. Produce at least 3,000 reader-facing body words and target an approximately
+   18-minute technical read. Expand through evidence, implementation detail,
+   failure modes, comparisons, or practice; remove repetition and filler. Add a
+   short reading path. Split into multiple lessons only when the outcomes stop
+   forming one coherent learning unit.
+9. Verify every important technical claim against primary documentation or a
+   reproducible experiment. Run code and commands where the repository permits.
+   Record versions, operating environment, expected output, failure output, and
+   the verification date. Label pseudocode explicitly. Never invent citations,
+   measurements, quotations, URLs, or product behavior.
+10. Create at least one necessary explanatory visual. Keep the editable .drawio
+   and exported SVG/PNG synchronized. Embed the real asset with equivalent alt
+   text and a caption that states the takeaway. Never ship visual instructions.
+11. Write globally clear English: define acronyms, use consistent terminology,
+    avoid slang and culture-specific idioms, use unambiguous dates and units, and
+    make headings and links descriptive. Do not put essential code or text only
+    inside an image.
+12. Save the Markdown with publishing_schema_version: 3 and complete front matter:
+    title, subtitle, author, slug, status, tags, canonical_strategy,
+    ai_assistance, and last_verified. Disclose material AI assistance within the
+    first two reader-facing paragraphs. Keep the human author responsible for
+    every claim.
+13. Create a sibling JSON manifest containing the schema version, Markdown and
+    visual hashes, evidence register, tested environment, quality report path,
+    Notion page ID/URL, target platforms, canonical strategy, and validation time.
+14. Run the repository, lesson-example, structural, and package checks:
+    python -m unittest discover -s tests
+    python -m unittest discover
+      -s medium/examples/agentic-ai-engineering/part-XX -v
+    python scripts/validate_course_lesson.py --require-schema 3
+      --report-dir medium/reviews/scorecards <lesson.md>
+    python scripts/validate_article_package.py <lesson.json>
+    The first validator reports structural coverage only. It cannot award a
+    reader-value score or approve publication.
+15. Run separate adversarial technical, evidence, pedagogy, reproducibility,
+    accessibility, global-English, originality, and platform-policy reviews.
+    Every review must attempt to falsify its quality claim, cite exact artifact
+    evidence, and record the canonical Markdown SHA-256. Scores of 8/10 or above
+    require concrete evidence; 10/10 requires an explanation of why no material
+    improvement is currently known.
+    Target 90+/100. Publishing requires at least 85/100, zero critical issues,
+    and named human approval. The deterministic score cannot approve its own
+    technical correctness.
+16. Create or update one child page below Agentic AI in Notion. Preserve the
+    Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
+Equation`# Codex Daily World-Class Technical Article Automation
+
+This runbook creates one evidence-informed technical course article per run.
+Codex and Notion support research and collaborative review; Markdown, JSON, and
+versioned visual assets are the complete portable publishing package. No office
+document is generated.
+
+## Automation Settings
+
+Name: `Daily World-Class Technical Lesson`
+
+Schedule: `06:00 Asia/Kolkata`, every day
+
+Repository: `krpraveen0/auto-post`
+
+Branch policy: create `feature/daily-medium-course-part-XX`; never push directly
+to `master`.
+
+Notion parent: `Agentic AI`
+
+Notion workflow page:
+[Cloud-Agnostic Medium Course Automation](https://app.notion.com/p/3cdc633ae23a81d7ae49d3624aeb7d16?pvs=204)
+
+## Automation Prompt
+
+```text
+You are working in krpraveen0/auto-post.
+
+Your job is to create one deeply useful technical course article for developers
+and students. Do not generate DOCX or any office-document artifact. Do not call
+api.openai.com or require OPENAI_API_KEY. Use the Codex session for research,
+authoring, review, and Notion interaction.
+
+The repository Markdown is the canonical portable article. Notion is the
+collaborative reading and review surface. Platform copies are generated from the
+same reviewed Markdown and must not become independent drafts.
+
+Every run:
+1. Read AGENTS.md, README-agent-skills.md if present, .github/instructions/, and
+   every Medium skill required by the repository's staged workflow.
+2. Read the course map, state, previous lesson, lesson plan, scorecard, shipping
+   gate, competitive-content benchmark, global publishing standard, and relevant
+   claim register.
+3. Select exactly one lesson from next_part. Never advance the state merely
+   because a draft exists.
+4. Complete `medium/templates/research-dossier.md`: define the reader question
+   tree, prerequisites, misconceptions, evidence obligations, unknowns requiring
+   experiments, scope, non-goals, and two to four observable outcomes. Stop
+   before outlining if the original contribution is not concrete and verifiable.
+5. Find at least three strong existing explanations plus the primary sources
+   needed for factual claims. Record transferable patterns in opening, staging,
+   examples, visuals, trade-offs, failures, and evaluation. Do not imitate their
+   voice, wording, examples, or section order. Identify what they omit,
+   oversimplify, or fail to make reproducible. State the article's original
+   contribution: an experiment, implementation, failure analysis, decision
+   framework, or tested synthesis.
+6. Create a section contract for every major explanatory section. Build and
+   verify the companion implementation or experiment before using its results.
+   The companion directory must satisfy
+   `medium/templates/reproducible-example-contract.md`, including tests, a
+   failure fixture, raw data, expected output, and regeneration commands.
+7. Draft using this learning arc:
+   concrete problem; Learning Outcomes; Before You Start; Mental Model; Worked
+   Example; Tested Environment; Exercise; Check Your Work; Retrieval Practice;
+   Recap; Next Lesson; Sources. Include at least one transfer prompt.
+8. Produce at least 3,000 reader-facing body words and target an approximately
+   18-minute technical read. Expand through evidence, implementation detail,
+   failure modes, comparisons, or practice; remove repetition and filler. Add a
+   short reading path. Split into multiple lessons only when the outcomes stop
+   forming one coherent learning unit.
+9. Verify every important technical claim against primary documentation or a
+   reproducible experiment. Run code and commands where the repository permits.
+   Record versions, operating environment, expected output, failure output, and
+   the verification date. Label pseudocode explicitly. Never invent citations,
+   measurements, quotations, URLs, or product behavior.
+10. Create at least one necessary explanatory visual. Keep the editable .drawio
+   and exported SVG/PNG synchronized. Embed the real asset with equivalent alt
+   text and a caption that states the takeaway. Never ship visual instructions.
+11. Write globally clear English: define acronyms, use consistent terminology,
+    avoid slang and culture-specific idioms, use unambiguous dates and units, and
+    make headings and links descriptive. Do not put essential code or text only
+    inside an image.
+12. Save the Markdown with publishing_schema_version: 3 and complete front matter:
+    title, subtitle, author, slug, status, tags, canonical_strategy,
+    ai_assistance, and last_verified. Disclose material AI assistance within the
+    first two reader-facing paragraphs. Keep the human author responsible for
+    every claim.
+13. Create a sibling JSON manifest containing the schema version, Markdown and
+    visual hashes, evidence register, tested environment, quality report path,
+    Notion page ID/URL, target platforms, canonical strategy, and validation time.
+14. Run the repository, lesson-example, structural, and package checks:
+    python -m unittest discover -s tests
+    python -m unittest discover
+      -s medium/examples/agentic-ai-engineering/part-XX -v
+    python scripts/validate_course_lesson.py --require-schema 3
+      --report-dir medium/reviews/scorecards <lesson.md>
+    python scripts/validate_article_package.py <lesson.json>
+    The first validator reports structural coverage only. It cannot award a
+    reader-value score or approve publication.
+15. Run separate adversarial technical, evidence, pedagogy, reproducibility,
+    accessibility, global-English, originality, and platform-policy reviews.
+    Every review must attempt to falsify its quality claim, cite exact artifact
+    evidence, and record the canonical Markdown SHA-256. Scores of 8/10 or above
+    require concrete evidence; 10/10 requires an explanation of why no material
+    improvement is currently known.
+    Target 90+/100. Publishing requires at least 85/100, zero critical issues,
+    and named human approval. The deterministic score cannot approve its own
+    technical correctness.
+16. Create or update one child page below Agentic AI in Notion. Preserve the
+    Markdown hierarchy, code, visual, caption, practice, self-check, retrieval,
+; never pass
+    `\\[ ... \\]` delimiters through unchanged. Convert diagrams to native Mermaid
+    blocks or uploaded PNG images rather than remote SVG links. Read the page back
+    and require its equation and diagram blocks to exist before recording the page
+    ID, URL, and canonical Markdown SHA-256 in the manifest.
 17. Prepare platform adapters without changing the article body:
     - Medium: title/subtitle, five or fewer suitable topics, disclosure, visual
       captions, and canonical link when cross-posted. Do not create a duplicate
