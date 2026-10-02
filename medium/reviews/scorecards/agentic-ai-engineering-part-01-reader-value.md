@@ -4,9 +4,9 @@ Article: `2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md`
 
 Audience: Fellow developers and students
 
-Decision: **Ready for human review — 90/100**
+Decision: **Approved — 90/100**
 
-Human publication approval: **Pending**
+Human publication approval: **Praveen Kumar — 2026-09-05**
 
 Critical issues: **0**
 
@@ -26,9 +26,7 @@ Reader-facing body: **4,300 words — approximately 26 minutes**
 - Production identity, persistence, signature validation, and service-side
   idempotency remain explicit boundaries rather than implied features.
 
-## Remaining Human Gate
+## Human Gate Completed
 
-The named author must confirm the final tone, inspect both visuals at target
-platform widths, verify the Notion rendering, and accept responsibility for the
-technical claims. The deterministic structural report cannot provide this
-approval.
+Praveen Kumar approved the lesson on 2026-09-05 after reviewing the content.
+Publication and target-platform preview remain separate release actions.

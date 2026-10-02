@@ -5,8 +5,10 @@
   "reviewed_at_utc": "2026-09-02T23:29:40Z",
   "reader_value_score": 90,
   "threshold": 85,
-  "decision": "ready_for_human_review",
-  "human_approved": false,
+  "decision": "approved",
+  "human_approved": true,
+  "human_reviewer": "Praveen Kumar",
+  "human_approved_at_utc": "2026-09-05T10:32:16Z",
   "categories": [
     {"name": "Reader promise and original contribution", "score": 11, "maximum": 12, "evidence": "The control-ownership test and reusable boundary card give readers a decision artifact beyond a definition survey."},
     {"name": "Technical correctness and nuance", "score": 16, "maximum": 18, "evidence": "The corrected state machine consumes budgets, fails closed on denial, matches approvals, preserves operation identity, and refuses unverified completion; production persistence and identity verification remain explicit limitations."},

@@ -1,0 +1,90 @@
+{
+  "backend": "codex-automation-session",
+  "generated_at_utc": "2026-09-05T10:47:25Z",
+  "updated_at_utc": "2026-10-02T15:25:33Z",
+  "validation_time_utc": "2026-10-02T15:25:33Z",
+  "publishing_schema_version": 3,
+  "series": "agentic-ai-engineering",
+  "part": 3,
+  "title": "Building a Minimal Tool-Using Agent",
+  "markdown": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.md",
+  "markdown_sha256": "6fc58a1552513d3589a0cc28c66032b4f32c3402fd9eb2c6194781b272a61150",
+  "docx": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.docx",
+  "docx_sha256": "559605d6e61a59f523ce4a18afff44840767c7b9c0119b7fc78aad61806177ab",
+  "docx_page_count": 11,
+  "canonical_strategy": "set-on-first-publication",
+  "platform_adapter": "medium/publishing/agentic-ai-engineering-part-03.json",
+  "platform_adapter_sha256": "ce6bc911b51f9280d5d606184622f66c3916e64a23c2112c52c55b074b4056fa",
+  "target_platforms": ["notion", "medium", "dev", "hashnode", "owned-site"],
+  "tested_environment": {
+    "python": "3.12.13",
+    "dependencies": {"jsonschema": "4.26.0"},
+    "verified_at": "2026-09-05",
+    "operating_systems": ["macOS local verification", "Ubuntu CI contract"]
+  },
+  "examples": [
+    {
+      "path": "medium/examples/agentic-ai-engineering/part-03/README.md",
+      "sha256": "582ff79b7676f901faa287000415e69744d493e18b6f20ee7ccf5c142573bfda",
+      "verification_command": ".venv/bin/python -m unittest discover -s medium/examples/agentic-ai-engineering/part-03 -v"
+    },
+    {
+      "path": "medium/examples/agentic-ai-engineering/part-03/tool_loop.py",
+      "sha256": "01b59cdfa14ba9db2d9c206f91f58b26129aab97e565404346b05fed13a0549e",
+      "verification_command": ".venv/bin/python medium/examples/agentic-ai-engineering/part-03/tool_loop.py success"
+    },
+    {
+      "path": "medium/examples/agentic-ai-engineering/part-03/test_tool_loop.py",
+      "sha256": "fcaede842a129ff10af88a69eeaa74400aba5f3513ca52227bab274ee7ccc68a",
+      "verification_command": ".venv/bin/python -m unittest discover -s medium/examples/agentic-ai-engineering/part-03 -v"
+    }
+  ],
+  "research": {
+    "benchmark": "medium/research/building-a-minimal-tool-using-agent_benchmark.md",
+    "benchmark_sha256": "9c2d04d45f9805fff0d3022a2302327f169711c3f12c22368e0ce1ceb949fe20",
+    "claim_register": "medium/research/claim_register/building-a-minimal-tool-using-agent_claims.md",
+    "claim_register_sha256": "fe38b6b1820d4da9193ad1af617019d10c7b92d8f3ae159d3e8217dd81e5d234"
+  },
+  "visuals": {
+    "loop_drawio": "medium/visuals/drawio/agentic-ai-engineering-part-03-tool-call-loop.drawio",
+    "loop_drawio_sha256": "91a04351f7c18b0e4a2d87a23004b01f13bfc4f1392b83527979c4712c443efd",
+    "loop_xml": "medium/visuals/drawio/agentic-ai-engineering-part-03-tool-call-loop.xml",
+    "loop_xml_sha256": "91a04351f7c18b0e4a2d87a23004b01f13bfc4f1392b83527979c4712c443efd",
+    "loop_svg": "medium/visuals/exported/agentic-ai-engineering-part-03-tool-call-loop.svg",
+    "loop_svg_sha256": "56fb1fe6ae567304127492a06c692e7750e7be5205294b6980483d98dc5f49c1",
+    "loop_png": "medium/visuals/exported/agentic-ai-engineering-part-03-tool-call-loop.png",
+    "loop_png_sha256": "69a348c242ce27788d93e7349be6a12ac337b709d1a789293ffb4d80b23420b6"
+  },
+  "quality": {
+    "word_count": 3551,
+    "estimated_read_minutes": 21,
+    "structural_report": "medium/reviews/scorecards/2026-09-05-part-03-building-a-minimal-tool-using-agent-structural.json",
+    "structural_report_sha256": "d681ee61f7b5a7570d3c15c454167d12339ff017ad168de6be2f855798c853f1",
+    "editorial_report": "medium/reviews/scorecards/2026-09-05-part-03-building-a-minimal-tool-using-agent-reader-value.json",
+    "editorial_report_sha256": "070fbcef8708e34f3d63fd0cbcb5d3718c9b75ee83c9ede6baaad06587b0b3c5",
+    "reader_value_score": 92,
+    "reader_value_threshold": 85,
+    "critical_issues": 0,
+    "decision": "ready_for_human_review",
+    "publishable": false
+  },
+  "notion": {
+    "sync_status": "verified",
+    "page_id": "3d2c633a-e23a-81d7-81ab-e4af187e7998",
+    "url": "https://app.notion.com/p/3d2c633ae23a81d781abe4af187e7998?pvs=204",
+    "content_sha256": "b85311dced1b4f4a93a753c71a0db2b54abd9cebf0bd7ad2a8d1dad195ce7cf1",
+    "visual_format": "Notion-native Mermaid",
+    "read_back_verified": true,
+    "read_back_verified_at_utc": "2026-09-05T10:43:31Z",
+    "link_corrections": [
+      "Added Notion links for Part 2 and the Agentic AI course parent.",
+      "Replaced the repository-relative companion-code link with the Part 3 review-branch URL."
+    ],
+    "backlink_update_status": "Part 2 next-link update was blocked by the connector approval policy; the existing Part 2 page was not changed."
+  },
+  "human_approval": {
+    "approved": false,
+    "reviewer": null,
+    "approved_at_utc": null
+  }
+}

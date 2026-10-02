@@ -4,9 +4,9 @@ Article: `2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md`
 
 Audience: Fellow developers and students
 
-Decision: **Ready for human review — 91/100**
+Decision: **Approved — 91/100**
 
-Human publication approval: **Pending**
+Human publication approval: **Praveen Kumar — 2026-09-05**
 
 Critical issues: **0**
 
@@ -25,8 +25,7 @@ Reader-facing body: **4,391 words — approximately 26 minutes**
 - A second visual explains where unsafe configuration is rejected before model
   execution.
 
-## Remaining Human Gate
+## Human Gate Completed
 
-The named author must inspect the complete code and visual rendering, confirm the
-scope boundary with Parts 13–14, verify the Notion copy, and approve publication.
-The automated structural report does not substitute for that decision.
+Praveen Kumar approved the lesson on 2026-09-05 after reviewing the content.
+Publication and target-platform preview remain separate release actions.

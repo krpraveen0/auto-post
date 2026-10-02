@@ -5,8 +5,10 @@
   "reviewed_at_utc": "2026-09-02T23:29:40Z",
   "reader_value_score": 91,
   "threshold": 85,
-  "decision": "ready_for_human_review",
-  "human_approved": false,
+  "decision": "approved",
+  "human_approved": true,
+  "human_reviewer": "Praveen Kumar",
+  "human_approved_at_utc": "2026-09-05T10:32:16Z",
   "categories": [
     {"name": "Reader promise and original contribution", "score": 11, "maximum": 12, "evidence": "The six-surface release envelope and evidence-impact set convert scattered settings into a reviewable engineering contract."},
     {"name": "Technical correctness and nuance", "score": 16, "maximum": 18, "evidence": "The schema constrains array members, the resolver rejects unsafe paths, cross-field policy checks deny conflicting mutations, and provider-specific setting limits are qualified."},
