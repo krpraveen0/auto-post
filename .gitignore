@@ -3,3 +3,4 @@
 .venv/
 __pycache__/
 medium/generated/**/*.docx
+!medium/generated/agentic-ai-engineering/*.docx

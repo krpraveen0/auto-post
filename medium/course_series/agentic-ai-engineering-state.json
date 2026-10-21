@@ -4,8 +4,7 @@
   "generation_enabled": false,
   "unresolved_revisions": [],
   "pending_human_review": [
-    1,
-    2
+    3
   ],
   "generated": [
     {
@@ -13,8 +12,10 @@
       "manifest": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.json",
       "markdown": "medium/generated/agentic-ai-engineering/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot.md",
       "part": 1,
-      "publishable": false,
-      "review_status": "ready_for_human_review",
+      "publishable": true,
+      "review_status": "approved",
+      "approved_by": "Praveen Kumar",
+      "approved_at_utc": "2026-09-05T10:32:16Z",
       "reader_value_score": 90,
       "estimated_read_minutes": 26,
       "word_count": 4300,
@@ -25,13 +26,28 @@
       "manifest": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.json",
       "markdown": "medium/generated/agentic-ai-engineering/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent.md",
       "part": 2,
-      "publishable": false,
-      "review_status": "ready_for_human_review",
+      "publishable": true,
+      "review_status": "approved",
+      "approved_by": "Praveen Kumar",
+      "approved_at_utc": "2026-09-05T10:32:16Z",
       "reader_value_score": 91,
       "estimated_read_minutes": 26,
       "word_count": 4391,
       "title": "The Six Configuration Surfaces of an Agent"
+    },
+    {
+      "generated_at_utc": "2026-09-05T10:47:25Z",
+      "manifest": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.json",
+      "markdown": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.md",
+      "docx": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.docx",
+      "part": 3,
+      "publishable": false,
+      "review_status": "ready_for_human_review",
+      "reader_value_score": 92,
+      "estimated_read_minutes": 21,
+      "word_count": 3551,
+      "title": "Building a Minimal Tool-Using Agent"
     }
   ],
-  "next_part": 3
+  "next_part": 4
 }

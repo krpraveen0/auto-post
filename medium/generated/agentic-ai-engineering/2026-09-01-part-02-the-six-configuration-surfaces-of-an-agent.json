@@ -1,8 +1,8 @@
 {
   "backend": "codex-automation-session",
   "generated_at_utc": "2026-09-01T02:06:01Z",
-  "updated_at_utc": "2026-09-02T23:52:10Z",
-  "validation_time_utc": "2026-09-02T23:52:10Z",
+  "updated_at_utc": "2026-10-21T03:37:07Z",
+  "validation_time_utc": "2026-10-21T03:37:07Z",
   "publishing_schema_version": 3,
   "series": "agentic-ai-engineering",
   "part": 2,
@@ -53,12 +53,12 @@
     "structural_report": "medium/reviews/scorecards/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent-structural.json",
     "structural_report_sha256": "e12626c8277dcdf2f53df6f700f14d0e4b73b67daf1b1194ccfa874c640e9eeb",
     "editorial_report": "medium/reviews/scorecards/2026-09-01-part-02-the-six-configuration-surfaces-of-an-agent-reader-value.json",
-    "editorial_report_sha256": "cf3b38473284f0c5cfb55a85828d470b389f69b6a0aa3926280ba0ecc92a46fb",
+    "editorial_report_sha256": "83bc95257200d1348cb5e0f6913d0d549ef8dd2fe832ce9faa88b5529c6f7fe5",
     "reader_value_score": 91,
     "reader_value_threshold": 85,
     "critical_issues": 0,
-    "decision": "ready_for_human_review",
-    "publishable": false
+    "decision": "approved",
+    "publishable": true
   },
   "notion": {
     "sync_status": "verified",
@@ -74,8 +74,9 @@
     ]
   },
   "human_approval": {
-    "approved": false,
-    "reviewer": null,
-    "approved_at_utc": null
+    "approved": true,
+    "reviewer": "Praveen Kumar",
+    "approved_at_utc": "2026-09-05T10:32:16Z",
+    "canonical_markdown_sha256": "58758eee34f9b4c9b4fda805e7f6ee364e8672e34c6884cad1b7664aca3bcd8d"
   }
 }

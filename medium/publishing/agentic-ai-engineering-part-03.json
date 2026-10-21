@@ -1,0 +1,46 @@
+{
+  "status": "review-draft",
+  "canonical_source": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.md",
+  "title": "Building a Minimal Tool-Using Agent",
+  "subtitle": "Implement the host loop that turns structured model requests into bounded, observable local actions",
+  "description": "Build and test a provider-neutral tool-call loop with a closed registry, schema validation, replay protection, visible failures, and stop budgets.",
+  "disclosure": "Developed with AI assistance; the named human author remains responsible for technical verification and publication.",
+  "medium": {
+    "topics": ["Artificial Intelligence", "Programming", "Software Architecture", "AI Agents"],
+    "canonical_url": null,
+    "preview_status": "pending-human-preview"
+  },
+  "dev": {
+    "tags": ["ai", "python", "architecture", "tutorial"],
+    "series": "Agentic AI Engineering",
+    "canonical_url": null,
+    "preview_status": "pending-human-preview"
+  },
+  "hashnode": {
+    "series": "Agentic AI Engineering",
+    "seo_title": "Build a Minimal, Testable Tool-Using AI Agent",
+    "seo_description": "Implement a host-controlled tool loop with validation, replay protection, failure traces, and explicit execution budgets.",
+    "original_url": null,
+    "preview_status": "pending-human-preview"
+  },
+  "owned_site": {
+    "canonical_url": null,
+    "preview_status": "pending-human-preview"
+  },
+  "visuals": [
+    {
+      "asset": "medium/visuals/exported/agentic-ai-engineering-part-03-tool-call-loop.svg",
+      "caption": "The model proposes the next move; the host controls whether and how it executes.",
+      "alt": "A bounded tool-call sequence from task and model proposal through host validation, local execution, result tracing, repetition, or an explicit stop."
+    }
+  ],
+  "social": {
+    "linkedin": "A model does not hold your function pointer. It proposes an action; your application validates, authorizes, executes, records, and stops. Part 3 builds that boundary as a provider-neutral Python loop with six deterministic tests.",
+    "x_thread": [
+      "A model does not execute your local tool. It proposes structured data; your host application decides what happens.",
+      "The minimal loop is: propose, validate, execute, observe, then repeat or stop.",
+      "Part 3 implements the boundary with a closed registry, JSON Schema validation, replay protection, failure data, and explicit budgets—without a live model or API key."
+    ]
+  },
+  "publication_submission_note": "A framework-neutral, runnable lesson on the host-side authority boundary in tool-using agents, with current official sources, six deterministic tests, an accessible sequence diagram, and an extension exercise."
+}
