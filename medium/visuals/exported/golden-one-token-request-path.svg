@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Prefill and decode request path</title>
+  <desc id="desc">A request moves through tokenization and prefill once, then cycles through logits, token selection, cache append, and streaming during decode.</desc>
+  <rect width="1200" height="520" fill="#f8fafc"/>
+  <text x="60" y="60" font-family="Arial" font-size="32" font-weight="700" fill="#0f172a">One request, two compute regimes</text>
+  <g font-family="Arial" font-size="22" text-anchor="middle">
+    <rect x="60" y="150" width="180" height="90" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><text x="150" y="205" fill="#0f172a">Tokenize</text>
+    <rect x="310" y="150" width="210" height="90" rx="18" fill="#e0e7ff" stroke="#4f46e5" stroke-width="3"/><text x="415" y="190" fill="#0f172a">Prefill prompt</text><text x="415" y="220" font-size="17" fill="#475569">build K/V state</text>
+    <rect x="600" y="150" width="180" height="90" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="690" y="205" fill="#0f172a">Logits</text>
+    <rect x="860" y="150" width="220" height="90" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="3"/><text x="970" y="190" fill="#0f172a">Select token</text><text x="970" y="220" font-size="17" fill="#475569">decoding policy</text>
+    <rect x="770" y="340" width="220" height="90" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/><text x="880" y="380" fill="#0f172a">Append K/V</text><text x="880" y="410" font-size="17" fill="#475569">cache grows</text>
+    <rect x="430" y="340" width="220" height="90" rx="18" fill="#e2e8f0" stroke="#475569" stroke-width="3"/><text x="540" y="395" fill="#0f172a">Stream token</text>
+  </g>
+  <g stroke="#64748b" stroke-width="4" fill="none" marker-end="url(#a)">
+    <path d="M240 195H310"/><path d="M520 195H600"/><path d="M780 195H860"/><path d="M970 240V340"/><path d="M770 385H650"/><path d="M540 340V285H690V240"/>
+  </g>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker></defs>
+  <text x="185" y="285" font-family="Arial" font-size="20" fill="#2563eb">once per prompt</text>
+  <text x="830" y="475" font-family="Arial" font-size="20" fill="#dc2626">decode loop repeats once per generated token</text>
+</svg>

@@ -22,17 +22,21 @@ Run these stages in order:
 
 1. Reader promise
 2. Angle and positioning
-3. Evidence validation
-4. Outline
-5. Substance draft
-6. Human story rewrite
-7. Conversational voice pass
-8. Compression pass
-9. draw.io visual plan
-10. Specialist review
-11. Human feedback questions
-12. Shipping gate
-13. Publishing package
+3. Research dossier and misconception register
+4. Evidence validation and competitive benchmark
+5. Verifiable original-contribution decision
+6. Section contracts and outline
+7. Runnable artifact and experiment verification
+8. Substance draft
+9. Gap, misconception, and reader-simulation review
+10. Human story and conversational voice passes
+11. Conditional compression pass
+12. draw.io visual plan and rendered-asset inspection
+13. Role-separated adversarial specialist review bound to the Markdown hash
+14. Human feedback questions
+15. Shipping gate
+16. Publishing package
+17. Post-publication reader-learning feedback
 
 ## Required specialist skills
 

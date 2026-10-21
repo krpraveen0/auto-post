@@ -46,3 +46,15 @@ Technically safe: Yes
 Visuals support understanding: Yes
 Title promise delivered: Yes
 ```
+
+The package must reference the exact canonical Markdown SHA-256 reviewed by the
+structural, technical, pedagogical, and human reviewers. A numeric score cannot
+override a missing artifact or critical failure. Do not prepare a publishable
+package when the final Markdown is below the depth floor, differs from the
+reviewed hash, or lacks required evidence, runnable examples, or real visuals.
+
+After package integrity and editorial review pass, create or update the article's
+Notion child page for human review. Read the page back, verify the canonical
+Markdown hash recorded in the manifest, and return the Notion URL. Never publish
+to Medium from this workflow. The author alone copy-pastes and publishes the
+approved article on Medium.

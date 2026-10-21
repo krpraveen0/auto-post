@@ -34,4 +34,10 @@ This is a game changer...
 
 ## Target
 
-Reduce draft length by 10–20% after the substance draft.
+Compression is conditional, not a fixed percentage. Do not run this pass until
+the substance draft has fulfilled every section contract, evidence obligation,
+worked example, experiment, failure analysis, and exercise. Never compress a
+draft below 3,000 useful reader-facing words. For a 3,000-word final target, the
+verified substance draft should normally contain at least 3,600 words before
+compression. Remove duplication and filler; preserve causal reasoning,
+limitations, expected output, and the steps a learner needs to reproduce results.

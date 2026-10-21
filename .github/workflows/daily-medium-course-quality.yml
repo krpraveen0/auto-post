@@ -42,6 +42,11 @@ jobs:
 
       - name: Audit publishing-schema lessons
         run: |
+          mapfile -t lessons < <(find "$COURSE_ROOT" -name '*.md' -type f | sort)
+          if (( ${#lessons[@]} == 0 )); then
+            echo "No generated lessons found under $COURSE_ROOT; refusing a false-green audit."
+            exit 1
+          fi
           python scripts/validate_course_lesson.py \
             --root "$COURSE_ROOT" \
             --discover-current \
@@ -51,6 +56,10 @@ jobs:
       - name: Validate article package integrity
         run: |
           mapfile -t manifests < <(find "$COURSE_ROOT" -name '*.json' -type f | sort)
+          if (( ${#manifests[@]} == 0 )); then
+            echo "No article manifests found under $COURSE_ROOT; refusing a false-green audit."
+            exit 1
+          fi
           python scripts/validate_article_package.py "${manifests[@]}"
 
       - name: Upload structural validation reports

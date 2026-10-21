@@ -30,12 +30,15 @@ Run these stages in order:
 11. Competitive-content benchmark and original contribution
 12. Visual system plan
 13. Draft each lesson through `medium-orchestrator`
-14. Reader-value score and critical shipping gate
-15. Course continuity review
-16. Notion preview plus canonical Markdown snapshot
-17. Cross-platform metadata, disclosure, and canonical-link review
-18. Lesson publishing packages
-19. Series index and navigation copy
+14. Verify runnable artifacts, raw data, failure fixtures, and derived visuals
+15. Run independent adversarial reviews against the canonical Markdown hash
+16. Reader-value score and critical shipping gate
+17. Course continuity review
+18. Notion preview plus canonical Markdown snapshot
+19. Cross-platform metadata, disclosure, and canonical-link review
+20. Lesson publishing packages
+21. Series index and navigation copy
+22. Collect reader-learning and transfer evidence for revision
 
 ## Required specialist skills
 

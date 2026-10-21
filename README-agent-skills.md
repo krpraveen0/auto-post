@@ -83,6 +83,12 @@ lesson can move to human review only after an evidence-backed editorial score of
 at least 85/100 with no critical issues. It is publishable only after a named
 human approves it and its Notion mirror is read back and verified.
 
+Before outlining, complete `medium/templates/research-dossier.md`. Before the
+substance draft, create a section contract for each major explanatory section
+and verify the companion example contract. Reviews must use the adversarial
+review template and name the canonical Markdown SHA-256. After publication,
+record reader-learning evidence instead of treating views as proof of teaching.
+
 ## Core rule
 
 A Medium article is ready when it is:

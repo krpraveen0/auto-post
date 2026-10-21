@@ -189,10 +189,23 @@ def validate_manifest(path: Path, repository_root: Path) -> PackageReport:
     if editorial_path and resolve_path(repository_root, editorial_path).is_file():
         review = load_json(resolve_path(repository_root, editorial_path), "editorial review", issues)
         categories = review.get("categories")
-        if review.get("review_schema_version") != 2:
-            issues.append("editorial review must use review_schema_version 2")
+        review_version = review.get("review_schema_version")
+        if review_version not in {2, 3}:
+            issues.append("editorial review must use review_schema_version 2 or 3")
         if not review.get("reviewer") or not review.get("reviewed_at_utc"):
             issues.append("editorial review must identify its reviewer and review time")
+        if review_version == 3:
+            if review.get("canonical_markdown_sha256") != data.get("markdown_sha256"):
+                issues.append("editorial review must match the canonical Markdown SHA-256")
+            required_roles = {
+                "technical", "evidence", "pedagogy", "reproducibility",
+                "originality", "accessibility", "global-English",
+            }
+            completed_roles = set(review.get("review_roles", []))
+            if missing_roles := sorted(required_roles - completed_roles):
+                issues.append("editorial review is missing adversarial roles: " + ", ".join(missing_roles))
+        elif review_version == 2:
+            blockers.append("legacy editorial review schema 2 must be migrated before release")
         if not isinstance(categories, list) or len(categories) < 8:
             issues.append("editorial review must contain at least eight evidence-backed categories")
         else:
@@ -203,12 +216,14 @@ def validate_manifest(path: Path, repository_root: Path) -> PackageReport:
             if any(len(str(item.get("evidence", ""))) < 20 for item in categories if isinstance(item, dict)):
                 issues.append("every editorial category requires concrete evidence")
         editorial_gate = (
-            isinstance(review.get("reader_value_score"), int)
+            review_version == 3
+            and review.get("canonical_markdown_sha256") == data.get("markdown_sha256")
+            and isinstance(review.get("reader_value_score"), int)
             and review["reader_value_score"] >= 85
             and review.get("critical_issues") == []
             and review.get("decision") in {"ready_for_human_review", "approved"}
         )
-        if not editorial_gate:
+        if review_version == 3 and not editorial_gate:
             issues.append("editorial review must score at least 85 with zero critical issues")
 
     notion = data.get("notion") if isinstance(data.get("notion"), dict) else {}
@@ -223,6 +238,8 @@ def validate_manifest(path: Path, repository_root: Path) -> PackageReport:
         blockers.append("human publication approval is pending")
     elif not approval.get("reviewer") or not approval.get("approved_at_utc"):
         issues.append("approved human review must identify reviewer and approval time")
+    elif approval.get("canonical_markdown_sha256") != data.get("markdown_sha256"):
+        issues.append("human approval must match the canonical Markdown SHA-256")
 
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", str(data.get("validation_time_utc", ""))):
         issues.append("validation_time_utc must use YYYY-MM-DDTHH:MM:SSZ")
