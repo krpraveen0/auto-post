@@ -1,8 +1,8 @@
 {
   "backend": "codex-automation-session",
   "generated_at_utc": "2026-08-31T08:46:20Z",
-  "updated_at_utc": "2026-09-05T10:32:16Z",
-  "validation_time_utc": "2026-09-05T10:32:16Z",
+  "updated_at_utc": "2026-10-21T03:37:07Z",
+  "validation_time_utc": "2026-10-21T03:37:07Z",
   "publishing_schema_version": 3,
   "series": "agentic-ai-engineering",
   "part": 1,
@@ -58,7 +58,7 @@
     "structural_report": "medium/reviews/scorecards/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot-structural.json",
     "structural_report_sha256": "beed99df2315e85f479e80b11d8caf3c579663d12bf1b7b1fd8e1a8aaba48021",
     "editorial_report": "medium/reviews/scorecards/2026-08-31-part-01-what-makes-an-ai-agent-different-from-a-chatbot-reader-value.json",
-    "editorial_report_sha256": "51157b009f9d082110affec6850123f316c84d8de1866c01df5f970395b0f211",
+    "editorial_report_sha256": "843f2234c6880e0d71e23882f707f1701046b5956319a983b983b7aa0b9453ed",
     "reader_value_score": 90,
     "reader_value_threshold": 85,
     "critical_issues": 0,
@@ -81,6 +81,7 @@
   "human_approval": {
     "approved": true,
     "reviewer": "Praveen Kumar",
-    "approved_at_utc": "2026-09-05T10:32:16Z"
+    "approved_at_utc": "2026-09-05T10:32:16Z",
+    "canonical_markdown_sha256": "f7ff0054edd38e5921d8f74e51ca98b558609608d77f2f1ba720f81e3e800bfe"
   }
 }

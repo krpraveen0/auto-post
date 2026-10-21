@@ -1,8 +1,10 @@
 {
-  "review_schema_version": 2,
+  "review_schema_version": 3,
   "article": "medium/generated/agentic-ai-engineering/2026-09-05-part-03-building-a-minimal-tool-using-agent.md",
-  "reviewer": "Codex independent technical-editorial review",
-  "reviewed_at_utc": "2026-09-05T10:47:09Z",
+  "canonical_markdown_sha256": "6fc58a1552513d3589a0cc28c66032b4f32c3402fd9eb2c6194781b272a61150",
+  "reviewer": "Codex adversarial technical-editorial review",
+  "reviewed_at_utc": "2026-10-21T03:37:07Z",
+  "review_roles": ["technical", "evidence", "pedagogy", "reproducibility", "originality", "accessibility", "global-English"],
   "reader_value_score": 92,
   "threshold": 85,
   "decision": "ready_for_human_review",
